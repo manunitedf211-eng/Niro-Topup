@@ -14,7 +14,7 @@
         :root {
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
-            --primary: #0f766e;      /* Emerald Teal like reference */
+            --primary: #0f766e;
             --primary-dark: #064e3b;
             --accent: #10b981;
             --text-main: #0f172a;
@@ -43,7 +43,7 @@
         }
         .brand {
             display: flex; align-items: center; gap: 8px;
-            font-weight: 900; font-size: 1.05rem; color: var(--primary);
+            font-weight: 900; font-size: 1.05rem; color: var(--primary); cursor: pointer;
         }
         .brand-icon {
             width: 30px; height: 30px; background: var(--primary); color: #fff;
@@ -68,6 +68,12 @@
         .tab-content { display: none; animation: fadeIn 0.25s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Broadcast Banner */
+        #live-broadcast-banner {
+            display: none; background: #fef3c7; border: 1px solid #f59e0b; color: #92400e;
+            padding: 10px 14px; border-radius: 14px; margin-bottom: 12px; font-size: 0.8rem; font-weight: 600;
+        }
 
         /* Welcome Dark Banner */
         .hero-card {
@@ -103,7 +109,7 @@
 
         .sec-title { font-weight: 900; font-size: 1rem; margin: 14px 0 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Store Cards Grid (2 Columns like screenshot) */
+        /* Store Cards Grid */
         .store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
         .product-card {
             background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
@@ -112,7 +118,6 @@
         .product-card:active { transform: scale(0.98); }
         .product-img {
             width: 100%; height: 125px; object-fit: cover; background: #0f172a;
-            display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800;
         }
         .product-info { padding: 10px 12px; }
         .product-info h4 { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
@@ -122,7 +127,7 @@
         .player-id-bar {
             background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
             padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer;
         }
         .pkg-card {
             background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
@@ -131,14 +136,14 @@
         }
         .pkg-badge {
             position: absolute; top: 8px; left: 8px; background: var(--accent); color: #fff;
-            font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+            font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; z-index: 2;
         }
         .pkg-price-row {
             display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
         }
         .buy-pill-btn {
-            background: #ecfdf5; color: var(--primary); border: none;
-            padding: 5px 14px; border-radius: 12px; font-weight: 800; font-size: 0.78rem; cursor: pointer;
+            background: #ecfdf5; color: var(--primary); border: 1px solid #a7f3d0;
+            padding: 6px 16px; border-radius: 12px; font-weight: 800; font-size: 0.8rem; cursor: pointer;
         }
 
         /* Wallet Card */
@@ -164,8 +169,16 @@
         .form-control {
             width: 100%; background: #f8fafc; border: 1px solid var(--border-color);
             padding: 12px; border-radius: 12px; color: var(--text-main); font-family: inherit;
-            margin-bottom: 12px; outline: none; font-size: 0.88rem;
+            margin-bottom: 10px; outline: none; font-size: 0.85rem;
         }
+
+        /* Language Grid */
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+        .lang-opt-btn {
+            background: #fff; border: 1px solid var(--border-color); padding: 10px 12px;
+            border-radius: 12px; text-align: left; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+        }
+        .lang-opt-btn.active { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
 
         /* Bottom Navigation */
         .bottom-nav {
@@ -184,17 +197,17 @@
         /* Modals */
         .modal-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(5px);
+            background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(5px);
             z-index: 10000; display: none; align-items: flex-end; justify-content: center;
         }
         .modal-sheet {
             background: #fff; border-radius: 24px 24px 0 0; padding: 22px;
-            width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto;
+            width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto;
             animation: slideUp 0.25s ease;
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        /* Admin Overlay (Dark Professional Dashboard) */
+        /* Admin Overlay */
         #admin-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0f172a; color: #f8fafc; z-index: 20000; display: none;
@@ -233,19 +246,24 @@
         </div>
         <div class="header-right">
             <button class="admin-btn" id="open-admin-btn" onclick="toggleAdmin(true)"><i class="fas fa-shield-alt"></i> Admin</button>
-            <button class="lang-pill" id="lang-btn" onclick="toggleLanguage()"><i class="fas fa-globe"></i> አማ</button>
+            <button class="lang-pill" id="lang-btn" onclick="switchTab('account')"><i class="fas fa-globe"></i> <span id="hdr-lang-code">አማ</span></button>
             <div class="wallet-pill" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> <span id="hdr-bal">0</span> ብር</div>
         </div>
     </header>
 
     <main class="container">
 
+        <!-- LIVE BROADCAST ALERT -->
+        <div id="live-broadcast-banner">
+            <i class="fas fa-bullhorn"></i> <span id="live-bc-text"></span>
+        </div>
+
         <!-- 1. HOME TAB -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-card">
-                <small style="opacity: 0.8; font-weight: 600;">WELCOME BACK</small>
+                <small style="opacity: 0.8; font-weight: 600;" data-i18n="welcome">WELCOME BACK</small>
                 <h2 id="user-greeting">Niro</h2>
-                <p>ጨዋታዎችዎን እና ዲጂታል አገልግሎቶችን በኢትዮጵያ ባንኮች በፍጥነት ይሙሉ።</p>
+                <p data-i18n="hero_sub">ጨዋታዎችዎን እና ዲጂታል አገልግሎቶችን በኢትዮጵያ ባንኮች በፍጥነት ይሙሉ።</p>
                 <div class="badge-row">
                     <span class="hero-badge">⚡ ፈጣን (INSTANT)</span>
                     <span class="hero-badge">🔒 አስተማማኝ</span>
@@ -259,7 +277,7 @@
             </div>
 
             <div class="cat-scroll">
-                <button class="cat-pill active" onclick="filterStore('all')">ሁሉም (ALL)</button>
+                <button class="cat-pill active" onclick="filterStore('all')" data-i18n="cat_all">ሁሉም (ALL)</button>
                 <button class="cat-pill" onclick="filterStore('topup')">🎮 TOP UP</button>
                 <button class="cat-pill" onclick="filterStore('telegram')">⭐ TELEGRAM STARS & PREMIUM</button>
                 <button class="cat-pill" onclick="filterStore('giftcard')">🎁 GIFT CARDS</button>
@@ -275,10 +293,10 @@
                 <h3 id="pkg-view-title" style="font-weight:900;">PUBG MOBILE</h3>
             </div>
 
-            <!-- Player ID Box (Like screenshot) -->
+            <!-- Player ID Box -->
             <div class="player-id-bar" onclick="openPlayerIdModal()">
                 <div style="display:flex; align-items:center; gap:10px;">
-                    <img id="pkg-game-thumb" src="" style="width:40px; height:40px; border-radius:10px; object-fit:cover;">
+                    <img id="pkg-game-thumb" src="" style="width:42px; height:42px; border-radius:10px; object-fit:cover;">
                     <div>
                         <small id="pkg-id-label" style="color:var(--text-muted); font-size:0.7rem; font-weight:700;">PLAYER ID</small>
                         <div id="pkg-saved-id" style="color:var(--danger); font-weight:800; font-size:0.85rem;">እስካሁን አልገባም</div>
@@ -287,19 +305,19 @@
                 <button class="btn-primary" style="width:auto; padding:8px 14px; border-radius:10px; font-size:0.78rem; font-weight:800;">ID ያስገቡ</button>
             </div>
 
-            <h4 style="font-size:0.9rem; margin-bottom:10px;">⚡ መጠን ይምረጡ (Select Package)</h4>
+            <h4 style="font-size:0.9rem; margin-bottom:10px;" data-i18n="select_pkg">⚡ መጠን ይምረጡ (Select Package)</h4>
             <div class="store-grid" id="packages-grid-container"></div>
         </section>
 
         <!-- 2. ORDERS TAB -->
         <section id="tab-orders" class="tab-content">
-            <h2 style="font-weight:900; margin-bottom:12px;">MY ORDERS (ትዕዛዞቼ)</h2>
+            <h2 style="font-weight:900; margin-bottom:12px;" data-i18n="my_orders">MY ORDERS (ትዕዛዞቼ)</h2>
             <div id="user-orders-container"></div>
         </section>
 
         <!-- 3. WALLET TAB -->
         <section id="tab-wallet" class="tab-content">
-            <h2 style="font-weight:900; margin-bottom:12px;">WALLET (ቦርሳ)</h2>
+            <h2 style="font-weight:900; margin-bottom:12px;" data-i18n="wallet_title">WALLET (ቦርሳ)</h2>
             <div class="wallet-hero">
                 <small style="opacity:0.8; font-weight:700; letter-spacing:1px;">BALANCE (ቀሪ ሂሳብ)</small>
                 <h1 style="font-size:2.3rem; font-weight:900; margin:6px 0 16px;"><span id="wallet-bal-val">0</span> ETB</h1>
@@ -309,11 +327,11 @@
                 </div>
             </div>
             <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.6;">
-                ገንዘብ ገቢ ካደረጉ በኋላ የፈለጉትን የጨዋታ UC ወይም Telegram Stars በቀጥታ መግዛት ይችላሉ። የሪፈራል ገቢዎን ደግሞ በ Withdraw ማውጣት ይችላሉ።
+                ገንዘብ ገቢ ካደረጉ በኋላ ወይም በቀጥታ "ግዛ" በመጫን የ Transaction መልእክት በመላክ የፈለጉትን UC እና Stars መግዛት ይችላሉ።
             </p>
         </section>
 
-        <!-- 4. ACCOUNT TAB -->
+        <!-- 4. ACCOUNT TAB (WITH 10 LANGUAGES & DYNAMIC CHANNELS) -->
         <section id="tab-account" class="tab-content">
             <div style="text-align:center; margin-bottom:16px;">
                 <h3 id="acc-name" style="font-weight:900;">Niro</h3>
@@ -336,51 +354,74 @@
                 </div>
             </div>
 
-            <!-- Help & Community -->
-            <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">HELP & COMMUNITY</h4>
-            <div class="card" style="padding:0;">
-                <div onclick="openSupport()" style="padding:14px 16px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; cursor:pointer;">
-                    <span><i class="fas fa-headset" style="color:var(--primary); margin-right:8px;"></i> Contact Support (Niro)</span>
-                    <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
-                </div>
-                <div onclick="openChannel()" style="padding:14px 16px; display:flex; justify-content:space-between; cursor:pointer;">
-                    <span><i class="fas fa-bullhorn" style="color:var(--primary); margin-right:8px;"></i> Our Official Channel</span>
-                    <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
-                </div>
-            </div>
+            <!-- 10 LANGUAGES SELECTOR -->
+            <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">🌐 LANGUAGE (ቋንቋ ይምረጡ - 10 ቋንቋዎች)</h4>
+            <div class="lang-grid" id="language-selector-grid"></div>
+
+            <!-- HELP & COMMUNITY (WITH ADMIN ADDED CHANNELS / PROOF LINKS) -->
+            <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">HELP & COMMUNITY CHANNELS</h4>
+            <div class="card" style="padding:0;" id="community-links-container"></div>
         </section>
 
     </main>
 
-    <!-- PLAYER ID INPUT SHEET -->
+    <!-- DIRECT CHECKOUT & FULL TRANSACTION RECEIPT MODAL (WHEN CLICKING "ግዛ") -->
+    <div class="modal-screen" id="direct-buy-modal">
+        <div class="modal-sheet">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 id="buy-modal-pkg-title" style="font-weight:900; color:var(--primary);">60 UC — 180 ብር</h3>
+                <button onclick="closeModal('direct-buy-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
+            </div>
+
+            <!-- Payment Bank/Telebirr Info -->
+            <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">1. የክፍያ ዘዴ ይምረጡ (Select Payment Account)</label>
+            <select class="form-control" id="buy-bank-select" onchange="updateBuyAccountBox()"></select>
+            <div id="buy-bank-details" style="background:#ecfdf5; border:1px dashed var(--primary); padding:10px 12px; border-radius:12px; margin-bottom:12px; font-size:0.82rem;"></div>
+
+            <!-- Target ID / Username -->
+            <label id="buy-target-label" style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">2. የጨዋታ ID ወይም @username ያስገቡ</label>
+            <input type="text" class="form-control" id="buy-target-id" placeholder="Player ID ወይም @username">
+
+            <!-- Sender Full Name -->
+            <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">3. የላኪ ሙሉ ስም (Sender Name)</label>
+            <input type="text" class="form-control" id="buy-sender-name" placeholder="የከፈሉበት ስም">
+
+            <!-- FULL TRANSACTION SMS MESSAGE -->
+            <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">4. ሙሉ የ Transaction መልእክት (Full SMS Receipt Message)</label>
+            <textarea class="form-control" id="buy-full-txn-msg" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የክፍያ መልእክት (Transaction Message) እዚህ ኮፒ አድርገው ይለጥፉ..."></textarea>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
+                <button class="btn btn-primary" onclick="submitDirectBuyOrder('receipt')">📤 በደረሰኝ እዘዝ (Send Order)</button>
+                <button class="btn btn-dark" onclick="submitDirectBuyOrder('wallet')">💳 ከ Wallet ቀንስ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYER ID QUICK SAVE MODAL -->
     <div class="modal-screen" id="playerid-modal">
         <div class="modal-sheet">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
                 <h3 id="modal-id-title" style="font-weight:900;">PLAYER ID</h3>
                 <button onclick="closeModal('playerid-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-            <label id="modal-id-sublabel" style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:6px;">የጨዋታ መለያ ቁጥር (Player ID / Username)</label>
-            <input type="text" class="form-control" id="input-player-id" placeholder="መለያ ቁጥርዎን ያስገቡ...">
-            <p style="font-size:0.72rem; color:var(--danger); margin-bottom:14px;">⚠️ ወደ ተሳሳተ ID የተደረገ ቶፕ አፕ ተመላሽ አይደረግም። እባክዎ በጥንቃቄ ያረጋግጡ።</p>
+            <label id="modal-id-sublabel" style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:6px;">የጨዋታ መለያ ቁጥር</label>
+            <input type="text" class="form-control" id="input-player-id" placeholder="መለያ ቁጥርዎን ወይም @username ያስገቡ...">
             <button class="btn btn-primary" onclick="savePlayerId()">አረጋግጥ (Confirm)</button>
         </div>
     </div>
 
-    <!-- DEPOSIT MODAL (Dynamic Payment Methods from Admin) -->
+    <!-- WALLET DEPOSIT MODAL -->
     <div class="modal-screen" id="deposit-modal">
         <div class="modal-sheet">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
                 <h3 style="font-weight:900;">DEPOSIT (ገንዘብ ገቢ ማድረጊያ)</h3>
                 <button onclick="closeModal('deposit-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-            <label style="font-size:0.78rem; font-weight:700;">1. የክፍያ ዘዴ ይምረጡ (Payment Method)</label>
             <select class="form-control" id="dep-method-select" onchange="updateDepositAccountDetails()"></select>
-
             <div id="dep-account-info-box" style="background:#ecfdf5; border:1px dashed var(--primary); padding:12px; border-radius:12px; margin-bottom:12px; font-size:0.85rem;"></div>
-
             <input type="number" class="form-control" id="dep-amount" placeholder="የገንዘብ መጠን በብር (ETB)">
             <input type="text" class="form-control" id="dep-sender-name" placeholder="የላኪ ሙሉ ስም">
-            <input type="text" class="form-control" id="dep-txn-id" placeholder="የደረሰኝ ቁጥር (Transaction ID)">
+            <textarea class="form-control" id="dep-txn-id" rows="3" placeholder="ሙሉ የ Transaction መልእክት (Full SMS Message)..."></textarea>
             <button class="btn btn-primary" onclick="submitDepositRequest()">ክፍያውን ላክ (Submit Deposit)</button>
         </div>
     </div>
@@ -400,14 +441,14 @@
 
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home')"><i class="fas fa-home"></i>HOME</button>
-        <button class="nav-item" onclick="switchTab('orders')"><i class="fas fa-receipt"></i>ORDERS</button>
-        <button class="nav-item" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i>WALLET</button>
-        <button class="nav-item" onclick="switchTab('account')"><i class="fas fa-user"></i>ACCOUNT</button>
+        <button class="nav-item active" onclick="switchTab('home')"><i class="fas fa-home"></i><span data-i18n="nav_home">HOME</span></button>
+        <button class="nav-item" onclick="switchTab('orders')"><i class="fas fa-receipt"></i><span data-i18n="nav_orders">ORDERS</span></button>
+        <button class="nav-item" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i><span data-i18n="nav_wallet">WALLET</span></button>
+        <button class="nav-item" onclick="switchTab('account')"><i class="fas fa-user"></i><span data-i18n="nav_account">ACCOUNT</span></button>
     </nav>
 
     <!-- ==========================================
-         ADMIN PANEL (FULL STORE & ORDER ENGINE)
+         ADMIN PANEL (FULL CONTROL ENGINE)
     ========================================== -->
     <div id="admin-overlay">
         <div class="adm-header">
@@ -416,61 +457,77 @@
         </div>
 
         <div class="adm-tabs">
-            <button class="adm-tab-btn active" onclick="switchAdm('adm-orders-tab')">📦 Orders (ትዕዛዞች)</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-deposits-tab')">💰 Deposits (ክፍያዎች)</button>
+            <button class="adm-tab-btn active" onclick="switchAdm('adm-orders-tab')">📦 Orders (Approve/Reject)</button>
+            <button class="adm-tab-btn" onclick="switchAdm('adm-broadcast-tab')">📢 Broadcast & Channels</button>
+            <button class="adm-tab-btn" onclick="switchAdm('adm-deposits-tab')">💰 Wallet Deposits</button>
             <button class="adm-tab-btn" onclick="switchAdm('adm-products-tab')">🎮 Add / Delete Items</button>
             <button class="adm-tab-btn" onclick="switchAdm('adm-banks-tab')">🏦 Banks & Telebirr</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-addbal-tab')">➕ Add User Balance</button>
         </div>
 
-        <!-- 1. CUSTOMER ORDERS REQUESTS -->
+        <!-- 1. CUSTOMER ORDERS REQUESTS (WITH FULL TRANSACTION SMS & APPROVE/REJECT) -->
         <div id="adm-orders-tab" class="adm-page active">
-            <h3 style="margin-bottom:10px;">📦 የደንበኞች ትዕዛዞች (Customer Top-Up Orders)</h3>
+            <h3 style="margin-bottom:10px;">📦 የደንበኞች ትዕዛዞች (Orders & Full SMS Receipts)</h3>
             <div id="adm-orders-list"></div>
         </div>
 
-        <!-- 2. DEPOSIT APPROVALS -->
+        <!-- 2. BROADCAST & CHANNEL LINKS MANAGER -->
+        <div id="adm-broadcast-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">📢 መልእክት ማሰራጫ (Broadcast)</h3>
+            <div class="adm-card">
+                <textarea class="adm-input" id="adm-bc-input" rows="3" placeholder="ለሁሉም ደንበኞች የሚታይ ማስታወቂያ እዚህ ይጻፉ..."></textarea>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <button class="btn btn-primary" onclick="adminPublishBroadcast()">📢 ለጥፍ (Broadcast)</button>
+                    <button class="btn btn-danger" onclick="adminClearBroadcast()">🗑️ አጥፋ (Clear)</button>
+                </div>
+            </div>
+
+            <h3 style="margin:14px 0 8px;">🔗 ቻናል / Proof ሊንክ መጨመሪያ (Add Channel)</h3>
+            <div class="adm-card">
+                <label style="font-size:0.78rem; color:#94a3b8;">1. የቻናሉ ዓይነት ይምረጡ (Type)</label>
+                <select class="adm-input" id="adm-ch-type">
+                    <option value="Proof Channel">✅ Proof Channel (የክፍያ ማረጋገጫ)</option>
+                    <option value="Main Channel">📢 Main Channel (ዋና ቻናል)</option>
+                    <option value="Community Chat">💬 Community Chat (መወያያ ግሩፕ)</option>
+                    <option value="Other Link">🔗 Other Link (ሌላ ሊንክ)</option>
+                </select>
+                <input type="text" class="adm-input" id="adm-ch-title" placeholder="የአዝራሩ ስም (ምሳሌ፦ Payment Proofs ወይም Niro Channel)">
+                <input type="text" class="adm-input" id="adm-ch-url" placeholder="የቴሌግራም ሊንክ (https://t.me/...)">
+                <button class="btn btn-gold" onclick="adminAddChannelLink()">Done (ጨምር)</button>
+            </div>
+
+            <h4 style="margin:10px 0 8px;">📋 የተጨመሩ ቻናሎች (Delete Channel)</h4>
+            <div id="adm-channels-list"></div>
+        </div>
+
+        <!-- 3. DEPOSIT APPROVALS -->
         <div id="adm-deposits-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">💰 የገንዘብ ማስገቢያ ጥያቄዎች (Deposits)</h3>
+            <h3 style="margin-bottom:10px;">💰 የ Wallet ገንዘብ ማስገቢያ ጥያቄዎች</h3>
             <div id="adm-deposits-list"></div>
         </div>
 
-        <!-- 3. ADD & DELETE GAMES / PACKAGES -->
+        <!-- 4. ADD & DELETE GAMES / PACKAGES -->
         <div id="adm-products-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">🎮 አዲስ ጨዋታ ወይም ፓኬጅ መጨመሪያ</h3>
+            <h3 style="margin-bottom:10px;">🎮 አዲስ ፓኬጅ መጨመሪያ</h3>
             <div class="adm-card">
-                <label style="font-size:0.78rem; color:#94a3b8;">1. ጨዋታ ይምረጡ (Select Game/Category)</label>
                 <select class="adm-input" id="adm-pkg-game-id"></select>
                 <input type="text" class="adm-input" id="adm-pkg-name" placeholder="የፓኬጁ ስም (ምሳሌ፦ 60 UC ወይም 100 Stars)">
                 <input type="number" class="adm-input" id="adm-pkg-price" placeholder="ዋጋ በብር (ምሳሌ፦ 180)">
-                <input type="text" class="adm-input" id="adm-pkg-badge" placeholder="Badge (ምሳሌ፦ ጠቅላላ ወይም ፈጣን - አማራጭ)">
-                <button class="btn btn-gold" onclick="adminAddPackage()">+ ፓኬጅ ጨምር (Add Package)</button>
+                <input type="text" class="adm-input" id="adm-pkg-badge" placeholder="Badge (አማራጭ)">
+                <button class="btn btn-gold" onclick="adminAddPackage()">+ ፓኬጅ ጨምር</button>
             </div>
-
-            <h3 style="margin:14px 0 8px;">📋 ያሉ ምርቶችና መሰረዣ (Manage & Delete)</h3>
             <div id="adm-existing-products-list"></div>
         </div>
 
-        <!-- 4. BANKS & TELEBIRR MANAGEMENT -->
+        <!-- 5. BANKS & TELEBIRR MANAGEMENT -->
         <div id="adm-banks-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">🏦 የባንክና የቴሌብር አካውንት መቆጣጠሪያ</h3>
             <div class="adm-card">
-                <input type="text" class="adm-input" id="adm-bank-title" placeholder="የባንኩ ስም (ምሳሌ፦ Telebirr ወይም CBE)">
+                <input type="text" class="adm-input" id="adm-bank-title" placeholder="የባንኩ ስም (Telebirr / CBE)">
                 <input type="text" class="adm-input" id="adm-bank-acc" placeholder="ስልክ ወይም አካውንት ቁጥር">
                 <input type="text" class="adm-input" id="adm-bank-owner" placeholder="የአካውንት ባለቤት ስም">
                 <button class="btn btn-primary" onclick="adminAddPaymentMethod()">+ አካውንት ጨምር</button>
             </div>
             <div id="adm-existing-banks-list"></div>
-        </div>
-
-        <!-- 5. MANUAL ADD BALANCE -->
-        <div id="adm-addbal-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">➕ ለደንበኛ ቀሪ ሂሳብ መጨመሪያ</h3>
-            <div class="adm-card">
-                <input type="text" class="adm-input" id="adm-bal-uid" placeholder="የደንበኛው Telegram ID">
-                <input type="number" class="adm-input" id="adm-bal-amt" placeholder="የብር መጠን (ETB)">
-                <button class="btn btn-primary" onclick="adminManualAddBalance()">ገንዘብ ጨምር</button>
-            </div>
         </div>
     </div>
 
@@ -495,12 +552,51 @@
 
     const isOwner = String(myTgId) === SUPER_ADMIN_ID || String(myTgUser).toLowerCase() === "@niro_x12";
 
-    // DEFAULT PAYMENT METHODS (Telebirr 0974107425 Mulualem preloaded)
+    // TELEGRAM STAR EMBLEM SVG DATA URI (Exact Glowing Star Emblem)
+    const STAR_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <defs>
+                <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0f172a"/>
+                    <stop offset="100%" stop-color="#1e1b4b"/>
+                </linearGradient>
+                <linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="50%" stop-color="#818cf8"/>
+                    <stop offset="100%" stop-color="#c084fc"/>
+                </linearGradient>
+            </defs>
+            <rect width="200" height="200" rx="28" fill="url(#bgGrad)"/>
+            <circle cx="40" cy="45" r="3" fill="#38bdf8" opacity="0.7"/>
+            <circle cx="160" cy="40" r="4" fill="#c084fc" opacity="0.7"/>
+            <circle cx="155" cy="155" r="3" fill="#38bdf8" opacity="0.7"/>
+            <circle cx="45" cy="150" r="3" fill="#818cf8" opacity="0.7"/>
+            <path d="M100 32 L119 73 L164 79 L131 111 L139 156 L100 135 L61 156 L69 111 L36 79 L81 73 Z" fill="url(#starGrad)"/>
+        </svg>
+    `);
+
+    // 10 LANGUAGES DICTIONARY
+    const LANGUAGES = [
+        { code: "AM", label: "አማርኛ", welcome: "እንኳን ደህና መጡ", hero_sub: "ጨዋታዎችዎን እና ዲጂታል አገልግሎቶችን በኢትዮጵያ ባንኮች በፍጥነት ይሙሉ።", select_pkg: "⚡ መጠን ይምረጡ (Select Package)", my_orders: "ትዕዛዞቼ (MY ORDERS)", wallet_title: "ቦርሳ (WALLET)", nav_home: "HOME", nav_orders: "ORDERS", nav_wallet: "WALLET", nav_account: "ACCOUNT" },
+        { code: "EN", label: "English", welcome: "WELCOME BACK", hero_sub: "Top up your games & Telegram services instantly with Ethiopian banks.", select_pkg: "⚡ Select Package", my_orders: "MY ORDERS", wallet_title: "WALLET", nav_home: "HOME", nav_orders: "ORDERS", nav_wallet: "WALLET", nav_account: "ACCOUNT" },
+        { code: "OM", label: "Afaan Oromoo", welcome: "BAGA NAGAAN DHUFTAN", hero_sub: "Tapha keessanii fi tajaajila dijitaalaa baankii Itoophiyaatiin saffisaan guuttadhaa.", select_pkg: "⚡ Hanga Filadhaa", my_orders: "AJAJA KOO", wallet_title: "WALLET", nav_home: "MANA", nav_orders: "AJAJA", nav_wallet: "WALLET", nav_account: "HERREGA" },
+        { code: "SO", label: "Af-Soomaali", welcome: "SOO DHAWOOW", hero_sub: "Ku shub ciyaarahaaga iyo adeegyada Telegram si degdeg ah adigoo isticmaalaya bangiyada Itoobiya.", select_pkg: "⚡ Dooro Xirmada", my_orders: "DALABYADAYDA", wallet_title: "BOORSO", nav_home: "HOYGA", nav_orders: "DALABKA", nav_wallet: "BOORSO", nav_account: "AKOON" },
+        { code: "TI", label: "ትግርኛ", welcome: "እንቋዕ ብደሓን መጻእኩም", hero_sub: "ጸወታታትኩምን ዲጂታላዊ ኣገልግሎታትን ብባንክታት ኢትዮጵያ ብቕልጡፍ ምልኡ።", select_pkg: "⚡ መጠን ምረጹ", my_orders: "ትእዛዛተይ", wallet_title: "ቦርሳ", nav_home: "መበገሲ", nav_orders: "ትእዛዝ", nav_wallet: "ቦርሳ", nav_account: "ኣካውንት" },
+        { code: "AR", label: "العربية", welcome: "مرحباً بعودتك", hero_sub: "اشحن ألعابك وخدمات تيليجرام فوراً عبر البنوك الإثيوبية.", select_pkg: "⚡ اختر الباقة", my_orders: "طلباتي", wallet_title: "المحفظة", nav_home: "الرئيسية", nav_orders: "الطلبات", nav_wallet: "المحفظة", nav_account: "حسابي" },
+        { code: "FR", label: "Français", welcome: "BIENVENUE", hero_sub: "Rechargez vos jeux et services Telegram instantanément avec les banques éthiopiennes.", select_pkg: "⚡ Choisir un forfait", my_orders: "MES COMMANDES", wallet_title: "PORTEFEUILLE", nav_home: "ACCUEIL", nav_orders: "COMMANDES", nav_wallet: "WALLET", nav_account: "COMPTE" },
+        { code: "ES", label: "Español", welcome: "BIENVENIDO", hero_sub: "Recarga tus juegos y servicios de Telegram al instante con bancos etíopes.", select_pkg: "⚡ Seleccionar paquete", my_orders: "MIS PEDIDOS", wallet_title: "BILLETERA", nav_home: "INICIO", nav_orders: "PEDIDOS", nav_wallet: "WALLET", nav_account: "CUENTA" },
+        { code: "SW", label: "Kiswahili", welcome: "KARIBU TENA", hero_sub: "Ongeza salio kwenye michezo yako na huduma za Telegram papo hapo.", select_pkg: "⚡ Chagua Kifurushi", my_orders: "ODA ZANGU", wallet_title: "POCHI", nav_home: "NYUMBANI", nav_orders: "ODA", nav_wallet: "POCHI", nav_account: "AKAUNTI" },
+        { code: "HI", label: "हिन्दी", welcome: "स्वागत है", hero_sub: "इथियोपियाई बैंकों के साथ तुरंत अपने गेम और टेलीग्राम स्टार टॉप अप करें।", select_pkg: "⚡ पैकेज चुनें", my_orders: "मेरे ऑर्डर", wallet_title: "वॉलेट", nav_home: "होम", nav_orders: "ऑर्डर", nav_wallet: "वॉलेट", nav_account: "खाता" }
+    ];
+
     const DEFAULT_BANKS = [
         { id: "bank_1", title: "Telebirr", account: "0974107425", owner: "Mulualem" }
     ];
 
-    // DEFAULT STORE ITEMS & PACKAGES (Matching all screenshots)
+    const DEFAULT_CHANNELS = [
+        { id: "ch_1", type: "Main Channel", title: "Niro Topup Official Channel", url: "https://t.me/Crypto_Topup_F" }
+    ];
+
     const DEFAULT_CATALOG = [
         {
             id: "pubg", name: "PUBG MOBILE", category: "topup", idLabel: "PLAYER ID",
@@ -546,7 +642,7 @@
         },
         {
             id: "tg_stars", name: "TELEGRAM STARS", category: "telegram", idLabel: "የቴሌግራም ዩዘርኔም (@username)",
-            img: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&w=500&q=80",
+            img: STAR_LOGO_SVG,
             packages: [
                 { id: "ts1", name: "50 Stars", price: 250, badge: "" },
                 { id: "ts2", name: "75 Stars", price: 300, badge: "" },
@@ -560,7 +656,7 @@
         },
         {
             id: "tg_premium", name: "TELEGRAM PREMIUM", category: "telegram", idLabel: "የቴሌግራም ዩዘርኔም (@username)",
-            img: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=500&q=80",
+            img: STAR_LOGO_SVG,
             packages: [
                 { id: "tp1", name: "3 months premium", price: 2500, badge: "" },
                 { id: "tp2", name: "6 months premium", price: 3300, badge: "" },
@@ -580,21 +676,30 @@
     ];
 
     function getCatalog() {
-        let cat = JSON.parse(localStorage.getItem('niro_topup_catalog_v1') || 'null');
+        let cat = JSON.parse(localStorage.getItem('niro_topup_catalog_v2') || 'null');
         if (!cat) {
             cat = DEFAULT_CATALOG;
-            localStorage.setItem('niro_topup_catalog_v1', JSON.stringify(cat));
+            localStorage.setItem('niro_topup_catalog_v2', JSON.stringify(cat));
         }
         return cat;
     }
 
     function getBanks() {
-        let banks = JSON.parse(localStorage.getItem('niro_topup_banks_v1') || 'null');
+        let banks = JSON.parse(localStorage.getItem('niro_topup_banks_v2') || 'null');
         if (!banks || banks.length === 0) {
             banks = DEFAULT_BANKS;
-            localStorage.setItem('niro_topup_banks_v1', JSON.stringify(banks));
+            localStorage.setItem('niro_topup_banks_v2', JSON.stringify(banks));
         }
         return banks;
+    }
+
+    function getChannels() {
+        let chs = JSON.parse(localStorage.getItem('niro_topup_channels_v2') || 'null');
+        if (!chs) {
+            chs = DEFAULT_CHANNELS;
+            localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
+        }
+        return chs;
     }
 
     function getUserBalance() {
@@ -608,6 +713,7 @@
 
     let currentCategoryFilter = 'all';
     let selectedGameObj = null;
+    let activeBuyPkgObj = null;
 
     function updateUI() {
         const bal = getUserBalance();
@@ -621,6 +727,75 @@
         if (isOwner) {
             document.getElementById('open-admin-btn').style.display = 'inline-block';
         }
+
+        // Live Broadcast Check
+        const bcText = localStorage.getItem('niro_topup_broadcast_v2');
+        const bcBox = document.getElementById('live-broadcast-banner');
+        if (bcText) {
+            document.getElementById('live-bc-text').innerText = bcText;
+            bcBox.style.display = 'block';
+        } else {
+            bcBox.style.display = 'none';
+        }
+
+        applyLanguage();
+        renderLanguageGrid();
+        renderCommunityChannels();
+    }
+
+    // 10 LANGUAGES ENGINE
+    function renderLanguageGrid() {
+        const grid = document.getElementById('language-selector-grid');
+        const curCode = localStorage.getItem('niro_selected_lang') || 'AM';
+        let html = '';
+        LANGUAGES.forEach(l => {
+            html += `<button class="lang-opt-btn ${l.code === curCode ? 'active' : ''}" onclick="selectLanguage('${l.code}')">${l.label}</button>`;
+        });
+        grid.innerHTML = html;
+    }
+
+    function selectLanguage(code) {
+        localStorage.setItem('niro_selected_lang', code);
+        applyLanguage();
+        renderLanguageGrid();
+    }
+
+    function applyLanguage() {
+        const code = localStorage.getItem('niro_selected_lang') || 'AM';
+        const langObj = LANGUAGES.find(x => x.code === code) || LANGUAGES[0];
+        document.getElementById('hdr-lang-code').innerText = code === 'AM' ? 'አማ' : code;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (langObj[key]) el.innerText = langObj[key];
+        });
+    }
+
+    // COMMUNITY & ADMIN CHANNELS RENDER
+    function renderCommunityChannels() {
+        const box = document.getElementById('community-links-container');
+        const chs = getChannels();
+        let html = `
+            <div onclick="openExternalLink('https://t.me/Niro_X12')" style="padding:14px 16px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; cursor:pointer;">
+                <span><i class="fas fa-headset" style="color:var(--primary); margin-right:8px;"></i> Contact Support (Niro)</span>
+                <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
+            </div>
+        `;
+        chs.forEach(c => {
+            let icon = c.type === 'Proof Channel' ? 'fa-check-circle' : (c.type === 'Community Chat' ? 'fa-comments' : 'fa-bullhorn');
+            html += `
+                <div onclick="openExternalLink('${c.url}')" style="padding:14px 16px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; cursor:pointer;">
+                    <span><i class="fas ${icon}" style="color:var(--primary); margin-right:8px;"></i> ${c.title} <small style="color:var(--text-muted);">(${c.type})</small></span>
+                    <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
+                </div>
+            `;
+        });
+        box.innerHTML = html;
+    }
+
+    function openExternalLink(url) {
+        if (tg) tg.openTelegramLink(url);
+        else window.open(url, '_blank');
     }
 
     function filterStore(cat) {
@@ -694,7 +869,7 @@
                     <div style="font-weight:800; font-size:0.85rem;">${pkg.name}</div>
                     <div class="pkg-price-row">
                         <span style="color:var(--primary); font-weight:900; font-size:0.9rem;">${pkg.price} ብር</span>
-                        <button class="buy-pill-btn" onclick="purchasePackage('${pkg.id}')">ግዛ</button>
+                        <button class="buy-pill-btn" onclick="openDirectBuyModal('${pkg.id}')">ግዛ</button>
                     </div>
                 </div>
             `;
@@ -704,6 +879,100 @@
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.getElementById('tab-packages').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // DIRECT CHECKOUT MODAL WHEN CLICKING "ግዛ"
+    function openDirectBuyModal(pkgId) {
+        if (!selectedGameObj) return;
+        activeBuyPkgObj = selectedGameObj.packages.find(p => p.id === pkgId);
+        if (!activeBuyPkgObj) return;
+
+        document.getElementById('buy-modal-pkg-title').innerText = `${selectedGameObj.name} — ${activeBuyPkgObj.name} (${activeBuyPkgObj.price} ብር)`;
+        document.getElementById('buy-target-label').innerText = `2. ${selectedGameObj.idLabel} ያስገቡ`;
+
+        const savedId = localStorage.getItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId) || '';
+        document.getElementById('buy-target-id').value = savedId;
+        document.getElementById('buy-sender-name').value = '';
+        document.getElementById('buy-full-txn-msg').value = '';
+
+        // Load Banks
+        const banks = getBanks();
+        const sel = document.getElementById('buy-bank-select');
+        sel.innerHTML = '';
+        banks.forEach(b => {
+            sel.innerHTML += `<option value="${b.id}">${b.title}</option>`;
+        });
+        updateBuyAccountBox();
+
+        document.getElementById('direct-buy-modal').style.display = 'flex';
+    }
+
+    function updateBuyAccountBox() {
+        const bId = document.getElementById('buy-bank-select').value;
+        const banks = getBanks();
+        const b = banks.find(x => x.id === bId) || banks[0];
+        if (!b) return;
+        document.getElementById('buy-bank-details').innerHTML = `
+            <div>🏦 <b>የክፍያ መንገድ፦</b> ${b.title}</div>
+            <div>🔢 <b>አካውንት / ስልክ፦</b> <b style="color:var(--primary); font-size:0.95rem;">${b.account}</b></div>
+            <div>👤 <b>የባለቤት ስም፦</b> <b>${b.owner}</b></div>
+        `;
+    }
+
+    function submitDirectBuyOrder(payType) {
+        if (!selectedGameObj || !activeBuyPkgObj) return;
+
+        const targetId = document.getElementById('buy-target-id').value.trim();
+        const senderName = document.getElementById('buy-sender-name').value.trim();
+        const fullTxnMsg = document.getElementById('buy-full-txn-msg').value.trim();
+
+        if (!targetId) {
+            alert("⚠️ እባክዎ የጨዋታ ID ወይም @username ያስገቡ!");
+            return;
+        }
+
+        localStorage.setItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId, targetId);
+
+        if (payType === 'wallet') {
+            const bal = getUserBalance();
+            if (bal < activeBuyPkgObj.price) {
+                alert(`❌ በቂ ቀሪ ሂሳብ የለዎትም! (${activeBuyPkgObj.price} ብር ያስፈልጋል)። እባክዎ በደረሰኝ (Send Order) ይዘዙ ወይም Wallet ውስጥ Deposit ያድርጉ።`);
+                return;
+            }
+            setUserBalance(bal - activeBuyPkgObj.price);
+        } else {
+            if (!senderName || !fullTxnMsg) {
+                alert("⚠️ እባክዎ የላኪ ስም እና ሙሉ የ Transaction መልእክት (Full SMS Message) ያስገቡ!");
+                return;
+            }
+        }
+
+        const bId = document.getElementById('buy-bank-select').value;
+        const banks = getBanks();
+        const b = banks.find(x => x.id === bId) || banks[0];
+
+        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
+        const newOrder = {
+            orderId: "NTG-" + Math.floor(1000000 + Math.random() * 9000000),
+            uid: myTgId,
+            userName: myTgName,
+            tgUser: myTgUser,
+            gameName: selectedGameObj.name,
+            packageName: activeBuyPkgObj.name,
+            price: activeBuyPkgObj.price,
+            playerId: targetId,
+            payMethod: payType === 'wallet' ? 'Wallet Balance' : b.title,
+            senderName: senderName || myTgName,
+            fullTxnMessage: payType === 'wallet' ? 'Paid via Wallet Balance' : fullTxnMsg,
+            status: "Pending",
+            date: new Date().toLocaleString()
+        };
+        orders.unshift(newOrder);
+        localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
+
+        closeModal('direct-buy-modal');
+        alert(`✅ ትዕዛዝዎ ለ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}\nክፍያዎ እንደተረጋገጠ ወዲያውኑ ይሞላልዎታል።`);
+        switchTab('orders');
     }
 
     function openPlayerIdModal() {
@@ -722,63 +991,23 @@
         openGamePackages(selectedGameObj.id);
     }
 
-    function purchasePackage(pkgId) {
-        if (!selectedGameObj) return;
-        const playerId = localStorage.getItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId);
-        if (!playerId) {
-            alert("⚠️ እባክዎ መጀመሪያ 'ID ያስገቡ' የሚለውን ነክተው መለያ ቁጥርዎን ያስገቡ!");
-            openPlayerIdModal();
-            return;
-        }
-
-        const pkg = selectedGameObj.packages.find(p => p.id === pkgId);
-        if (!pkg) return;
-
-        const bal = getUserBalance();
-        if (bal < pkg.price) {
-            alert(`❌ በቂ ቀሪ ሂሳብ የለዎትም! (${pkg.price} ብር ያስፈልጋል)። እባክዎ መጀመሪያ Wallet ውስጥ ገብተው Deposit ያድርጉ።`);
-            switchTab('wallet');
-            return;
-        }
-
-        setUserBalance(bal - pkg.price);
-
-        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v1') || '[]');
-        const newOrder = {
-            orderId: "NTG-" + Math.floor(1000000 + Math.random() * 9000000),
-            uid: myTgId,
-            userName: myTgName,
-            tgUser: myTgUser,
-            gameName: selectedGameObj.name,
-            packageName: pkg.name,
-            price: pkg.price,
-            playerId: playerId,
-            status: "Pending",
-            date: new Date().toLocaleString()
-        };
-        orders.unshift(newOrder);
-        localStorage.setItem('niro_topup_orders_v1', JSON.stringify(orders));
-
-        alert(`✅ ትዕዛዝዎ ተልኳል! Order ID: #${newOrder.orderId}\nበጥቂት ደቂቃዎች ውስጥ ይሞላልዎታል።`);
-        switchTab('orders');
-    }
-
     function renderUserOrders() {
         const box = document.getElementById('user-orders-container');
-        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v1') || '[]');
+        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         let myOrders = orders.filter(o => String(o.uid) === String(myTgId));
 
         let html = '';
         myOrders.forEach(o => {
-            const isComp = o.status === 'Completed';
+            let badgeBg = o.status === 'Approved' ? '#dcfce7' : (o.status === 'Rejected' ? '#fee2e2' : '#fef3c7');
+            let badgeCol = o.status === 'Approved' ? '#15803d' : (o.status === 'Rejected' ? '#b91c1c' : '#b45309');
             html += `
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                         <b style="font-size:0.9rem;">${o.gameName} - ${o.packageName}</b>
-                        <span style="background:${isComp ? '#dcfce7' : '#fef3c7'}; color:${isComp ? '#15803d' : '#b45309'}; padding:3px 10px; border-radius:12px; font-size:0.7rem; font-weight:800;">${o.status.toUpperCase()}</span>
+                        <span style="background:${badgeBg}; color:${badgeCol}; padding:3px 10px; border-radius:12px; font-size:0.7rem; font-weight:800;">${o.status.toUpperCase()}</span>
                     </div>
                     <div style="font-size:0.78rem; color:var(--text-muted);">
-                        <div>🆔 Player ID: <b>${o.playerId}</b></div>
+                        <div>🎯 Target ID: <b>${o.playerId}</b></div>
                         <div>🧾 Order: #${o.orderId} • <b>${o.price} ETB</b></div>
                         <div>📅 ${o.date}</div>
                     </div>
@@ -825,7 +1054,7 @@
             return;
         }
 
-        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v1') || '[]');
+        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         deps.unshift({
             id: "dep_" + Date.now(),
             uid: myTgId,
@@ -837,10 +1066,10 @@
             status: "pending",
             date: new Date().toLocaleString()
         });
-        localStorage.setItem('niro_topup_deposits_v1', JSON.stringify(deps));
+        localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
 
         closeModal('deposit-modal');
-        alert("✅ የ Deposit ጥያቄዎ ለ Admin ተልኳል! ክፍያው ሲረጋገጥ ሂሳብዎ ላይ ይገባል።");
+        alert("✅ የ Deposit ጥያቄዎ ለ Admin ተልኳል!");
     }
 
     function openWithdrawModal() {
@@ -871,6 +1100,7 @@
             populateAdminGameDropdown();
             renderAdminExistingProducts();
             renderAdminBanks();
+            renderAdminChannels();
         }
     }
 
@@ -881,10 +1111,10 @@
         if (event && event.currentTarget) event.currentTarget.classList.add('active');
     }
 
-    // 1. Admin Orders Management (Full Customer & Player ID details)
+    // 1. Admin Orders (Shows Full Transaction SMS + Approve / Reject)
     function renderAdminOrders() {
         const box = document.getElementById('adm-orders-list');
-        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v1') || '[]');
+        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         let html = '';
 
         orders.forEach(o => {
@@ -892,18 +1122,21 @@
                 <div class="adm-card">
                     <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                         <b style="color:var(--gold);">#${o.orderId} • ${o.gameName}</b>
-                        <span style="font-size:0.75rem; color:${o.status === 'Completed' ? '#22c55e' : '#f59e0b'};">${o.status}</span>
+                        <span style="font-size:0.75rem; font-weight:800; color:${o.status === 'Approved' ? '#22c55e' : (o.status === 'Rejected' ? '#ef4444' : '#f59e0b')};">${o.status.toUpperCase()}</span>
                     </div>
                     <div style="font-size:0.82rem; line-height:1.6;">
                         <div>📦 <b>Package:</b> ${o.packageName} (${o.price} ETB)</div>
-                        <div>🎯 <b>Player ID / Target:</b> <b style="color:#38bdf8; font-size:0.95rem;">${o.playerId}</b></div>
+                        <div>🎯 <b>Player ID / @user:</b> <b style="color:#38bdf8; font-size:0.95rem;">${o.playerId}</b></div>
                         <div>👤 <b>Customer:</b> ${o.userName} (${o.tgUser} | ID: ${o.uid})</div>
-                        <div>📅 <b>Time:</b> ${o.date}</div>
+                        <div>🏦 <b>Method:</b> ${o.payMethod} | <b>Sender:</b> ${o.senderName}</div>
+                        <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; border-left:3px solid var(--gold); font-size:0.76rem; color:#cbd5e1;">
+                            <b>🧾 Full Transaction SMS:</b><br>${o.fullTxnMessage}
+                        </div>
                     </div>
                     ${o.status === 'Pending' ? `
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-                            <button class="btn btn-primary" style="padding:8px;" onclick="adminCompleteOrder('${o.orderId}', 'Completed')">✅ Complete (ተሞልቷል)</button>
-                            <button class="btn btn-danger" style="padding:8px;" onclick="adminCompleteOrder('${o.orderId}', 'Rejected')">❌ Cancel & Refund</button>
+                            <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessOrder('${o.orderId}', 'Approved')">✅ Approve</button>
+                            <button class="btn btn-danger" style="padding:8px;" onclick="adminProcessOrder('${o.orderId}', 'Rejected')">❌ Reject</button>
                         </div>
                     ` : ''}
                 </div>
@@ -912,27 +1145,88 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም ትዕዛዝ የለም።</div>';
     }
 
-    function adminCompleteOrder(orderId, newStatus) {
-        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v1') || '[]');
+    function adminProcessOrder(orderId, status) {
+        let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         const idx = orders.findIndex(o => o.orderId === orderId);
         if (idx === -1) return;
 
-        orders[idx].status = newStatus;
-        if (newStatus === 'Rejected') {
+        orders[idx].status = status;
+        if (status === 'Rejected' && orders[idx].payMethod === 'Wallet Balance') {
             const uKey = 'niro_user_bal_' + orders[idx].uid;
             const cur = parseFloat(localStorage.getItem(uKey) || '0');
             localStorage.setItem(uKey, String(cur + orders[idx].price));
         }
-        localStorage.setItem('niro_topup_orders_v1', JSON.stringify(orders));
+        localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
         renderAdminOrders();
         updateUI();
-        alert(`Order #${orderId} -> ${newStatus}`);
+        alert(`Order #${orderId} is now ${status}!`);
     }
 
-    // 2. Admin Deposits Approval
+    // 2. Broadcast & Channels Manager
+    function adminPublishBroadcast() {
+        const txt = document.getElementById('adm-bc-input').value.trim();
+        if (!txt) { alert("⚠️ መልእክት ያስገቡ!"); return; }
+        localStorage.setItem('niro_topup_broadcast_v2', txt);
+        document.getElementById('adm-bc-input').value = '';
+        updateUI();
+        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል!");
+    }
+
+    function adminClearBroadcast() {
+        localStorage.removeItem('niro_topup_broadcast_v2');
+        updateUI();
+        alert("🗑️ Broadcast ተሰርዟል!");
+    }
+
+    function adminAddChannelLink() {
+        const type = document.getElementById('adm-ch-type').value;
+        const title = document.getElementById('adm-ch-title').value.trim();
+        const url = document.getElementById('adm-ch-url').value.trim();
+
+        if (!title || !url) { alert("⚠️ የአዝራሩን ስም እና ሊንክ ያስገቡ!"); return; }
+
+        let chs = getChannels();
+        chs.push({ id: "ch_" + Date.now(), type, title, url });
+        localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
+
+        document.getElementById('adm-ch-title').value = '';
+        document.getElementById('adm-ch-url').value = '';
+        renderAdminChannels();
+        renderCommunityChannels();
+        alert("✅ ቻናሉ በተሳካ ሁኔታ ተጨምሯል!");
+    }
+
+    function renderAdminChannels() {
+        const box = document.getElementById('adm-channels-list');
+        const chs = getChannels();
+        let html = '';
+        chs.forEach(c => {
+            html += `
+                <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b>${c.title}</b> <small style="color:var(--gold);">[${c.type}]</small><br>
+                        <small style="color:#38bdf8;">${c.url}</small>
+                    </div>
+                    <button onclick="adminDeleteChannel('${c.id}')" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:0.75rem; cursor:pointer;">Delete 🗑️</button>
+                </div>
+            `;
+        });
+        box.innerHTML = html || '<div style="color:#94a3b8;">ምንም የተጨመረ ቻናል የለም።</div>';
+    }
+
+    function adminDeleteChannel(chId) {
+        let chs = getChannels();
+        chs = chs.filter(c => c.id !== chId);
+        localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
+        renderAdminChannels();
+        renderCommunityChannels();
+        alert("🗑️ ቻናሉ ተሰርዟል!");
+    }
+
+    // 3. Admin Deposits
     function renderAdminDeposits() {
         const box = document.getElementById('adm-deposits-list');
-        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v1') || '[]');
+        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         let html = '';
 
         deps.forEach(d => {
@@ -940,7 +1234,8 @@
                 <div class="adm-card">
                     <b>${d.userName} (ID: ${d.uid})</b><br>
                     🏦 <b>Method:</b> ${d.bankTitle} • 💰 <b style="color:#22c55e;">${d.amount} ETB</b><br>
-                    👤 <b>Sender:</b> ${d.senderName} | 🧾 <b>Txn ID:</b> <span style="color:var(--gold);">${d.txnId}</span><br>
+                    👤 <b>Sender:</b> ${d.senderName}<br>
+                    <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; font-size:0.75rem;">${d.txnId}</div>
                     ${d.status === 'pending' ? `
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
                             <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessDeposit('${d.id}', 'approve')">✅ Approve</button>
@@ -954,7 +1249,7 @@
     }
 
     function adminProcessDeposit(depId, action) {
-        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v1') || '[]');
+        let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         const idx = deps.findIndex(d => d.id === depId);
         if (idx === -1) return;
 
@@ -964,13 +1259,13 @@
             const cur = parseFloat(localStorage.getItem(uKey) || '0');
             localStorage.setItem(uKey, String(cur + deps[idx].amount));
         }
-        localStorage.setItem('niro_topup_deposits_v1', JSON.stringify(deps));
+        localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
         renderAdminDeposits();
         updateUI();
-        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቆ ለደንበኛው ገብቷል!" : "❌ ጥያቄው ተሰርዟል!");
+        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቋል!" : "❌ ተሰርዟል!");
     }
 
-    // 3. Admin Add & Delete Packages
+    // 4. Products Add/Delete
     function populateAdminGameDropdown() {
         const sel = document.getElementById('adm-pkg-game-id');
         const catalog = getCatalog();
@@ -991,13 +1286,8 @@
         let catalog = getCatalog();
         const gIdx = catalog.findIndex(g => g.id === gameId);
         if (gIdx !== -1) {
-            catalog[gIdx].packages.push({
-                id: "pkg_" + Date.now(),
-                name: name,
-                price: price,
-                badge: badge
-            });
-            localStorage.setItem('niro_topup_catalog_v1', JSON.stringify(catalog));
+            catalog[gIdx].packages.push({ id: "pkg_" + Date.now(), name, price, badge });
+            localStorage.setItem('niro_topup_catalog_v2', JSON.stringify(catalog));
             document.getElementById('adm-pkg-name').value = '';
             document.getElementById('adm-pkg-price').value = '';
             document.getElementById('adm-pkg-badge').value = '';
@@ -1011,14 +1301,13 @@
         const box = document.getElementById('adm-existing-products-list');
         const catalog = getCatalog();
         let html = '';
-
         catalog.forEach(g => {
             html += `<div class="adm-card"><b style="color:var(--gold);">${g.name}</b><div style="margin-top:8px;">`;
             g.packages.forEach(p => {
                 html += `
                     <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #334155; font-size:0.82rem;">
                         <span>${p.name} — <b>${p.price} ብር</b></span>
-                        <button onclick="adminDeletePackage('${g.id}', '${p.id}')" style="background:var(--danger); color:#fff; border:none; padding:4px 10px; border-radius:6px; font-size:0.72rem; cursor:pointer;">Delete 🗑️</button>
+                        <button onclick="adminDeletePackage('${g.id}', '${p.id}')" style="background:var(--danger); color:#fff; border:none; padding:4px 10px; border-radius:6px; font-size:0.72rem; cursor:pointer;">Delete</button>
                     </div>
                 `;
             });
@@ -1032,14 +1321,14 @@
         const gIdx = catalog.findIndex(g => g.id === gameId);
         if (gIdx !== -1) {
             catalog[gIdx].packages = catalog[gIdx].packages.filter(p => p.id !== pkgId);
-            localStorage.setItem('niro_topup_catalog_v1', JSON.stringify(catalog));
+            localStorage.setItem('niro_topup_catalog_v2', JSON.stringify(catalog));
             renderAdminExistingProducts();
             renderHomeStore();
             alert("🗑️ ፓኬጁ ተሰርዟል!");
         }
     }
 
-    // 4. Admin Bank & Telebirr Management
+    // 5. Banks Management
     function adminAddPaymentMethod() {
         const title = document.getElementById('adm-bank-title').value.trim();
         const acc = document.getElementById('adm-bank-acc').value.trim();
@@ -1049,7 +1338,7 @@
 
         let banks = getBanks();
         banks.push({ id: "bank_" + Date.now(), title, account: acc, owner });
-        localStorage.setItem('niro_topup_banks_v1', JSON.stringify(banks));
+        localStorage.setItem('niro_topup_banks_v2', JSON.stringify(banks));
 
         document.getElementById('adm-bank-title').value = '';
         document.getElementById('adm-bank-acc').value = '';
@@ -1079,23 +1368,11 @@
     function adminDeleteBank(bId) {
         let banks = getBanks();
         banks = banks.filter(b => b.id !== bId);
-        localStorage.setItem('niro_topup_banks_v1', JSON.stringify(banks));
+        localStorage.setItem('niro_topup_banks_v2', JSON.stringify(banks));
         renderAdminBanks();
     }
 
-    function adminManualAddBalance() {
-        const uid = document.getElementById('adm-bal-uid').value.trim();
-        const amt = parseFloat(document.getElementById('adm-bal-amt').value);
-        if (!uid || isNaN(amt)) return;
-
-        const uKey = 'niro_user_bal_' + uid;
-        const cur = parseFloat(localStorage.getItem(uKey) || '0');
-        localStorage.setItem(uKey, String(cur + amt));
-        updateUI();
-        alert(`✅ +${amt} ETB ለ ID ${uid} ተጨምሯል!`);
-    }
-
-    // Navigation & Helpers
+    // Navigation
     function switchTab(tId) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.bottom-nav .nav-item').forEach(b => b.classList.remove('active'));
@@ -1116,9 +1393,6 @@
         navigator.clipboard.writeText(inp.value);
         alert("✅ የሪፈራል ሊንክ ተቀድቷል!");
     }
-    function openSupport() { if (tg) tg.openTelegramLink("https://t.me/Niro_X12"); }
-    function openChannel() { if (tg) tg.openTelegramLink("https://t.me/Crypto_Topup_F"); }
-    function toggleLanguage() { alert("ቋንቋ ተቀይሯል (AM / EN)"); }
 
     document.addEventListener('DOMContentLoaded', () => {
         updateUI();
