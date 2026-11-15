@@ -33,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* Maintenance / Update Lock Screen (#11) */
+        /* Maintenance / Update Lock Screen */
         #maintenance-lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #064e3b, #0f172a);
@@ -91,12 +91,20 @@
             padding: 10px 14px; border-radius: 14px; margin-bottom: 12px; font-size: 0.8rem; font-weight: 600;
         }
 
+        /* Welcome Dark Banner With User TG Profile (#2) */
         .hero-card {
             background: linear-gradient(135deg, #064e3b, #0f172a);
-            color: #fff; border-radius: 20px; padding: 20px 16px; margin-bottom: 14px;
+            color: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 14px;
             position: relative; overflow: hidden;
         }
-        .hero-card h2 { font-size: 1.35rem; font-weight: 800; margin: 4px 0; }
+        .hero-user-row {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+        }
+        .hero-tg-avatar {
+            width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+            border: 2.5px solid #34d399; background: #0f172a; flex-shrink: 0;
+        }
+        .hero-card h2 { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
         .hero-card p { font-size: 0.78rem; color: #cbd5e1; }
         .badge-row { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
         .hero-badge {
@@ -158,7 +166,6 @@
             width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
         }
 
-        /* Service / Device Note & Channel Showcase (#3 & #7) */
         .service-detail-box {
             background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
             padding: 14px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -223,7 +230,7 @@
             content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
         }
 
-        /* Smart Deposit Step-by-Step UI (Like Screenshot 17368 & 17359_2) (#12) */
+        /* Smart Deposit Step-by-Step UI */
         .step-badge-row {
             display: flex; align-items: center; gap: 8px; margin: 12px 0 8px;
             font-size: 0.74rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px;
@@ -267,6 +274,7 @@
             padding: 13px 16px; display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem;
         }
+        .shortcut-banner-btn:active { background: #ecfdf5; border-color: var(--primary); }
 
         /* Wallet Card */
         .wallet-hero {
@@ -294,7 +302,6 @@
             margin-bottom: 10px; outline: none; font-size: 0.85rem;
         }
 
-        /* Language Grid */
         .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
         .lang-opt-btn {
             background: #fff; border: 1px solid var(--border-color); padding: 11px 12px;
@@ -302,7 +309,6 @@
         }
         .lang-opt-btn.active { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
 
-        /* Bottom Navigation */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
             background: #ffffff; border-top: 1px solid var(--border-color);
@@ -329,25 +335,34 @@
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        /* Admin Overlay */
+        /* ==========================================
+           FIXED ADMIN OVERLAY & VISIBLE TABS (#1)
+        ========================================== */
         #admin-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0f172a; color: #f8fafc; z-index: 20000; display: none;
             flex-direction: column; overflow-y: auto;
         }
         .adm-header {
-            background: #1e293b; padding: 14px 18px; display: flex; justify-content: space-between;
-            align-items: center; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #334155;
+            background: #1e293b; padding: 12px 16px; display: flex; justify-content: space-between;
+            align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #334155;
+            flex-shrink: 0;
         }
+        /* Grid layout so ALL 10 Admin tabs are 100% visible and never squished */
         .adm-tabs {
-            display: flex; overflow-x: auto; background: #1e293b; padding: 8px 12px; gap: 8px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+            background: #162032; padding: 10px 12px; border-bottom: 1px solid #334155;
+            flex-shrink: 0;
         }
         .adm-tab-btn {
-            background: transparent; color: #94a3b8; border: none; padding: 8px 14px;
-            border-radius: 8px; font-size: 0.78rem; font-weight: 700; white-space: nowrap; cursor: pointer;
+            background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 9px 10px;
+            border-radius: 10px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
+            text-align: left; display: flex; align-items: center; gap: 6px;
         }
-        .adm-tab-btn.active { background: var(--primary); color: #fff; }
-        .adm-page { display: none; padding: 16px; }
+        .adm-tab-btn.active {
+            background: var(--primary); color: #fff; border-color: #34d399;
+        }
+        .adm-page { display: none; padding: 16px; flex: 1; }
         .adm-page.active { display: block; }
         .adm-card {
             background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 16px; margin-bottom: 14px;
@@ -366,7 +381,7 @@
         .switch-on { background: #16a34a; color: #fff; }
         .switch-off { background: #dc2626; color: #fff; }
 
-        /* Statistics Graph Bars (#1) */
+        /* Statistics Graph Bars */
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
         .stat-box {
             background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -380,7 +395,7 @@
 </head>
 <body>
 
-    <!-- MINI APP MAINTENANCE LOCK SCREEN FOR NON-ADMINS (#11) -->
+    <!-- MINI APP MAINTENANCE LOCK SCREEN FOR NON-ADMINS -->
     <div id="maintenance-lock-screen">
         <div class="maint-icon-box"><i class="fas fa-tools"></i></div>
         <h2 style="font-weight:900; font-size:1.35rem; margin-bottom:10px; color:#fbbf24;">NIRO TOPUP STORE</h2>
@@ -410,11 +425,17 @@
             <i class="fas fa-bullhorn"></i> <span id="live-bc-text"></span>
         </div>
 
-        <!-- 1. HOME TAB -->
+        <!-- 1. HOME TAB WITH USER'S OWN TELEGRAM PROFILE PHOTO (#2) -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-card">
-                <small style="opacity: 0.8; font-weight: 600;" data-i18n="welcome">WELCOME BACK</small>
-                <h2 id="user-greeting">Niro</h2>
+                <div class="hero-user-row">
+                    <img id="home-user-tg-avatar" src="" class="hero-tg-avatar" alt="User Profile">
+                    <div>
+                        <small style="opacity: 0.85; font-weight: 600; display:block;" data-i18n="welcome">WELCOME BACK</small>
+                        <h2 id="user-greeting">Niro</h2>
+                        <small style="color:#6ee7b7; font-size:0.7rem; font-weight:600;" id="home-user-handle">@Niro_X12 • ID: 8797798511</small>
+                    </div>
+                </div>
                 <p data-i18n="hero_sub">ጨዋታዎችዎን፣ ዲጂታል አገልግሎቶችን እና ኤሌክትሮኒክስ በኢትዮጵያ ባንኮች በፍጥነት ይግዙ።</p>
                 <div class="badge-row">
                     <span class="hero-badge" data-i18n="badge_fast">⚡ ፈጣን (INSTANT)</span>
@@ -436,7 +457,6 @@
 
         <!-- 1B. PRODUCT PACKAGES / CHANNEL / DEVICE DETAIL VIEW -->
         <section id="tab-packages" class="tab-content">
-            <!-- Game/Service Poster Header -->
             <div class="game-poster-hero">
                 <button class="game-poster-back" onclick="switchTab('home')"><i class="fas fa-arrow-left"></i></button>
                 <img id="pkg-poster-bg" src="" alt="">
@@ -447,13 +467,9 @@
                 </div>
             </div>
 
-            <!-- Channel / Bot Special Card (#7) -->
             <div id="channel-bot-showcase-area"></div>
-
-            <!-- Service / Device Note & Specifications Card (#3) -->
             <div id="service-note-area"></div>
 
-            <!-- Player ID Box -->
             <div class="player-id-bar" onclick="openPlayerIdModal()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <img id="pkg-game-thumb" src="" style="width:44px; height:44px; border-radius:12px; object-fit:cover;">
@@ -501,15 +517,19 @@
                 </div>
             </div>
 
+            <!-- Fixed Add to Home Screen Shortcut Button (#3) -->
             <div class="shortcut-banner-btn" onclick="triggerAddToHomeScreen()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-mobile-alt" style="color:var(--primary); font-size:1.15rem;"></i>
-                    <span data-i18n="add_home_btn">በመነሻ ገጽ ላይ አክል (Add to Home Screen)</span>
+                    <div>
+                        <span data-i18n="add_home_btn" style="display:block;">በመነሻ ገጽ ላይ አክል (Add to Home Screen)</span>
+                        <small id="home-shortcut-status" style="font-size:0.68rem; color:var(--primary); font-weight:600;">ስልክዎ ላይ እንደ App ለማስቀመጥ ይንኩ</small>
+                    </div>
                 </div>
-                <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
+                <i class="fas fa-plus-circle" style="color:var(--primary); font-size:1.2rem;"></i>
             </div>
 
-            <!-- Invite Friends Card (@Niro_1Topup_Bot) (#5) -->
+            <!-- Invite Friends Card (@Niro_1Topup_Bot) -->
             <div class="hero-card">
                 <small style="color:#34d399; font-weight:800;"><i class="fas fa-users"></i> <span data-i18n="invite_title">ጓደኞችዎን ይጋብዙ</span></small>
                 <h3 style="font-size:1.15rem; font-weight:900; margin:4px 0;" data-i18n="earn_30">ከትርፉ 30% ያግኙ</h3>
@@ -577,7 +597,7 @@
         </div>
     </div>
 
-    <!-- SMART DEPOSIT & TELEBIRR VERIFICATION MODAL (#12) -->
+    <!-- SMART DEPOSIT & TELEBIRR VERIFICATION MODAL -->
     <div class="modal-screen" id="deposit-modal">
         <div class="modal-sheet">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -591,17 +611,14 @@
                 <button onclick="closeModal('deposit-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
 
-            <!-- Select Payment Method -->
             <div class="bank-radio-list" id="dep-bank-radio-list"></div>
 
-            <!-- STEP 1: TRANSFER EXACT AMOUNT -->
             <div class="step-badge-row">
                 <span class="step-num-circle">1</span>
                 <span>TRANSFER EXACT AMOUNT (ትክክለኛውን መጠን ያስገቡ)</span>
             </div>
             <input type="number" class="form-control" id="dep-amount" placeholder="የሚያስገቡት መጠን በብር (ምሳሌ: 500)" style="font-weight:800; font-size:1rem; color:var(--primary);">
 
-            <!-- STEP 2: RECIPIENT INFORMATION WITH COPY BUTTONS -->
             <div class="step-badge-row">
                 <span class="step-num-circle">2</span>
                 <span>RECIPIENT INFORMATION (የተቀባይ መረጃ)</span>
@@ -623,7 +640,6 @@
                 </div>
             </div>
 
-            <!-- Example Receipt Guide Button (Like Screenshot 17366 & 17359_2) -->
             <div onclick="toggleExampleReceipt()" style="background:#f8fafc; border:1px solid var(--border-color); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; cursor:pointer;">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-receipt" style="color:var(--primary); font-size:1.1rem;"></i>
@@ -640,7 +656,6 @@
                 ⚠️ ከቴሌብር የደረሰዎትን <b>ሙሉ የ SMS መልእክት</b> ከታች ይለጥፉ።
             </div>
 
-            <!-- STEP 3: SUBMIT & AUTO-VERIFY PROOF -->
             <div class="step-badge-row">
                 <span class="step-num-circle">3</span>
                 <span>SUBMIT & VERIFY TRANSACTION SMS</span>
@@ -648,7 +663,6 @@
             <input type="text" class="form-control" id="dep-sender-name" placeholder="የላኪ ሙሉ ስም (Sender Name)">
             <textarea class="form-control" id="dep-txn-id" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የ Transaction SMS መልእክት እዚህ ይለጥፉ..."></textarea>
 
-            <!-- Verification Error Alert Box (Like Screenshot 17359_2) -->
             <div id="dep-verify-error" class="dep-error-box">
                 <i class="fas fa-exclamation-circle" style="font-size:1.1rem;"></i>
                 <span id="dep-verify-error-text">ትክክለኛ አይደለም! እባክዎ የቴሌብር መልእክትዎን አረጋግጠው እንደገና ይሞክሩ።</span>
@@ -682,13 +696,12 @@
     </nav>
 
     <!-- ==========================================
-         ADMIN PANEL (FULL CONTROL ENGINE)
+         ADMIN PANEL (ALL 10 TABS RESTORED IN CLEAN GRID) (#1)
     ========================================== -->
     <div id="admin-overlay">
         <div class="adm-header">
-            <div style="font-weight:900; color:var(--gold);"><i class="fas fa-shield-alt"></i> NIRO TOPUP ADMIN</div>
+            <div style="font-weight:900; color:var(--gold); font-size:0.95rem;"><i class="fas fa-shield-alt"></i> NIRO ADMIN</div>
             <div style="display:flex; align-items:center; gap:8px;">
-                <!-- Global Mini App ON/OFF Switch (#11) -->
                 <button id="adm-miniapp-power-btn" class="switch-pill switch-on" onclick="adminToggleMiniAppPower()">🟢 App: ON</button>
                 <button onclick="toggleAdmin(false)" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-weight:700;">ዝጋ</button>
             </div>
@@ -707,27 +720,26 @@
             <button class="adm-tab-btn" id="super-add-admin-tab" style="display:none;" onclick="switchAdm('adm-subadmins-tab')">👮 Add Admin</button>
         </div>
 
-        <!-- 1. CUSTOMER ORDERS REQUESTS (#9) -->
+        <!-- 1. CUSTOMER ORDERS REQUESTS -->
         <div id="adm-orders-tab" class="adm-page active">
             <h3 style="margin-bottom:10px;">📦 የደንበኞች ትዕዛዞች (Orders & Proof Channel)</h3>
             <div id="adm-orders-list"></div>
         </div>
 
-        <!-- 2. STATISTICS DASHBOARD & GRAPHS (#1) -->
+        <!-- 2. STATISTICS DASHBOARD & GRAPHS -->
         <div id="adm-stats-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">📊 የዛሬ እና ጠቅላላ የስራ Statistics</h3>
             <div id="adm-stats-content"></div>
         </div>
 
-        <!-- 3. WITHDRAW REQUESTS (#1) -->
+        <!-- 3. WITHDRAW REQUESTS -->
         <div id="adm-withdraws-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">💸 የገንዘብ ማውጫ ጥያቄዎች (Withdraw Requests)</h3>
             <div id="adm-withdraws-list"></div>
         </div>
 
-        <!-- 4. CREATE FOLDER, SERVICE (Channel, Bot, PC, Mobile) & NOTE (#2, #3, #4, #6, #7) -->
+        <!-- 4. CREATE FOLDER, SERVICE & NOTE -->
         <div id="adm-services-tab" class="adm-page">
-            <!-- Add Order Folder Button (#6) -->
             <div class="adm-card" style="border-color: var(--gold);">
                 <h4 style="color:var(--gold); margin-bottom:8px;">📁 አዲስ Order Folder መፍጠሪያ</h4>
                 <div style="display:flex; gap:8px;">
@@ -744,7 +756,6 @@
                 <label style="font-size:0.78rem; color:#94a3b8;">2. ምድብ / Folder (Channel, Bot, PC/Computer, Mobile...)</label>
                 <select class="adm-input" id="adm-srv-cat" onchange="toggleChannelBotFields()"></select>
 
-                <!-- Extra Fields Specifically for Channel & Bot (#7) -->
                 <div id="adm-channel-bot-extra" style="display:none; background:#0f172a; padding:12px; border-radius:12px; border:1px solid #334155; margin-bottom:10px;">
                     <b style="color:#38bdf8; font-size:0.82rem; display:block; margin-bottom:8px;">📢 የ Channel / Bot ዝርዝር መረጃ</b>
                     <input type="text" class="adm-input" id="adm-cb-link" placeholder="የ Channel ወይም Bot ሊንክ (https://t.me/...)">
@@ -763,7 +774,6 @@
                     <option value="any">📝 ማንኛውም መለያ ጽሑፍ</option>
                 </select>
 
-                <!-- Service / Device Note (#3) -->
                 <label style="font-size:0.78rem; color:#94a3b8;">4. ስለ ዕቃው / ስልኩ / PC መግለጫ (Note - ደንበኛው ሲነካው የሚታይ)</label>
                 <textarea class="adm-input" id="adm-srv-note" rows="3" placeholder="ስለ ስልኩ RAM/Storage፣ ስለ PC Processor ወይም ስለ ዕቃው ሙሉ መግለጫ እዚህ ይጻፉ..."></textarea>
 
@@ -805,7 +815,7 @@
             <div id="adm-existing-products-list"></div>
         </div>
 
-        <!-- 6. ADD BALANCE TO USER (#8) -->
+        <!-- 6. ADD BALANCE TO USER -->
         <div id="adm-balance-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">💳 ለደንበኛ Balance መጨመሪያ / መቀነሻ</h3>
             <div class="adm-card">
@@ -853,7 +863,7 @@
             <div id="adm-deposits-list"></div>
         </div>
 
-        <!-- 9. PROFILE LOGO, APP LOGO, BROADCAST & PROOF CHANNEL (#9) -->
+        <!-- 9. PROFILE LOGO, APP LOGO, BROADCAST & PROOF CHANNEL -->
         <div id="adm-branding-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">✅ የ Proof Channel ማስተካከያ (Auto Receipt)</h3>
             <div class="adm-card">
@@ -897,7 +907,7 @@
             <div id="adm-channels-list"></div>
         </div>
 
-        <!-- 10. ADD SUB-ADMIN WITH PERMISSIONS (#10) -->
+        <!-- 10. ADD SUB-ADMIN WITH PERMISSIONS -->
         <div id="adm-subadmins-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">👮 አዲስ Admin መጨመሪያ (Add Admin & Permissions)</h3>
             <div class="adm-card">
@@ -934,11 +944,16 @@
     let myTgId = SUPER_ADMIN_ID;
     let myTgUser = "@Niro_X12";
     let myTgName = "Niro";
+    let myTgPhotoUrl = "";
 
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        myTgId = String(tg.initDataUnsafe.user.id);
-        myTgName = tg.initDataUnsafe.user.first_name || myTgName;
-        myTgUser = tg.initDataUnsafe.user.username ? "@" + tg.initDataUnsafe.user.username : myTgUser;
+        const u = tg.initDataUnsafe.user;
+        myTgId = String(u.id);
+        myTgName = u.first_name || myTgName;
+        myTgUser = u.username ? "@" + u.username : myTgUser;
+        if (u.photo_url) {
+            myTgPhotoUrl = u.photo_url;
+        }
     }
 
     function getSubAdmins() {
@@ -989,13 +1004,21 @@
         </svg>
     `);
 
-    const DEFAULT_PROFILE_AVATAR = "data:image/svg+xml;utf8," + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-            <rect width="120" height="120" fill="#0f172a"/>
-            <circle cx="60" cy="45" r="22" fill="#10b981"/>
-            <path d="M25 105 Q60 72 95 105 Z" fill="#10b981"/>
-        </svg>
-    `);
+    function makeUserInitialAvatar(name) {
+        const letter = (name || "U").trim().charAt(0).toUpperCase();
+        return "data:image/svg+xml;utf8," + encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+                <defs>
+                    <linearGradient id="avGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#10b981"/>
+                        <stop offset="100%" stop-color="#0f766e"/>
+                    </linearGradient>
+                </defs>
+                <rect width="120" height="120" fill="url(#avGrad)"/>
+                <text x="60" y="76" font-family="Arial Black, sans-serif" font-size="52" font-weight="900" fill="#ffffff" text-anchor="middle">${letter}</text>
+            </svg>
+        `);
+    }
 
     function makeBankSvg(bg, fg, txt) {
         return "data:image/svg+xml;utf8," + encodeURIComponent(`
@@ -1299,7 +1322,7 @@
     function updateUI() {
         const adminRec = getMyAdminRecord();
 
-        // MINI APP MAINTENANCE LOCK CHECK (#11)
+        // MINI APP MAINTENANCE LOCK CHECK
         const isAppOff = localStorage.getItem('niro_miniapp_maintenance_v1') === 'off';
         const lockScreen = document.getElementById('maintenance-lock-screen');
         if (isAppOff && !adminRec) {
@@ -1323,12 +1346,19 @@
         document.getElementById('hdr-bal').innerText = bal.toLocaleString();
         document.getElementById('wallet-bal-val').innerText = bal.toLocaleString();
         document.getElementById('user-greeting').innerText = myTgName;
+        document.getElementById('home-user-handle').innerText = `${myTgUser} • ID: ${myTgId}`;
         document.getElementById('acc-name').innerText = myTgName;
         document.getElementById('acc-uid').innerText = myTgId;
         document.getElementById('ref-link-inp').value = `https://t.me/${BOT_USERNAME}?start=ref_${myTgId}`;
 
-        const savedAvatar = localStorage.getItem('niro_profile_avatar_v3') || DEFAULT_PROFILE_AVATAR;
-        document.getElementById('acc-avatar-img').src = savedAvatar;
+        // USER'S OWN TELEGRAM PROFILE PHOTO ON HOME & ACCOUNT (#2)
+        const userAvatarSrc = myTgPhotoUrl || localStorage.getItem('niro_profile_avatar_v3') || makeUserInitialAvatar(myTgName);
+        const homeAvatarEl = document.getElementById('home-user-tg-avatar');
+        const accAvatarEl = document.getElementById('acc-avatar-img');
+        homeAvatarEl.src = userAvatarSrc;
+        accAvatarEl.src = userAvatarSrc;
+        homeAvatarEl.onerror = () => { homeAvatarEl.src = makeUserInitialAvatar(myTgName); };
+        accAvatarEl.onerror = () => { accAvatarEl.src = makeUserInitialAvatar(myTgName); };
 
         const savedStoreLogo = localStorage.getItem('niro_store_logo_v3');
         if (savedStoreLogo) {
@@ -1346,6 +1376,18 @@
             bcBox.style.display = 'block';
         } else {
             bcBox.style.display = 'none';
+        }
+
+        // Check Home Screen Status if Telegram supports it (#3)
+        if (tg && typeof tg.checkHomeScreenStatus === 'function') {
+            try {
+                tg.checkHomeScreenStatus((status) => {
+                    const stEl = document.getElementById('home-shortcut-status');
+                    if (stEl && status === 'added') {
+                        stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል (Added)";
+                    }
+                });
+            } catch(e){}
         }
 
         applyLanguage();
@@ -1398,9 +1440,21 @@
         });
     }
 
+    // FIXED ADD TO HOME SCREEN (#3)
     function triggerAddToHomeScreen() {
         if (tg && typeof tg.addToHomeScreen === 'function') {
-            tg.addToHomeScreen();
+            try {
+                tg.addToHomeScreen();
+                if (typeof tg.onEvent === 'function') {
+                    tg.onEvent('homeScreenAdded', () => {
+                        const stEl = document.getElementById('home-shortcut-status');
+                        if (stEl) stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል!";
+                        alert("✅ Niro Topup ወደ ስልክዎ መነሻ ገጽ (Home Screen) ተጨምሯል!");
+                    });
+                }
+            } catch (err) {
+                alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።");
+            }
         } else {
             alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።");
         }
@@ -1507,7 +1561,6 @@
         document.getElementById('pkg-game-thumb').src = selectedGameObj.img;
         document.getElementById('pkg-id-label').innerText = selectedGameObj.idLabel;
 
-        // Channel / Bot Special Card (#7)
         const cbArea = document.getElementById('channel-bot-showcase-area');
         if (selectedGameObj.category === 'channel' || selectedGameObj.category === 'bot') {
             cbArea.innerHTML = `
@@ -1541,7 +1594,6 @@
             cbArea.innerHTML = '';
         }
 
-        // Service / Device Information Note (#3)
         const noteArea = document.getElementById('service-note-area');
         if (selectedGameObj.note) {
             noteArea.innerHTML = `
@@ -1782,9 +1834,7 @@
         box.innerHTML = html || '<div style="text-align:center; padding:30px; color:#64748b;">ምንም ትዕዛዝ የለዎትም።</div>';
     }
 
-    // ==========================================
-    // SMART DEPOSIT & 4-STEP TELEBIRR RECEIPT VERIFICATION (#12)
-    // ==========================================
+    // SMART DEPOSIT & 4-STEP TELEBIRR RECEIPT VERIFICATION
     function openDepositModal() {
         document.getElementById('dep-verify-error').style.display = 'none';
         const banks = getBanks();
@@ -1847,7 +1897,6 @@
 
         const smsLower = rawSms.toLowerCase();
 
-        // Check 3: Must be a real Telebirr / Bank Transaction Message & Extract Transaction ID
         const txnMatch = rawSms.match(/(?:transaction\s*(?:number|id)?\s*(?:is|:)?\s*|receipt\/)([A-Z0-9]{8,14})/i)
                       || rawSms.match(/\b([A-Z]{2}[A-Z0-9]{7,10})\b/);
         if (!txnMatch) {
@@ -1856,14 +1905,12 @@
         }
         const extractedTxnId = txnMatch[1].toUpperCase();
 
-        // Check 4: Duplicate Transaction Prevention (ከዚህ በፊት ገብቶ የማያውቅ Transaction መሆኑን ማረጋገጥ)
         let usedTxns = JSON.parse(localStorage.getItem('niro_used_txn_ids_v1') || '[]');
         if (usedTxns.includes(extractedTxnId)) {
             showDepositError(`❌ ይህ Transaction (${extractedTxnId}) ከዚህ በፊት ጥቅም ላይ ውሏል! አዲስ የክፍያ ደረሰኝ ያስገቡ።`);
             return;
         }
 
-        // Check 1: Recipient Phone / Account (last 4 digits) or Recipient Name match
         const cleanAcc = b.account.replace(/\D/g, '');
         const last4Acc = cleanAcc.slice(-4);
         const ownerFirst = b.owner.trim().split(/\s+/)[0].toLowerCase();
@@ -1876,7 +1923,6 @@
             return;
         }
 
-        // Check 2: Amount in SMS must match or exceed requested deposit amount
         const amtMatch = rawSms.match(/(?:ETB|Birr)\s*([0-9,]+(?:\.[0-9]{1,2})?)/i);
         if (amtMatch) {
             const smsAmount = parseFloat(amtMatch[1].replace(/,/g, ''));
@@ -1889,7 +1935,6 @@
             return;
         }
 
-        // Save Transaction ID as used so it cannot be reused
         usedTxns.push(extractedTxnId);
         localStorage.setItem('niro_used_txn_ids_v1', JSON.stringify(usedTxns));
 
@@ -1969,9 +2014,9 @@
             document.querySelectorAll('#admin-nav-tabs .adm-tab-btn').forEach(btn => {
                 const perm = btn.getAttribute('data-perm');
                 if (!perm) return;
-                btn.style.display = (adminRec.isSuper || adminRec.permissions.includes(perm)) ? 'inline-block' : 'none';
+                btn.style.display = (adminRec.isSuper || adminRec.permissions.includes(perm)) ? 'flex' : 'none';
             });
-            document.getElementById('super-add-admin-tab').style.display = adminRec.isSuper ? 'inline-block' : 'none';
+            document.getElementById('super-add-admin-tab').style.display = adminRec.isSuper ? 'flex' : 'none';
             document.getElementById('adm-proof-ch-url').value = localStorage.getItem('niro_proof_channel_url_v1') || '';
 
             renderAdminOrders();
@@ -1995,7 +2040,7 @@
         if (event && event.currentTarget) event.currentTarget.classList.add('active');
     }
 
-    // 1. Admin Orders & Auto Proof Channel Receipt (#9)
+    // 1. Admin Orders & Auto Proof Channel Receipt
     function renderAdminOrders() {
         const box = document.getElementById('adm-orders-list');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
@@ -2090,7 +2135,7 @@
         alert("✅ Proof Channel Link ተቀምጧል!");
     }
 
-    // 2. Statistics Dashboard With Visual Graph (#1)
+    // 2. Statistics Dashboard With Visual Graph
     function renderAdminStats() {
         const box = document.getElementById('adm-stats-content');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
@@ -2153,7 +2198,7 @@
         `;
     }
 
-    // 3. Withdraw Requests Manager (#1)
+    // 3. Withdraw Requests Manager
     function renderAdminWithdraws() {
         const box = document.getElementById('adm-withdraws-list');
         let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
@@ -2201,7 +2246,7 @@
         alert(`Withdraw #${wdId} is now ${status}!`);
     }
 
-    // 4. Add Order Folder (#6) & Create Service (Channel, Bot, PC, Mobile) (#2, #3, #4, #7)
+    // 4. Add Order Folder & Create Service
     function adminAddFolder() {
         const name = document.getElementById('adm-new-folder-name').value.trim();
         if (!name) { alert("⚠️ የ Folder ስም ያስገቡ!"); return; }
@@ -2490,7 +2535,7 @@
         }
     }
 
-    // 6. Add / Subtract User Balance (#8)
+    // 6. Add / Subtract User Balance
     function adminModifyUserBalance(mode) {
         const uid = document.getElementById('adm-bal-uid').value.trim();
         const amt = parseFloat(document.getElementById('adm-bal-amount').value);
@@ -2576,7 +2621,7 @@
         renderAdminBanks();
     }
 
-    // 8. Admin Deposits (Verified Receipts)
+    // 8. Admin Deposits
     function renderAdminDeposits() {
         const box = document.getElementById('adm-deposits-list');
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
@@ -2694,7 +2739,7 @@
         alert("🗑️ ቻናሉ ተሰርዟል!");
     }
 
-    // 10. Sub-Admin Management With Permissions (#10)
+    // 10. Sub-Admin Management With Permissions
     function adminAddSubAdmin() {
         const name = document.getElementById('adm-sub-name').value.trim();
         const uid = document.getElementById('adm-sub-uid').value.trim();
