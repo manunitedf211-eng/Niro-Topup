@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Niro Topup - Digital Gaming & Gift Store</title>
+    <title>Niro Topup - Digital Gaming, Devices & Marketplace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -31,6 +31,18 @@
             color: var(--text-main);
             padding-bottom: 85px;
             overflow-x: hidden;
+        }
+
+        /* Maintenance Overlay for Non-Admins (#11) */
+        #maintenance-screen {
+            position: fixed; inset: 0; background: linear-gradient(135deg, #064e3b, #0f172a);
+            color: #fff; z-index: 99999; display: none; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; padding: 28px;
+        }
+        #maintenance-screen .maint-icon {
+            width: 84px; height: 84px; border-radius: 24px; background: rgba(16, 185, 129, 0.18);
+            border: 2px solid #34d399; display: flex; align-items: center; justify-content: center;
+            font-size: 2.3rem; color: #34d399; margin-bottom: 18px;
         }
 
         /* Top Header */
@@ -116,7 +128,7 @@
         .product-card {
             background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
             overflow: hidden; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            position: relative;
+            position: relative; display: flex; flex-direction: column;
         }
         .product-card:active { transform: scale(0.98); }
         .product-card.coming-soon { opacity: 0.78; }
@@ -127,9 +139,21 @@
         .product-img {
             width: 100%; height: 125px; object-fit: cover; background: #0f172a; display: block;
         }
-        .product-info { padding: 10px 12px; }
+        .product-info { padding: 10px 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .product-info h4 { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
         .product-info small { font-size: 0.7rem; color: var(--primary); font-weight: 700; }
+
+        /* Channel & Bot Card Meta (#7) */
+        .ch-meta-box {
+            margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border-color);
+            font-size: 0.68rem; color: var(--text-muted); line-height: 1.45;
+        }
+        .ch-visit-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+            width: 100%; margin-top: 7px; padding: 6px 8px; border-radius: 9px;
+            background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary);
+            font-weight: 800; font-size: 0.7rem; text-decoration: none;
+        }
 
         /* Packages View Banner & Header */
         .game-poster-hero {
@@ -139,13 +163,20 @@
         }
         .game-poster-hero img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.38;
+            object-fit: cover; opacity: 0.45;
         }
         .game-poster-content { position: relative; z-index: 2; padding: 12px; }
         .game-poster-back {
             position: absolute; top: 12px; left: 12px; z-index: 4;
             background: rgba(15,23,42,0.75); color: #fff; border: none;
             width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+        }
+
+        /* Service / Device / Channel Note Banner (#3 & #7) */
+        .service-note-card {
+            background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px;
+            padding: 12px 14px; margin-bottom: 14px; font-size: 0.8rem; color: #78350f;
+            line-height: 1.55; display: none;
         }
 
         .player-id-bar {
@@ -175,7 +206,7 @@
             padding: 6px 15px; border-radius: 12px; font-weight: 800; font-size: 0.78rem; cursor: pointer;
         }
 
-        /* Bank Radio Selection Cards (Like Screenshot) */
+        /* Bank Radio Selection Cards */
         .bank-radio-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
         .bank-radio-card {
             background: #fff; border: 1.5px solid var(--border-color); border-radius: 14px;
@@ -196,11 +227,46 @@
             width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1;
             display: flex; align-items: center; justify-content: center;
         }
-        .bank-radio-card.selected .bank-radio-circle {
-            border-color: var(--primary);
-        }
+        .bank-radio-card.selected .bank-radio-circle { border-color: var(--primary); }
         .bank-radio-card.selected .bank-radio-circle::after {
             content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
+        }
+
+        /* Screenshot-Style Deposit / Pay & Confirm UI (#12) */
+        .dep-step-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; border-radius: 50%; background: var(--primary);
+            color: #fff; font-size: 0.72rem; font-weight: 800; margin-right: 6px;
+        }
+        .dep-step-title {
+            font-size: 0.74rem; font-weight: 800; color: var(--primary-dark);
+            letter-spacing: 0.5px; text-transform: uppercase; margin: 12px 0 8px;
+            display: flex; align-items: center;
+        }
+        .dep-info-card {
+            background: #f8fafc; border: 1px solid var(--border-color); border-radius: 16px;
+            padding: 12px 14px; margin-bottom: 10px;
+        }
+        .dep-row-copy {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 0; border-bottom: 1px solid #e2e8f0;
+        }
+        .dep-row-copy:last-child { border-bottom: none; padding-bottom: 0; }
+        .copy-icon-btn {
+            background: #fff; border: 1px solid var(--border-color); color: var(--text-muted);
+            width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; font-size: 0.9rem;
+        }
+        .copy-icon-btn:active { background: #ecfdf5; color: var(--primary); }
+        .example-receipt-bar {
+            background: #fff; border: 1px solid var(--border-color); border-radius: 14px;
+            padding: 11px 14px; display: flex; justify-content: space-between; align-items: center;
+            margin: 10px 0; cursor: pointer;
+        }
+        .verify-error-banner {
+            display: none; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c;
+            border-radius: 14px; padding: 12px 14px; font-size: 0.78rem; font-weight: 600;
+            margin: 10px 0; align-items: flex-start; gap: 10px;
         }
 
         /* Profile & Home Screen Shortcut Card */
@@ -273,7 +339,7 @@
             z-index: 10000; display: none; align-items: flex-end; justify-content: center;
         }
         .modal-sheet {
-            background: #fff; border-radius: 24px 24px 0 0; padding: 22px;
+            background: #fff; border-radius: 24px 24px 0 0; padding: 20px;
             width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto;
             animation: slideUp 0.25s ease;
         }
@@ -315,9 +381,46 @@
         }
         .switch-on { background: #16a34a; color: #fff; }
         .switch-off { background: #dc2626; color: #fff; }
+
+        /* Admin Stats & Bar Chart (#1) */
+        .stat-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .stat-box {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid #334155; border-radius: 14px; padding: 14px;
+        }
+        .stat-box small { color: #94a3b8; font-size: 0.72rem; font-weight: 700; }
+        .stat-box h3 { font-size: 1.35rem; font-weight: 900; margin-top: 4px; }
+        .chart-bars-wrap {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            height: 150px; padding: 16px 8px 4px; background: #0f172a;
+            border-radius: 12px; border: 1px solid #334155; gap: 8px;
+        }
+        .chart-bar-col {
+            flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end;
+        }
+        .chart-bar-fill {
+            width: 100%; max-width: 34px; border-radius: 8px 8px 0 0;
+            background: linear-gradient(180deg, #10b981, #0f766e); transition: height 0.4s ease;
+            min-height: 6px;
+        }
+        .perm-check-row {
+            display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 0.82rem;
+        }
     </style>
 </head>
 <body>
+
+    <!-- MAINTENANCE LOCK SCREEN FOR NON-ADMINS (#11) -->
+    <div id="maintenance-screen">
+        <div class="maint-icon"><i class="fas fa-tools"></i></div>
+        <h2 style="font-weight:900; font-size:1.35rem; margin-bottom:10px;">Niro Topup Store</h2>
+        <p style="font-size:0.95rem; color:#e2e8f0; line-height:1.6; max-width:340px;">
+            Niro Topup store update lay new eskistekakel tebku
+        </p>
+        <span style="margin-top:18px; background:rgba(255,255,255,0.1); padding:6px 14px; border-radius:20px; font-size:0.75rem; color:#a7f3d0;">
+            ⏳ በቅርቡ ይከፈታል (Maintenance Mode)
+        </span>
+    </div>
 
     <!-- TOP BAR -->
     <header class="top-nav">
@@ -354,22 +457,17 @@
 
             <div class="search-box">
                 <i class="fas fa-search" style="color: var(--text-muted);"></i>
-                <input type="text" id="store-search" data-i18n-ph="search_ph" placeholder="ጨዋታ ወይም አገልግሎት ይፈልጉ..." oninput="renderHomeStore()">
+                <input type="text" id="store-search" data-i18n-ph="search_ph" placeholder="ጨዋታ፣ ስልክ፣ ቻናል ወይም አገልግሎት ይፈልጉ..." oninput="renderHomeStore()">
             </div>
 
-            <div class="cat-scroll" id="home-cat-pills">
-                <button class="cat-pill active" onclick="filterStore('all')" data-i18n="cat_all">ሁሉም (ALL)</button>
-                <button class="cat-pill" onclick="filterStore('topup')">🎮 TOP UP</button>
-                <button class="cat-pill" onclick="filterStore('telegram')">⭐ TELEGRAM STARS & PREMIUM</button>
-                <button class="cat-pill" onclick="filterStore('giftcard')">🎁 GIFT CARDS & CRYPTO</button>
-            </div>
+            <!-- Dynamic Folder / Category Pills (#2 & #6) -->
+            <div class="cat-scroll" id="home-cat-pills"></div>
 
             <div id="store-sections-container"></div>
         </section>
 
         <!-- 1B. PRODUCT PACKAGES DETAIL VIEW -->
         <section id="tab-packages" class="tab-content">
-            <!-- Game Poster Header -->
             <div class="game-poster-hero">
                 <button class="game-poster-back" onclick="switchTab('home')"><i class="fas fa-arrow-left"></i></button>
                 <img id="pkg-poster-bg" src="" alt="">
@@ -380,7 +478,10 @@
                 </div>
             </div>
 
-            <!-- Player ID Box -->
+            <!-- Product / Device / Channel Detailed Note & Direct Link (#3 & #7) -->
+            <div id="pkg-service-note-box" class="service-note-card"></div>
+
+            <!-- Player ID / Delivery Address Box -->
             <div class="player-id-bar" onclick="openPlayerIdModal()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <img id="pkg-game-thumb" src="" style="width:44px; height:44px; border-radius:12px; object-fit:cover;">
@@ -392,7 +493,7 @@
                 <button class="btn-primary" style="width:auto; padding:8px 14px; border-radius:10px; font-size:0.78rem; font-weight:800;" data-i18n="enter_id_btn">ID ያስገቡ</button>
             </div>
 
-            <h4 style="font-size:0.9rem; margin-bottom:10px;" data-i18n="select_pkg">⚡ መጠን ይምረጡ (Select Package)</h4>
+            <h4 style="font-size:0.9rem; margin-bottom:10px;" data-i18n="select_pkg">⚡ መጠን / አማራጭ ይምረጡ (Select Package)</h4>
             <div class="store-grid" id="packages-grid-container"></div>
         </section>
 
@@ -418,7 +519,7 @@
             </p>
         </section>
 
-        <!-- 4. ACCOUNT TAB (WITH 4 LANGUAGES, PROFILE LOGO, HOME SHORTCUT & INVITE) -->
+        <!-- 4. ACCOUNT TAB -->
         <section id="tab-account" class="tab-content">
             <div class="profile-header-box">
                 <img id="acc-avatar-img" src="" class="profile-avatar-img" alt="Avatar">
@@ -428,7 +529,6 @@
                 </div>
             </div>
 
-            <!-- Add to Home Screen Shortcut Button (#10) -->
             <div class="shortcut-banner-btn" onclick="triggerAddToHomeScreen()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-mobile-alt" style="color:var(--primary); font-size:1.15rem;"></i>
@@ -437,7 +537,7 @@
                 <i class="fas fa-chevron-right" style="color:var(--text-muted);"></i>
             </div>
 
-            <!-- Invite Friends Card (#6) -->
+            <!-- Invite Friends Card (#5 Fixed to @Niro_1Topup_Bot) -->
             <div class="hero-card">
                 <small style="color:#34d399; font-weight:800;"><i class="fas fa-users"></i> <span data-i18n="invite_title">ጓደኞችዎን ይጋብዙ</span></small>
                 <h3 style="font-size:1.15rem; font-weight:900; margin:4px 0;" data-i18n="earn_30">ከትርፉ 30% ያግኙ</h3>
@@ -454,11 +554,9 @@
                 <button class="btn" style="background:#10b981; color:#fff;" onclick="shareInviteLink()"><i class="fas fa-paper-plane"></i> <span data-i18n="share_btn">ለጓደኛ ያጋሩ</span></button>
             </div>
 
-            <!-- 4 LANGUAGES SELECTOR (#5 & #8) -->
             <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;" data-i18n="lang_header">🌐 ቋንቋ ይምረጡ (LANGUAGE)</h4>
             <div class="lang-grid" id="language-selector-grid"></div>
 
-            <!-- HELP & COMMUNITY -->
             <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;" data-i18n="help_header">እገዛ እና ቻናሎች</h4>
             <div class="card" style="padding:0;" id="community-links-container"></div>
         </section>
@@ -473,20 +571,16 @@
                 <button onclick="closeModal('direct-buy-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
 
-            <!-- Visual Bank Selector With Logos (#11) -->
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;" data-i18n="how_to_pay">1. እንዴት መክፈል ይፈልጋሉ?</label>
             <div class="bank-radio-list" id="buy-bank-radio-list"></div>
             <div id="buy-bank-details" style="background:#ecfdf5; border:1px dashed var(--primary); padding:10px 12px; border-radius:12px; margin-bottom:12px; font-size:0.82rem;"></div>
 
-            <!-- Target ID / Username / BEP20 (#7) -->
-            <label id="buy-target-label" style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">2. መለያ ቁጥር ያስገቡ</label>
+            <label id="buy-target-label" style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">2. መለያ ቁጥር / አድራሻ ያስገቡ</label>
             <input type="text" class="form-control" id="buy-target-id" placeholder="">
 
-            <!-- Sender Full Name -->
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);" data-i18n="sender_lbl">3. የላኪ ሙሉ ስም (Sender Name)</label>
             <input type="text" class="form-control" id="buy-sender-name" placeholder="የከፈሉበት ስም">
 
-            <!-- FULL TRANSACTION SMS MESSAGE -->
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);" data-i18n="sms_lbl">4. ሙሉ የ Transaction መልእክት (Full SMS Message)</label>
             <textarea class="form-control" id="buy-full-txn-msg" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የክፍያ መልእክት እዚህ ይለጥፉ..."></textarea>
 
@@ -497,33 +591,118 @@
         </div>
     </div>
 
-    <!-- PLAYER ID QUICK SAVE MODAL (#7 Strict Validation) -->
+    <!-- PLAYER ID / ADDRESS QUICK SAVE MODAL -->
     <div class="modal-screen" id="playerid-modal">
         <div class="modal-sheet">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
                 <h3 id="modal-id-title" style="font-weight:900;">PLAYER ID</h3>
                 <button onclick="closeModal('playerid-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-            <label id="modal-id-sublabel" style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:6px;">የጨዋታ መለያ ቁጥር</label>
+            <label id="modal-id-sublabel" style="font-size:0.78rem; color:var(--text-muted); display:block; margin-bottom:6px;">መለያ ቁጥር</label>
             <input type="text" class="form-control" id="input-player-id" placeholder="">
             <small id="modal-id-format-hint" style="display:block; color:var(--primary); font-size:0.72rem; margin-bottom:10px;"></small>
             <button class="btn btn-primary" onclick="savePlayerId()" data-i18n="confirm_btn">አረጋግጥ (Confirm)</button>
         </div>
     </div>
 
-    <!-- WALLET DEPOSIT MODAL WITH BANK LOGOS (#11) -->
+    <!-- WALLET DEPOSIT MODAL (SCREENSHOT STYLE + STRICT 4-POINT TELEBIRR VERIFICATION #12) -->
     <div class="modal-screen" id="deposit-modal">
         <div class="modal-sheet">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                <h3 style="font-weight:900;" data-i18n="how_to_pay">እንዴት መክፈል ይፈልጋሉ?</h3>
-                <button onclick="closeModal('deposit-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div class="bank-logo-box" id="dep-header-logo"></div>
+                    <div>
+                        <small style="font-size:0.65rem; font-weight:800; color:var(--text-muted); letter-spacing:0.6px;">BANK TRANSFER</small>
+                        <h3 id="dep-header-bank-name" style="font-weight:900; font-size:1.05rem;">TELEBIRR</h3>
+                    </div>
+                </div>
+                <button onclick="closeModal('deposit-modal')" style="background:#f1f5f9; border:none; width:32px; height:32px; border-radius:50%; font-weight:800;">X</button>
             </div>
+
+            <!-- Select Payment Method -->
             <div class="bank-radio-list" id="dep-bank-radio-list"></div>
-            <div id="dep-account-info-box" style="background:#ecfdf5; border:1px dashed var(--primary); padding:12px; border-radius:12px; margin-bottom:12px; font-size:0.85rem;"></div>
-            <input type="number" class="form-control" id="dep-amount" placeholder="የገንዘብ መጠን በብር (ETB)">
-            <input type="text" class="form-control" id="dep-sender-name" placeholder="የላኪ ሙሉ ስም">
-            <textarea class="form-control" id="dep-txn-id" rows="3" placeholder="ሙሉ የ Transaction መልእክት (Full SMS Message)..."></textarea>
-            <button class="btn btn-primary" onclick="submitDepositRequest()" data-i18n="submit_dep_btn">ክፍያውን ላክ (Submit Deposit)</button>
+
+            <!-- STEP 1: TRANSFER EXACT AMOUNT -->
+            <div class="dep-step-title"><span class="dep-step-badge">1</span> TRANSFER EXACT AMOUNT</div>
+            <div class="dep-info-card">
+                <small style="font-size:0.66rem; font-weight:700; color:var(--text-muted);">TOTAL AMOUNT (ETB)</small>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; gap:8px;">
+                    <input type="number" id="dep-amount" value="500" oninput="updateDepositExactLabel()" style="border:none; background:transparent; font-size:1.55rem; font-weight:900; color:var(--primary); width:100%; outline:none;">
+                    <span style="font-weight:900; color:var(--primary);">ETB</span>
+                    <button class="copy-icon-btn" onclick="copyTextValue(document.getElementById('dep-amount').value, 'መጠኑ ተቀድቷል!')"><i class="far fa-copy"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 2: RECIPIENT INFORMATION -->
+            <div class="dep-step-title"><span class="dep-step-badge">2</span> RECIPIENT INFORMATION</div>
+            <div class="dep-info-card">
+                <div class="dep-row-copy">
+                    <div>
+                        <small style="font-size:0.65rem; font-weight:700; color:var(--text-muted);">ACCOUNT HOLDER NAME</small>
+                        <div id="dep-rec-owner" style="font-weight:900; font-size:0.9rem;">MULUALEM</div>
+                    </div>
+                    <button class="copy-icon-btn" onclick="copyTextValue(document.getElementById('dep-rec-owner').innerText, 'ስሙ ተቀድቷል!')"><i class="far fa-copy"></i></button>
+                </div>
+                <div class="dep-row-copy">
+                    <div>
+                        <small style="font-size:0.65rem; font-weight:700; color:var(--text-muted);">ACCOUNT NUMBER</small>
+                        <div id="dep-rec-acc" style="font-weight:900; font-size:0.95rem; letter-spacing:0.5px;">0974107425</div>
+                    </div>
+                    <button class="copy-icon-btn" onclick="copyTextValue(document.getElementById('dep-rec-acc').innerText, 'ቁጥሩ ተቀድቷል!')"><i class="far fa-copy"></i></button>
+                </div>
+            </div>
+
+            <!-- EXAMPLE RECEIPT GUIDE BAR -->
+            <div class="example-receipt-bar" onclick="openExampleReceiptModal()">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:36px; height:36px; border-radius:10px; background:#ecfdf5; color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight:800; font-size:0.8rem;">EXAMPLE RECEIPT</div>
+                        <small style="font-size:0.68rem; color:var(--text-muted);">TAP TO VIEW GUIDE (ምሳሌ ይመልከቱ)</small>
+                    </div>
+                </div>
+                <i class="fas fa-expand-alt" style="color:var(--text-muted);"></i>
+            </div>
+
+            <!-- STEP 3: SUBMIT PROOF -->
+            <div class="dep-step-title"><span class="dep-step-badge">3</span> SUBMIT PROOF</div>
+            <p style="font-size:0.74rem; color:var(--text-muted); margin-bottom:8px;">
+                ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የ Transaction SMS መልእክት እዚህ ይለጥፉ፦
+            </p>
+            <textarea class="form-control" id="dep-txn-sms" rows="3" placeholder="Dear ... You have transferred ETB ... Your transaction number is ..."></textarea>
+
+            <!-- STRICT VERIFICATION ERROR BOX (#12) -->
+            <div id="dep-verify-error" class="verify-error-banner">
+                <i class="fas fa-exclamation-circle" style="font-size:1.1rem; margin-top:2px;"></i>
+                <div id="dep-verify-error-text">ትክክለኛ አይደለም! እባክዎ የክፍያ መልእክቱን ያረጋግጡ።</div>
+            </div>
+
+            <button class="btn btn-dark" style="padding:14px; font-size:0.9rem; letter-spacing:0.5px;" onclick="submitDepositRequest()">
+                SUBMIT PAYMENT
+            </button>
+        </div>
+    </div>
+
+    <!-- EXAMPLE RECEIPT GUIDE MODAL -->
+    <div class="modal-screen" id="example-receipt-modal">
+        <div class="modal-sheet">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 style="font-weight:900; font-size:0.95rem;">📄 ትክክለኛ የ Telebirr መልእክት ምሳሌ</h3>
+                <button onclick="closeModal('example-receipt-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
+            </div>
+            <div style="background:#f8fafc; border:1px solid var(--border-color); border-radius:14px; padding:14px; font-size:0.78rem; line-height:1.6; color:#1e293b;">
+                <b>Dear Customer,</b><br>
+                You have transferred <b>ETB 500.00</b> to <b id="ex-rec-name">Mulualem</b> (<b id="ex-rec-phone">0974107425</b>) on 15/11/2026.<br>
+                Your transaction number is <b style="color:var(--primary);">DA16GONJ1I</b>.<br>
+                Thank you for using telebirr.<br>
+                Ethio telecom
+            </div>
+            <p style="font-size:0.75rem; color:var(--danger); font-weight:700; margin:10px 0;">
+                ⚠️ ማሳሰቢያ፦ መጠኑ (ETB)፣ የተላከለት ስልክ/ስም እና Transaction Number ትክክል ካልሆነ ወይም ከዚህ በፊት የተላከ ከሆነ ሲስተሙ አይቀበልም!
+            </p>
+            <button class="btn btn-primary" onclick="closeModal('example-receipt-modal')">ገባኝ (Got it)</button>
         </div>
     </div>
 
@@ -534,7 +713,9 @@
                 <h3 style="font-weight:900;" data-i18n="withdraw_btn">WITHDRAW (ገንዘብ ማውጫ)</h3>
                 <button onclick="closeModal('withdraw-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-            <input type="text" class="form-control" id="wd-phone" placeholder="የቴሌብር ስልክ ቁጥር (09...)">
+            <input type="text" class="form-control" id="wd-method" placeholder="ባንክ ወይም ቴሌብር (ምሳሌ፦ Telebirr / CBE)">
+            <input type="text" class="form-control" id="wd-owner" placeholder="የአካውንት ባለቤት ሙሉ ስም">
+            <input type="text" class="form-control" id="wd-phone" placeholder="የቴሌብር ስልክ ወይም የባንክ አካውንት ቁጥር">
             <input type="number" class="form-control" id="wd-amt" placeholder="የሚያወጡት መጠን (ETB)">
             <button class="btn btn-primary" onclick="submitWithdrawRequest()" data-i18n="withdraw_btn">ገንዘብ አውጣ</button>
         </div>
@@ -549,7 +730,7 @@
     </nav>
 
     <!-- ==========================================
-         ADMIN PANEL (FULL CONTROL ENGINE)
+         ADMIN PANEL (ALL 12 FEATURES INTEGRATED)
     ========================================== -->
     <div id="admin-overlay">
         <div class="adm-header">
@@ -557,51 +738,100 @@
             <button onclick="toggleAdmin(false)" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-weight:700;">ዝጋ</button>
         </div>
 
-        <div class="adm-tabs">
-            <button class="adm-tab-btn active" onclick="switchAdm('adm-orders-tab')">📦 Orders</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-services-tab')">🆕 Services & Logos (ON/OFF)</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-products-tab')">🎮 Add / Edit Packages</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-banks-tab')">🏦 Banks & Logos</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-branding-tab')">🖼️ Profile Logo & Broadcast</button>
-            <button class="adm-tab-btn" onclick="switchAdm('adm-deposits-tab')">💰 Deposits</button>
+        <div class="adm-tabs" id="adm-nav-tabs">
+            <button class="adm-tab-btn active" data-perm="orders" onclick="switchAdm('adm-orders-tab')">📦 Orders</button>
+            <button class="adm-tab-btn" data-perm="stats" onclick="switchAdm('adm-stats-tab')">📊 Statistics</button>
+            <button class="adm-tab-btn" data-perm="withdraws" onclick="switchAdm('adm-withdraws-tab')">💸 Withdraws</button>
+            <button class="adm-tab-btn" data-perm="deposits" onclick="switchAdm('adm-deposits-tab')">💰 Deposits</button>
+            <button class="adm-tab-btn" data-perm="services" onclick="switchAdm('adm-services-tab')">🆕 Add Order/Service & Folders</button>
+            <button class="adm-tab-btn" data-perm="packages" onclick="switchAdm('adm-products-tab')">🎮 Add Packages</button>
+            <button class="adm-tab-btn" data-perm="balance" onclick="switchAdm('adm-balance-tab')">💳 User Balance</button>
+            <button class="adm-tab-btn" data-perm="banks" onclick="switchAdm('adm-banks-tab')">🏦 Banks</button>
+            <button class="adm-tab-btn" data-perm="admins" onclick="switchAdm('adm-admins-tab')">👮 Add Admin & App ON/OFF</button>
+            <button class="adm-tab-btn" data-perm="branding" onclick="switchAdm('adm-branding-tab')">🖼️ Proof Ch & Broadcast</button>
         </div>
 
-        <!-- 1. CUSTOMER ORDERS REQUESTS -->
+        <!-- 1. CUSTOMER ORDERS REQUESTS & PROOF CHANNEL AUTO-POST (#9) -->
         <div id="adm-orders-tab" class="adm-page active">
-            <h3 style="margin-bottom:10px;">📦 የደንበኞች ትዕዛዞች (Orders & Receipts)</h3>
+            <h3 style="margin-bottom:10px;">📦 የደንበኞች ትዕዛዞች (Orders & Proof Channel)</h3>
             <div id="adm-orders-list"></div>
         </div>
 
-        <!-- 2. CREATE NEW SERVICE/CATEGORY + GALLERY LOGO/POSTER + ON/OFF (#1, #2, #3, #4, #7, #9) -->
-        <div id="adm-services-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">🆕 አዲስ አገልግሎት / ጨዋታ መፍጠሪያ</h3>
+        <!-- 2. STATISTICS & DAILY SALES GRAPH (#1) -->
+        <div id="adm-stats-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">📊 የዛሬ እና ጠቅላላ የስራ ሪፖርት (Statistics)</h3>
+            <div id="adm-stats-summary-cards"></div>
             <div class="adm-card">
-                <label style="font-size:0.78rem; color:#94a3b8;">1. የአገልግሎቱ ስም (በራስዎ ጽሑፍ ይጻፉ - ምሳሌ: USDT BEP20, TikTok Coins, Netflix)</label>
+                <b style="color:var(--gold); font-size:0.88rem;">📈 የባለፉት 7 ቀናት የሽያጭ ግራፍ (ETB Sales Graph)</b>
+                <p style="font-size:0.74rem; color:#94a3b8; margin:4px 0 10px;">በየቀኑ የተሸጡ እቃዎች እና የተገኘ ገቢ በብር</p>
+                <div class="chart-bars-wrap" id="adm-sales-bar-chart"></div>
+            </div>
+            <div class="adm-card">
+                <b style="color:#38bdf8; font-size:0.86rem;">🧾 የዛሬ የተሸጡ እቃዎች ዝርዝር</b>
+                <div id="adm-today-items-breakdown" style="margin-top:8px; font-size:0.8rem;"></div>
+            </div>
+        </div>
+
+        <!-- 3. WITHDRAW REQUESTS (#1) -->
+        <div id="adm-withdraws-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">💸 የደንበኞች ገንዘብ ማውጫ ጥያቄዎች (Withdraw Requests)</h3>
+            <div id="adm-withdraws-list"></div>
+        </div>
+
+        <!-- 4. DEPOSIT APPROVALS -->
+        <div id="adm-deposits-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">💰 የ Wallet ገንዘብ ማስገቢያ ጥያቄዎች</h3>
+            <div id="adm-deposits-list"></div>
+        </div>
+
+        <!-- 5. ADD NEW SERVICE/ORDER + FOLDERS + CHANNEL/BOT + NOTE (#2, #3, #4, #6, #7) -->
+        <div id="adm-services-tab" class="adm-page">
+            <!-- Create New Order Folder / Category (#6) -->
+            <h3 style="margin-bottom:8px;">📁 አዲስ የ Order Folder / Category መፍጠሪያ</h3>
+            <div class="adm-card">
+                <div style="display:flex; gap:8px;">
+                    <input type="text" class="adm-input" id="adm-new-folder-name" style="margin-bottom:0;" placeholder="የ Folder ስም (ምሳሌ፦ 📱 Mobile Phones, 💻 Laptops)">
+                    <button class="btn btn-gold" style="width:auto; padding:0 16px;" onclick="adminAddFolder()">+ Folder</button>
+                </div>
+                <div id="adm-folders-tags" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;"></div>
+            </div>
+
+            <h3 style="margin:14px 0 8px;">🆕 አዲስ Order / እቃ / ቻናል / ቦት መጨመሪያ</h3>
+            <div class="adm-card">
+                <label style="font-size:0.78rem; color:#94a3b8;">1. ስም (ምሳሌ፦ iPhone 15 Pro, Gaming PC, @MyChannel, PUBG)</label>
                 <input type="text" class="adm-input" id="adm-srv-name" placeholder="ስም ይጻፉ...">
 
-                <label style="font-size:0.78rem; color:#94a3b8;">2. ምድብ (Category)</label>
-                <select class="adm-input" id="adm-srv-cat">
-                    <option value="topup">🎮 TOP UP (Games)</option>
-                    <option value="telegram">⭐ TELEGRAM STARS & PREMIUM</option>
-                    <option value="giftcard">🎁 GIFT CARDS & CRYPTO / OTHER</option>
-                </select>
+                <label style="font-size:0.78rem; color:#94a3b8;">2. ምድብ / Folder ይምረጡ (Channel, Bot, PC, Mobile, TopUp...)</label>
+                <select class="adm-input" id="adm-srv-cat" onchange="toggleChannelFieldsInAdmin()"></select>
 
-                <label style="font-size:0.78rem; color:#94a3b8;">3. ደንበኛው የሚያስገባው መለያ አማራጭ (Input Validation Type)</label>
+                <!-- Extra Fields specifically when Channel or Bot is selected (#7) -->
+                <div id="adm-channel-extra-fields" style="display:none; background:#0f172a; padding:12px; border-radius:12px; border:1px solid #334155; margin-bottom:10px;">
+                    <b style="color:#34d399; font-size:0.8rem; display:block; margin-bottom:8px;">📢 የ Channel / Bot ዝርዝር መረጃ</b>
+                    <input type="text" class="adm-input" id="adm-ch-link-url" placeholder="የ Channel ወይም Bot ሊንክ (https://t.me/...)">
+                    <input type="number" class="adm-input" id="adm-ch-price-val" placeholder="ዋጋ በብር (Price ETB)">
+                    <input type="text" class="adm-input" id="adm-ch-members-val" placeholder="የ Member ብዛት (ምሳሌ፦ 12,500 Members)">
+                    <textarea class="adm-input" id="adm-ch-content-val" rows="2" placeholder="ስለ Channel / Bot Content መግለጫ..."></textarea>
+                </div>
+
+                <label style="font-size:0.78rem; color:#94a3b8;">3. ስለ እቃው Note / መግለጫ (ስልክ/PC ከሆነ ስለ እቃው መረጃ እዚህ ይጻፉ #3)</label>
+                <textarea class="adm-input" id="adm-srv-note" rows="3" placeholder="ምሳሌ፦ Samsung S24 Ultra, 256GB Storage, 12GB RAM, 100% Original..."></textarea>
+
+                <label style="font-size:0.78rem; color:#94a3b8;">4. ደንበኛው የሚያስገባው መለያ አማራጭ</label>
                 <select class="adm-input" id="adm-srv-valtype">
-                    <option value="game_id">🎮 Game Player ID (ቁጥር ብቻ - PUBG/FreeFire)</option>
-                    <option value="tg_user">✈️ Telegram @username ወይም Telegram ID</option>
-                    <option value="usdt_bep20">💲 USDT (Binance ID ወይም BEP20 0x... Address ብቻ)</option>
-                    <option value="email">📧 Email Address (ለ Gift Cards)</option>
+                    <option value="game_id">🎮 Game Player ID (PUBG/FreeFire)</option>
+                    <option value="tg_user">✈️ Telegram @username ወይም ID</option>
+                    <option value="phone_addr">📞 ስልክ ቁጥር እና አድራሻ (ለ Mobile / PC / እቃ)</option>
+                    <option value="usdt_bep20">💲 USDT (Binance ID ወይም BEP20 Address)</option>
                     <option value="any">📝 ማንኛውም መለያ ጽሑፍ</option>
                 </select>
 
-                <label style="font-size:0.78rem; color:#94a3b8;">4. ዋና Logo ከ Gallery ይምረጡ</label>
+                <label style="font-size:0.78rem; color:#94a3b8;">5. ዋና Logo / Photo ከ Gallery ይምረጡ</label>
                 <div class="file-upload-box" onclick="document.getElementById('adm-srv-logo-file').click()">
-                    <i class="fas fa-image" style="color:var(--gold);"></i> <span id="adm-srv-logo-status">Logo ከ Gallery ይምረጡ</span>
+                    <i class="fas fa-image" style="color:var(--gold);"></i> <span id="adm-srv-logo-status">Logo / Photo ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-srv-logo-file" accept="image/*" style="display:none;" onchange="handleGalleryImage(this, 'newSrvLogo', 'adm-srv-logo-status')">
                 </div>
 
-                <label style="font-size:0.78rem; color:#94a3b8;">5. የጀርባ Poster / Banner ከ Gallery ይምረጡ (አማራጭ)</label>
+                <label style="font-size:0.78rem; color:#94a3b8;">6. የጀርባ Poster / Banner ከ Gallery ይምረጡ</label>
                 <div class="file-upload-box" onclick="document.getElementById('adm-srv-poster-file').click()">
                     <i class="fas fa-panorama" style="color:#38bdf8;"></i> <span id="adm-srv-poster-status">Poster ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-srv-poster-file" accept="image/*" style="display:none;" onchange="handleGalleryImage(this, 'newSrvPoster', 'adm-srv-poster-status')">
@@ -610,20 +840,19 @@
                 <button class="btn btn-primary" onclick="adminCreateNewService()">✅ አክል (Add to Home)</button>
             </div>
 
-            <h3 style="margin:14px 0 8px;">⚙️ ያሉትን አገልግሎቶች መቆጣጠሪያ (ON/OFF & Logo/Poster መቀየሪያ)</h3>
+            <h3 style="margin:14px 0 8px;">⚙️ ያሉትን አገልግሎቶች መቆጣጠሪያ (ON/OFF, Logo & Poster መቀየሪያ #4)</h3>
             <div id="adm-manage-services-list"></div>
         </div>
 
-        <!-- 3. ADD & DELETE PACKAGES -->
+        <!-- 6. ADD & DELETE PACKAGES -->
         <div id="adm-products-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">🎮 አዲስ ፓኬጅ መጨመሪያ</h3>
+            <h3 style="margin-bottom:10px;">🎮 አዲስ ፓኬጅ / ዋጋ መጨመሪያ</h3>
             <div class="adm-card">
-                <label style="font-size:0.78rem; color:#94a3b8;">አገልግሎት ይምረጡ</label>
+                <label style="font-size:0.78rem; color:#94a3b8;">አገልግሎት / እቃ ይምረጡ</label>
                 <select class="adm-input" id="adm-pkg-game-id"></select>
-                <input type="text" class="adm-input" id="adm-pkg-name" placeholder="የፓኬጁ ስም (ምሳሌ፦ 60 UC ወይም 50 USDT)">
+                <input type="text" class="adm-input" id="adm-pkg-name" placeholder="የፓኬጁ ወይም የእቃው ስም (ምሳሌ፦ 60 UC ወይም 128GB Black)">
                 <input type="number" class="adm-input" id="adm-pkg-price" placeholder="ዋጋ በብር (ምሳሌ፦ 180)">
                 <input type="text" class="adm-input" id="adm-pkg-badge" placeholder="Badge (ምሳሌ፦ ጠቅላላ - አማራጭ)">
-                <label style="font-size:0.78rem; color:#94a3b8;">የፓኬጁ ሎጎ ከ Gallery (አማራጭ - ካልተመረጠ የዋናውን ሎጎ ይጠቀማል)</label>
                 <div class="file-upload-box" onclick="document.getElementById('adm-pkg-img-file').click()">
                     <i class="fas fa-upload" style="color:var(--gold);"></i> <span id="adm-pkg-img-status">የፓኬጅ ምስል ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-pkg-img-file" accept="image/*" style="display:none;" onchange="handleGalleryImage(this, 'newPkgImg', 'adm-pkg-img-status')">
@@ -633,11 +862,25 @@
             <div id="adm-existing-products-list"></div>
         </div>
 
-        <!-- 4. BANKS & TELEBIRR WITH LOGOS (#11) -->
+        <!-- 7. USER BALANCE ADD / DEDUCT (#8) -->
+        <div id="adm-balance-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">💳 ለደንበኛ Balance መጨመሪያ / መቀነሻ</h3>
+            <div class="adm-card">
+                <label style="font-size:0.78rem; color:#94a3b8;">የደንበኛው Telegram ID</label>
+                <input type="text" class="adm-input" id="adm-bal-target-uid" placeholder="ምሳሌ፦ 8797798511">
+                <label style="font-size:0.78rem; color:#94a3b8;">የገንዘብ መጠን በብር (ETB)</label>
+                <input type="number" class="adm-input" id="adm-bal-amount" placeholder="ምሳሌ፦ 500">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <button class="btn btn-primary" onclick="adminAdjustUserBalance('add')">➕ Balance ጨምር</button>
+                    <button class="btn btn-danger" onclick="adminAdjustUserBalance('deduct')">➖ Balance ቀንስ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. BANKS & TELEBIRR WITH LOGOS -->
         <div id="adm-banks-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">🏦 የባንክና የክፍያ መንገድ መጨመሪያ</h3>
             <div class="adm-card">
-                <label style="font-size:0.78rem; color:#94a3b8;">1. የታወቀ ባንክ ይምረጡ (ለዝግጁ ሎጎ) ወይም ከታች ስም ይጻፉ</label>
                 <select class="adm-input" id="adm-bank-preset" onchange="applyBankPreset()">
                     <option value="">-- ዝግጁ ባንክ ይምረጡ (አማራጭ) --</option>
                     <option value="Telebirr">Telebirr</option>
@@ -651,29 +894,63 @@
                 <input type="text" class="adm-input" id="adm-bank-title" placeholder="የባንኩ ስም (Telebirr / CBE...)">
                 <input type="text" class="adm-input" id="adm-bank-acc" placeholder="ስልክ ወይም አካውንት ቁጥር">
                 <input type="text" class="adm-input" id="adm-bank-owner" placeholder="የአካውንት ባለቤት ስም">
-                <input type="text" class="adm-input" id="adm-bank-note" placeholder="አጭር መግለጫ (ምሳሌ፦ ፈጣን ማስተላለፊያ)">
-
-                <label style="font-size:0.78rem; color:#94a3b8;">2. የባንኩን ሎጎ ከ Gallery ይቀይሩ (አማራጭ)</label>
+                <input type="text" class="adm-input" id="adm-bank-note" placeholder="አጭር መግለጫ">
                 <div class="file-upload-box" onclick="document.getElementById('adm-bank-logo-file').click()">
                     <i class="fas fa-university" style="color:var(--gold);"></i> <span id="adm-bank-logo-status">የባንክ ሎጎ ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-bank-logo-file" accept="image/*" style="display:none;" onchange="handleGalleryImage(this, 'newBankLogo', 'adm-bank-logo-status')">
                 </div>
-
                 <button class="btn btn-primary" onclick="adminAddPaymentMethod()">+ አካውንት ጨምር</button>
             </div>
             <div id="adm-existing-banks-list"></div>
         </div>
 
-        <!-- 5. PROFILE LOGO, APP LOGO, BROADCAST & CHANNELS (#9) -->
+        <!-- 9. ADD ADMIN WITH PERMISSIONS (#10) & MINI APP ON/OFF (#11) -->
+        <div id="adm-admins-tab" class="adm-page">
+            <h3 style="margin-bottom:10px;">🔌 Mini App ON / OFF መቆጣጠሪያ</h3>
+            <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <b>Mini App Status</b><br>
+                    <small style="color:#94a3b8;">OFF ሲሆን ለደንበኞች Update መልእክት ያሳያል፤ ለ Admin ግን ይሰራል</small>
+                </div>
+                <button id="adm-app-switch-btn" class="switch-pill switch-on" onclick="adminToggleMiniAppStatus()">ON (ይሰራል)</button>
+            </div>
+
+            <h3 style="margin:14px 0 8px;">👮 አዲስ Admin መጨመሪያ እና ፍቃድ መስጫ</h3>
+            <div class="adm-card">
+                <label style="font-size:0.78rem; color:#94a3b8;">የ Admin Telegram ID</label>
+                <input type="text" class="adm-input" id="adm-new-admin-id" placeholder="ምሳሌ፦ 123456789">
+                <input type="text" class="adm-input" id="adm-new-admin-name" placeholder="የ Admin ስም">
+
+                <b style="font-size:0.8rem; color:var(--gold); display:block; margin:6px 0;">ለዚህ Admin የሚፈቀዱለትን ተግባራት ይምረጡ፦</b>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="orders" checked> 📦 Orders ማየት እና Approve/Reject ማድረግ</label>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="deposits" checked> 💰 Deposits ማጽደቅ</label>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="withdraws"> 💸 Withdraws ማጽደቅ</label>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="services"> 🆕 አዲስ እቃ / ቻናል / ፓኬጅ መጨመር</label>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="balance"> 💳 Balance መጨመር</label>
+                <label class="perm-check-row"><input type="checkbox" class="adm-perm-cb" value="stats"> 📊 Statistics ማየት</label>
+
+                <button class="btn btn-gold" style="margin-top:8px;" onclick="adminAddSubAdmin()">+ Admin አክል</button>
+            </div>
+            <div id="adm-subadmins-list"></div>
+        </div>
+
+        <!-- 10. PROOF CHANNEL, PROFILE LOGO & BROADCAST (#9) -->
         <div id="adm-branding-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">🖼️ የመገለጫ ሎጎ (Profile Avatar) መቀየሪያ</h3>
+            <h3 style="margin-bottom:10px;">✅ የ Proof Channel ማስተካከያ (Approve ሲደረግ የሚላክበት)</h3>
+            <div class="adm-card">
+                <label style="font-size:0.78rem; color:#94a3b8;">Proof Channel Username ወይም Link (ምሳሌ፦ @NiroProofChannel)</label>
+                <input type="text" class="adm-input" id="adm-proof-channel-inp" placeholder="@NiroProofChannel">
+                <button class="btn btn-primary" onclick="adminSaveProofChannel()">💾 Proof Channel አስቀምጥ</button>
+            </div>
+
+            <h3 style="margin:14px 0 8px;">🖼️ የመገለጫ እና Store ሎጎ መቀየሪያ</h3>
             <div class="adm-card">
                 <div class="file-upload-box" onclick="document.getElementById('adm-prof-logo-file').click()">
                     <i class="fas fa-user-circle" style="color:var(--gold);"></i> <span>የ Profile ሎጎ ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-prof-logo-file" accept="image/*" style="display:none;" onchange="adminUpdateGlobalLogo(this, 'niro_profile_avatar_v3')">
                 </div>
                 <div class="file-upload-box" onclick="document.getElementById('adm-app-logo-file').click()">
-                    <i class="fas fa-store" style="color:#38bdf8;"></i> <span>የላይኛውን የ Store ሎጎ ከ Gallery ይምረጡ</span>
+                    <i class="fas fa-store" style="color:#38bdf8;"></i> <span>የ Store ሎጎ ከ Gallery ይምረጡ</span>
                     <input type="file" id="adm-app-logo-file" accept="image/*" style="display:none;" onchange="adminUpdateGlobalLogo(this, 'niro_store_logo_v3')">
                 </div>
             </div>
@@ -687,7 +964,7 @@
                 </div>
             </div>
 
-            <h3 style="margin:14px 0 8px;">🔗 ቻናል / Proof ሊንክ መጨመሪያ</h3>
+            <h3 style="margin:14px 0 8px;">🔗 ቻናል / Community ሊንክ መጨመሪያ</h3>
             <div class="adm-card">
                 <select class="adm-input" id="adm-ch-type">
                     <option value="Proof Channel">✅ Proof Channel</option>
@@ -700,17 +977,11 @@
             </div>
             <div id="adm-channels-list"></div>
         </div>
-
-        <!-- 6. DEPOSIT APPROVALS -->
-        <div id="adm-deposits-tab" class="adm-page">
-            <h3 style="margin-bottom:10px;">💰 የ Wallet ገንዘብ ማስገቢያ ጥያቄዎች</h3>
-            <div id="adm-deposits-list"></div>
-        </div>
     </div>
 
     <script>
     const SUPER_ADMIN_ID = "8797798511";
-    const BOT_USERNAME = "NiroTopup_bot";
+    const BOT_USERNAME = "Niro_1Topup_Bot"; // #5 Updated exact bot link
 
     let tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg) {
@@ -727,33 +998,35 @@
         myTgUser = tg.initDataUnsafe.user.username ? "@" + tg.initDataUnsafe.user.username : myTgUser;
     }
 
-    const isOwner = String(myTgId) === SUPER_ADMIN_ID || String(myTgUser).toLowerCase() === "@niro_x12";
+    // SUB-ADMINS & PERMISSIONS (#10)
+    function getSubAdmins() {
+        return JSON.parse(localStorage.getItem('niro_sub_admins_v1') || '[]');
+    }
+    function saveSubAdmins(list) {
+        localStorage.setItem('niro_sub_admins_v1', JSON.stringify(list));
+    }
 
-    // CUSTOM SVG EMBLEMS (Golden UC Emblem, Telegram Star, Bank Logos)
+    const isSuperOwner = String(myTgId) === SUPER_ADMIN_ID || String(myTgUser).toLowerCase() === "@niro_x12";
+    function getMyAdminProfile() {
+        if (isSuperOwner) {
+            return { id: SUPER_ADMIN_ID, name: "Super Owner", perms: ["orders","stats","withdraws","deposits","services","packages","balance","banks","admins","branding"] };
+        }
+        return getSubAdmins().find(a => String(a.id) === String(myTgId)) || null;
+    }
+    const isAnyAdmin = () => Boolean(getMyAdminProfile());
+
+    // CUSTOM SVG EMBLEMS
     const UC_GOLD_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150">
-            <defs>
-                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#bae6fd"/>
-                    <stop offset="100%" stop-color="#e2e8f0"/>
-                </linearGradient>
-                <linearGradient id="goldBorder" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#fef08a"/>
-                    <stop offset="50%" stop-color="#eab308"/>
-                    <stop offset="100%" stop-color="#a16207"/>
-                </linearGradient>
-            </defs>
-            <rect width="200" height="150" fill="url(#sky)"/>
-            <rect x="46" y="34" width="116" height="68" rx="10" fill="#78350f" opacity="0.25"/>
-            <rect x="38" y="42" width="124" height="66" rx="10" fill="#1c1917" stroke="url(#goldBorder)" stroke-width="6"/>
-            <text x="100" y="88" font-family="Arial Black, sans-serif" font-size="38" font-weight="900" fill="#fef08a" text-anchor="middle" letter-spacing="2">UC</text>
+            <rect width="200" height="150" fill="#bae6fd"/>
+            <rect x="38" y="42" width="124" height="66" rx="10" fill="#1c1917" stroke="#eab308" stroke-width="6"/>
+            <text x="100" y="88" font-family="Arial Black, sans-serif" font-size="38" font-weight="900" fill="#fef08a" text-anchor="middle">UC</text>
         </svg>
     `);
 
     const PUBG_MAIN_LOGO = "data:image/svg+xml;utf8," + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
             <rect width="200" height="200" fill="#0f172a"/>
-            <circle cx="100" cy="82" r="42" fill="#f59e0b" opacity="0.2"/>
             <path d="M70 95 Q100 45 130 95 L125 120 L75 120 Z" fill="#334155" stroke="#f59e0b" stroke-width="4"/>
             <rect x="80" y="85" width="40" height="14" rx="4" fill="#38bdf8"/>
             <text x="100" y="155" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#ffffff" text-anchor="middle">PUBG</text>
@@ -763,21 +1036,8 @@
 
     const STAR_LOGO_SVG = "data:image/svg+xml;utf8," + encodeURIComponent(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-            <defs>
-                <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#0f172a"/>
-                    <stop offset="100%" stop-color="#1e1b4b"/>
-                </linearGradient>
-                <linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#38bdf8"/>
-                    <stop offset="50%" stop-color="#818cf8"/>
-                    <stop offset="100%" stop-color="#c084fc"/>
-                </linearGradient>
-            </defs>
-            <rect width="200" height="200" rx="28" fill="url(#bgGrad)"/>
-            <circle cx="40" cy="45" r="3" fill="#38bdf8" opacity="0.7"/>
-            <circle cx="160" cy="40" r="4" fill="#c084fc" opacity="0.7"/>
-            <path d="M100 32 L119 73 L164 79 L131 111 L139 156 L100 135 L61 156 L69 111 L36 79 L81 73 Z" fill="url(#starGrad)"/>
+            <rect width="200" height="200" rx="28" fill="#1e1b4b"/>
+            <path d="M100 32 L119 73 L164 79 L131 111 L139 156 L100 135 L61 156 L69 111 L36 79 L81 73 Z" fill="#38bdf8"/>
         </svg>
     `);
 
@@ -793,7 +1053,7 @@
         return "data:image/svg+xml;utf8," + encodeURIComponent(`
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
                 <rect width="80" height="80" rx="16" fill="${bg}"/>
-                <text x="40" y="47" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" fill="${fg}" text-anchor="middle">${txt}</text>
+                <text x="40" y="47" font-family="Arial Black, sans-serif" font-size="15" font-weight="900" fill="${fg}" text-anchor="middle">${txt}</text>
             </svg>
         `);
     }
@@ -808,14 +1068,13 @@
         "Chapa": { logo: makeBankSvg("#10b981", "#0f172a", "CHAPA"), note: "ቻፓ ኦንላይን" }
     };
 
-    // 4 LANGUAGES FULL DICTIONARY (#5 & #8)
     const LANGUAGES = [
         {
             code: "AM", label: "አማርኛ", currency: "ብር",
             welcome: "እንኳን ደህና መጡ", hero_sub: "ጨዋታዎችዎን እና ዲጂታል አገልግሎቶችን በኢትዮጵያ ባንኮች በፍጥነት ይሙሉ።",
-            badge_fast: "⚡ ፈጣን (INSTANT)", badge_safe: "🔒 አስተማማኝ", search_ph: "ጨዋታ ወይም አገልግሎት ይፈልጉ...",
+            badge_fast: "⚡ ፈጣን (INSTANT)", badge_safe: "🔒 አስተማማኝ", search_ph: "ጨዋታ፣ ስልክ፣ ቻናል ወይም አገልግሎት ይፈልጉ...",
             cat_all: "ሁሉም (ALL)", not_entered: "እስካሁን አልገባም", enter_id_btn: "ID ያስገቡ",
-            select_pkg: "⚡ መጠን ይምረጡ", my_orders: "ትዕዛዞቼ", wallet_title: "ቦርሳ (WALLET)",
+            select_pkg: "⚡ መጠን / አማራጭ ይምረጡ", my_orders: "ትዕዛዞቼ", wallet_title: "ቦርሳ (WALLET)",
             balance_lbl: "ቀሪ ሂሳብ", deposit_btn: "ገቢ አድርግ", withdraw_btn: "ገንዘብ አውጣ",
             wallet_hint: "ገንዘብ ገቢ ካደረጉ በኋላ ወይም በቀጥታ 'ግዛ' በመጫን የ Transaction መልእክት በመላክ መግዛት ይችላሉ።",
             add_home_btn: "በመነሻ ገጽ ላይ አክል", invite_title: "ጓደኞችዎን ይጋብዙ", earn_30: "ከትርፉ 30% ያግኙ",
@@ -830,8 +1089,8 @@
         },
         {
             code: "EN", label: "English", currency: "ETB",
-            welcome: "WELCOME BACK", hero_sub: "Top up your games & digital services instantly with Ethiopian banks.",
-            badge_fast: "⚡ INSTANT", badge_safe: "🔒 SECURE", search_ph: "Search games or services...",
+            welcome: "WELCOME BACK", hero_sub: "Top up your games, channels, devices & digital services instantly.",
+            badge_fast: "⚡ INSTANT", badge_safe: "🔒 SECURE", search_ph: "Search games, mobile, channels...",
             cat_all: "ALL", not_entered: "Not entered yet", enter_id_btn: "Enter ID",
             select_pkg: "⚡ Select Package", my_orders: "MY ORDERS", wallet_title: "WALLET",
             balance_lbl: "BALANCE", deposit_btn: "DEPOSIT", withdraw_btn: "WITHDRAW",
@@ -853,7 +1112,7 @@
             cat_all: "ኩሉ (ALL)", not_entered: "ክሳብ ሕጂ ኣይኣተወን", enter_id_btn: "ID ኣእትዉ",
             select_pkg: "⚡ መጠን ምረጹ", my_orders: "ትእዛዛተይ", wallet_title: "ቦርሳ (WALLET)",
             balance_lbl: "ቀሪ ሒሳብ", deposit_btn: "ገንዘብ ኣእቱ", withdraw_btn: "ገንዘብ ኣውጽእ",
-            wallet_hint: "ገንዘብ ኣብ ቦርሳኹም ኣእቲኹም ወይ ብቐጥታ 'ግዛእ' ብምጥዋቕ መልእኽቲ ክፍሊት ብምልኣኽ ክትገዝኡ ትኽእሉ።",
+            wallet_hint: "ገንዘብ ኣብ ቦርሳኹም ኣእቲኹም ወይ ብቐጥታ 'ግዛእ' ብምጥዋቕ ክትገዝኡ ትኽእሉ።",
             add_home_btn: "ኣብ መበገሲ ገጽ ወስኽ", invite_title: "መሓዙትኩም ዓድሙ", earn_30: "ካብ መኽሰብ 30% ርኸቡ",
             invite_sub: "መሓዙትኩም ኣብ ቀዳሞት 90 መዓልታት ካብ ዝገብርዎ ዕድጊ 30% ኮሚሽን ርኸቡ!",
             ref_invited: "ዝተዓደሙ", ref_earned: "ዝተረኽበ", ref_withdrawn: "ዝወጸ", share_btn: "ንመሓዛ ኣካፍል",
@@ -866,12 +1125,12 @@
         },
         {
             code: "SO", label: "Af-Soomaali", currency: "ETB",
-            welcome: "SOO DHAWOOW", hero_sub: "Ku shub ciyaarahaaga iyo adeegyada dijitaalka ah si degdeg ah adigoo isticmaalaya bangiyada Itoobiya.",
+            welcome: "SOO DHAWOOW", hero_sub: "Ku shub ciyaarahaaga iyo adeegyada dijitaalka ah si degdeg ah.",
             badge_fast: "⚡ DEGDEG", badge_safe: "🔒 AAMIN", search_ph: "Raadi ciyaar ama adeeg...",
             cat_all: "DHAMMAAN", not_entered: "Weli lama gelin", enter_id_btn: "Geli ID",
             select_pkg: "⚡ Dooro Xirmada", my_orders: "DALABYADAYDA", wallet_title: "BOORSO (WALLET)",
             balance_lbl: "HARAAGA", deposit_btn: "SHUB", withdraw_btn: "LA BAX",
-            wallet_hint: "Ku shub lacag boorsadaada ama si toos ah u guji 'Iibso' oo soo dir fariinta lacag bixinta.",
+            wallet_hint: "Ku shub lacag boorsadaada ama si toos ah u guji 'Iibso'.",
             add_home_btn: "Ku dar Shaashadda Hore", invite_title: "CASUUN SAAXIIBADA", earn_30: "KASBO 30% FAA'IIDADA",
             invite_sub: "Ka hel 30% komishanka iib kasta oo ay saaxiibadaa sameeyaan 90-ka maalmood ee ugu horreeya!",
             ref_invited: "LA CASUUMAY", ref_earned: "LA HELAY", ref_withdrawn: "LA BAXAY", share_btn: "La wadaag Saaxiib",
@@ -883,6 +1142,30 @@
             buy_btn: "Iibso", coming_soon: "Dhawaan ayuu bilaabanayaa, sug!"
         }
     ];
+
+    // FOLDERS / CATEGORIES (#2 & #6)
+    const DEFAULT_FOLDERS = [
+        { key: 'topup', title: '🎮 TOP UP' },
+        { key: 'telegram', title: '⭐ TELEGRAM STARS & PREMIUM' },
+        { key: 'channel', title: '📢 CHANNELS' },
+        { key: 'bot', title: '🤖 BOTS' },
+        { key: 'pc', title: '💻 PC / COMPUTER' },
+        { key: 'mobile', title: '📱 MOBILE' },
+        { key: 'giftcard', title: '🎁 GIFT CARDS & CRYPTO' }
+    ];
+
+    const FOLDERS_KEY = 'niro_topup_folders_v1';
+    function getFolders() {
+        let f = JSON.parse(localStorage.getItem(FOLDERS_KEY) || 'null');
+        if (!f) {
+            f = DEFAULT_FOLDERS;
+            localStorage.setItem(FOLDERS_KEY, JSON.stringify(f));
+        }
+        return f;
+    }
+    function saveFolders(f) {
+        localStorage.setItem(FOLDERS_KEY, JSON.stringify(f));
+    }
 
     const DEFAULT_BANKS = [
         { id: "bank_1", title: "Telebirr", account: "0974107425", owner: "Mulualem", note: "ፈጣን የቴሌብር ክፍያ", logo: BANK_PRESETS["Telebirr"].logo },
@@ -896,6 +1179,7 @@
     const DEFAULT_CATALOG = [
         {
             id: "pubg", name: "PUBG MOBILE", category: "topup", idLabel: "PLAYER ID", validationType: "game_id", enabled: true,
+            note: "UC በቀጥታ ወደ Player ID በ 1-5 ደቂቃ ውስጥ ይገባል።",
             img: PUBG_MAIN_LOGO,
             poster: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80",
             packages: [
@@ -904,55 +1188,33 @@
                 { id: "p3", name: "180 UC", price: 550, badge: "ጠቅላላ", img: UC_GOLD_LOGO },
                 { id: "p4", name: "325 UC", price: 880, badge: "", img: UC_GOLD_LOGO },
                 { id: "p5", name: "385 UC", price: 1100, badge: "ጠቅላላ", img: UC_GOLD_LOGO },
-                { id: "p6", name: "660 UC", price: 1750, badge: "", img: UC_GOLD_LOGO },
-                { id: "p7", name: "720 UC", price: 1950, badge: "ጠቅላላ", img: UC_GOLD_LOGO },
-                { id: "p8", name: "780 UC", price: 2150, badge: "ጠቅላላ", img: UC_GOLD_LOGO }
+                { id: "p6", name: "660 UC", price: 1750, badge: "", img: UC_GOLD_LOGO }
             ]
         },
         {
             id: "freefire", name: "FREE FIRE", category: "topup", idLabel: "PLAYER ID", validationType: "game_id", enabled: true,
+            note: "Free Fire Diamonds በፍጥነት ወደ አካውንትዎ ይገባል።",
             img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80",
             poster: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=700&q=80",
             packages: [
                 { id: "ff1", name: "100 + 10 Diamonds", price: 250, badge: "" },
                 { id: "ff2", name: "210 + 21 Diamonds", price: 500, badge: "" },
-                { id: "ff3", name: "530 + 53 Diamonds", price: 1000, badge: "" },
-                { id: "ff4", name: "1080 + 108 Diamonds", price: 2000, badge: "" }
+                { id: "ff3", name: "530 + 53 Diamonds", price: 1000, badge: "" }
             ]
         },
         {
             id: "tg_stars", name: "TELEGRAM STARS", category: "telegram", idLabel: "የቴሌግራም @username ወይም ID", validationType: "tg_user", enabled: true,
+            note: "Telegram Stars ወደ @username በቀጥታ ይላካል።",
             img: STAR_LOGO_SVG, poster: STAR_LOGO_SVG,
             packages: [
                 { id: "ts1", name: "50 Stars", price: 250, badge: "" },
-                { id: "ts2", name: "75 Stars", price: 300, badge: "" },
-                { id: "ts3", name: "100 Stars", price: 400, badge: "" },
-                { id: "ts4", name: "150 Stars", price: 600, badge: "" },
-                { id: "ts5", name: "250 Stars", price: 900, badge: "" },
-                { id: "ts6", name: "500 Stars", price: 1650, badge: "" }
-            ]
-        },
-        {
-            id: "tg_premium", name: "TELEGRAM PREMIUM", category: "telegram", idLabel: "የቴሌግራም @username ወይም ID", validationType: "tg_user", enabled: true,
-            img: STAR_LOGO_SVG, poster: STAR_LOGO_SVG,
-            packages: [
-                { id: "tp1", name: "3 Months Premium", price: 2500, badge: "" },
-                { id: "tp2", name: "6 Months Premium", price: 3300, badge: "" },
-                { id: "tp3", name: "12 Months Premium", price: 6000, badge: "" }
-            ]
-        },
-        {
-            id: "usdt_bep20", name: "USDT (BEP20 / BINANCE)", category: "giftcard", idLabel: "Binance ID ወይም BEP20 Address", validationType: "usdt_bep20", enabled: true,
-            img: makeBankSvg("#10b981", "#ffffff", "USDT"), poster: makeBankSvg("#064e3b", "#34d399", "USDT BEP20"),
-            packages: [
-                { id: "us1", name: "5 USDT", price: 750, badge: "" },
-                { id: "us2", name: "10 USDT", price: 1480, badge: "" },
-                { id: "us3", name: "20 USDT", price: 2950, badge: "" }
+                { id: "ts2", name: "100 Stars", price: 400, badge: "" },
+                { id: "ts3", name: "250 Stars", price: 900, badge: "" }
             ]
         }
     ];
 
-    const CATALOG_KEY = 'niro_topup_catalog_v3';
+    const CATALOG_KEY = 'niro_topup_catalog_v4';
     const BANKS_KEY = 'niro_topup_banks_v3';
 
     function getCatalog() {
@@ -963,7 +1225,6 @@
         }
         return cat;
     }
-
     function saveCatalog(cat) {
         localStorage.setItem(CATALOG_KEY, JSON.stringify(cat));
     }
@@ -989,13 +1250,11 @@
     function getUserBalance() {
         return parseFloat(localStorage.getItem('niro_user_bal_' + myTgId) || '0');
     }
-
     function setUserBalance(val) {
         localStorage.setItem('niro_user_bal_' + myTgId, String(val));
         updateUI();
     }
 
-    // Temporary image buffers for Gallery uploads
     let tempImages = { newSrvLogo: '', newSrvPoster: '', newPkgImg: '', newBankLogo: '' };
 
     function handleGalleryImage(input, bufferKey, statusSpanId) {
@@ -1003,11 +1262,10 @@
         if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
-            // Resize image gently to avoid localStorage quota issues
             const img = new Image();
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                const maxDim = 420;
+                const maxDim = 450;
                 let w = img.width, h = img.height;
                 if (w > maxDim || h > maxDim) {
                     if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -1015,7 +1273,7 @@
                 }
                 canvas.width = w; canvas.height = h;
                 canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                tempImages[bufferKey] = canvas.toDataURL('image/jpeg', 0.82);
+                tempImages[bufferKey] = canvas.toDataURL('image/jpeg', 0.84);
                 if (statusSpanId) document.getElementById(statusSpanId).innerText = "✅ ምስል ተመርጧል (" + file.name + ")";
             };
             img.src = e.target.result;
@@ -1023,50 +1281,30 @@
         reader.readAsDataURL(file);
     }
 
-    // STRICT VALIDATION FOR PLAYER ID / TELEGRAM / USDT BEP20 (#7)
     function validateTargetIdentifier(val, valType) {
         val = val.trim();
-        if (!val) return { ok: false, msg: "⚠️ እባክዎ መለያ ቁጥር ያስገቡ!" };
-
+        if (!val) return { ok: false, msg: "⚠️ እባክዎ መለያ ቁጥር ወይም አድራሻ ያስገቡ!" };
         if (valType === 'usdt_bep20') {
-            const isBep20 = /^0x[a-fA-F0-9]{40}$/.test(val);
-            const isBinanceId = /^\d{6,15}$/.test(val);
-            if (!isBep20 && !isBinanceId) {
-                return {
-                    ok: false,
-                    msg: "❌ ትክክለኛ Binance ID (6-15 ቁጥር) ወይም BEP20 Wallet Address (0x... 42 ፊደል) ብቻ ያስገቡ! ሌላ መለያ አይቀበልም።"
-                };
+            if (!/^0x[a-fA-F0-9]{40}$/.test(val) && !/^\d{6,15}$/.test(val)) {
+                return { ok: false, msg: "❌ ትክክለኛ Binance ID ወይም BEP20 Wallet Address (0x...) ብቻ ያስገቡ!" };
             }
         } else if (valType === 'tg_user') {
-            const isUsername = /^@[a-zA-Z0-9_]{4,32}$/.test(val);
-            const isTgId = /^\d{5,15}$/.test(val);
-            if (!isUsername && !isTgId) {
-                return {
-                    ok: false,
-                    msg: "❌ ትክክለኛ የቴሌግራም @username (በ @ የሚጀምር) ወይም Telegram User ID (ቁጥር) ብቻ ያስገቡ!"
-                };
+            if (!/^@[a-zA-Z0-9_]{4,32}$/.test(val) && !/^\d{5,15}$/.test(val)) {
+                return { ok: false, msg: "❌ ትክክለኛ የቴሌግራም @username ወይም Telegram ID ብቻ ያስገቡ!" };
             }
         } else if (valType === 'game_id') {
-            const isGameId = /^[a-zA-Z0-9_-]{4,25}$/.test(val) && !val.startsWith('@') && !val.startsWith('0x');
-            if (!isGameId) {
-                return {
-                    ok: false,
-                    msg: "❌ ትክክለኛ የጨዋታ Player ID ብቻ ያስገቡ!"
-                };
-            }
-        } else if (valType === 'email') {
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-                return { ok: false, msg: "❌ ትክክለኛ Email Address ያስገቡ!" };
+            if (!/^[a-zA-Z0-9_-]{4,25}$/.test(val) || val.startsWith('@') || val.startsWith('0x')) {
+                return { ok: false, msg: "❌ ትክክለኛ የጨዋታ Player ID ብቻ ያስገቡ!" };
             }
         }
         return { ok: true };
     }
 
     function getValidationHintText(valType) {
-        if (valType === 'usdt_bep20') return "ምሳሌ፦ 0x71C... (BEP20 Address) ወይም 482910482 (Binance ID) ብቻ";
-        if (valType === 'tg_user') return "ምሳሌ፦ @Niro_X12 ወይም 8797798511 (Telegram ID) ብቻ";
-        if (valType === 'game_id') return "ምሳሌ፦ 5182940218 (የጨዋታ መለያ ID)";
-        if (valType === 'email') return "ምሳሌ፦ example@gmail.com";
+        if (valType === 'usdt_bep20') return "ምሳሌ፦ 0x71C... (BEP20) ወይም 482910482 (Binance ID)";
+        if (valType === 'tg_user') return "ምሳሌ፦ @Niro_X12 ወይም 8797798511";
+        if (valType === 'phone_addr') return "ምሳሌ፦ 0911... / አዲስ አበባ (ስልክ እና አድራሻ)";
+        if (valType === 'game_id') return "ምሳሌ፦ 5182940218 (የጨዋታ Player ID)";
         return "መለያዎን ያስገቡ";
     }
 
@@ -1081,16 +1319,28 @@
         return LANGUAGES.find(x => x.code === code) || LANGUAGES[0];
     }
 
+    function checkMaintenanceState() {
+        const isAppOn = localStorage.getItem('niro_miniapp_enabled_v1') !== 'false';
+        const maintScreen = document.getElementById('maintenance-screen');
+        if (!isAppOn && !isAnyAdmin()) {
+            maintScreen.style.display = 'flex';
+        } else {
+            maintScreen.style.display = 'none';
+        }
+    }
+
     function updateUI() {
+        checkMaintenanceState();
+
         const bal = getUserBalance();
         document.getElementById('hdr-bal').innerText = bal.toLocaleString();
         document.getElementById('wallet-bal-val').innerText = bal.toLocaleString();
         document.getElementById('user-greeting').innerText = myTgName;
         document.getElementById('acc-name').innerText = myTgName;
         document.getElementById('acc-uid').innerText = myTgId;
+        // #5 Exact Bot Referral Link
         document.getElementById('ref-link-inp').value = `https://t.me/${BOT_USERNAME}?start=ref_${myTgId}`;
 
-        // Profile & Top Store Logos (#9)
         const savedAvatar = localStorage.getItem('niro_profile_avatar_v3') || DEFAULT_PROFILE_AVATAR;
         document.getElementById('acc-avatar-img').src = savedAvatar;
 
@@ -1099,11 +1349,10 @@
             document.getElementById('top-brand-logo').innerHTML = `<img src="${savedStoreLogo}" alt="Logo">`;
         }
 
-        if (isOwner) {
+        if (isAnyAdmin()) {
             document.getElementById('open-admin-btn').style.display = 'inline-block';
         }
 
-        // Live Broadcast Check
         const bcText = localStorage.getItem('niro_topup_broadcast_v2');
         const bcBox = document.getElementById('live-broadcast-banner');
         if (bcText) {
@@ -1116,9 +1365,20 @@
         applyLanguage();
         renderLanguageGrid();
         renderCommunityChannels();
+        renderHomeCategoryPills();
     }
 
-    // 4 LANGUAGES ENGINE (#5 & #8)
+    function renderHomeCategoryPills() {
+        const box = document.getElementById('home-cat-pills');
+        const langObj = getCurrentLangObj();
+        const folders = getFolders();
+        let html = `<button class="cat-pill ${currentCategoryFilter === 'all' ? 'active' : ''}" onclick="filterStore('all', this)">${langObj.cat_all}</button>`;
+        folders.forEach(f => {
+            html += `<button class="cat-pill ${currentCategoryFilter === f.key ? 'active' : ''}" onclick="filterStore('${f.key}', this)">${f.title}</button>`;
+        });
+        box.innerHTML = html;
+    }
+
     function renderLanguageGrid() {
         const grid = document.getElementById('language-selector-grid');
         const curCode = localStorage.getItem('niro_selected_lang') || 'AM';
@@ -1133,6 +1393,7 @@
         localStorage.setItem('niro_selected_lang', code);
         applyLanguage();
         renderLanguageGrid();
+        renderHomeCategoryPills();
         renderHomeStore();
         if (selectedGameObj) openGamePackages(selectedGameObj.id);
     }
@@ -1140,7 +1401,6 @@
     function applyLanguage() {
         const langObj = getCurrentLangObj();
         document.getElementById('hdr-lang-code').innerText = langObj.code === 'AM' ? 'አማ' : langObj.code;
-
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (langObj[key]) el.innerText = langObj[key];
@@ -1151,7 +1411,6 @@
         });
     }
 
-    // ADD TO HOME SCREEN (#10)
     function triggerAddToHomeScreen() {
         if (tg && typeof tg.addToHomeScreen === 'function') {
             tg.addToHomeScreen();
@@ -1160,13 +1419,38 @@
         }
     }
 
-    // INVITE SHARE (#6)
+    // #5 Working Share & Copy for @Niro_1Topup_Bot
     function shareInviteLink() {
-        const link = document.getElementById('ref-link-inp').value;
-        const shareText = "🔥 ጨዋታዎችን እና Telegram Stars በኢትዮጵያ ባንኮች በፍጥነት ይሙሉ! በዚህ ሊንክ ይግቡ፦";
+        const link = `https://t.me/${BOT_USERNAME}?start=ref_${myTgId}`;
+        const shareText = "🔥 ጨዋታዎችን፣ Telegram Stars፣ ስልኮችን እና ቻናሎችን በኢትዮጵያ ባንኮች በፍጥነት ይግዙ! በዚህ ሊንክ ይግቡ፦";
         const tgShareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(shareText)}`;
-        if (tg) tg.openTelegramLink(tgShareUrl);
-        else window.open(tgShareUrl, '_blank');
+        if (tg && typeof tg.openTelegramLink === 'function') {
+            tg.openTelegramLink(tgShareUrl);
+        } else {
+            window.open(tgShareUrl, '_blank');
+        }
+    }
+
+    function copyTextValue(txt, toastMsg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(txt).then(() => alert("✅ " + toastMsg)).catch(() => fallbackCopy(txt, toastMsg));
+        } else {
+            fallbackCopy(txt, toastMsg);
+        }
+    }
+    function fallbackCopy(txt, toastMsg) {
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert("✅ " + toastMsg);
+    }
+
+    function copyRefLink() {
+        const link = `https://t.me/${BOT_USERNAME}?start=ref_${myTgId}`;
+        copyTextValue(link, "የሪፈራል ሊንክ ተቀድቷል!");
     }
 
     function renderCommunityChannels() {
@@ -1191,14 +1475,18 @@
     }
 
     function openExternalLink(url) {
-        if (tg) tg.openTelegramLink(url);
-        else window.open(url, '_blank');
+        if (!url) return;
+        if (tg && url.includes('t.me') && typeof tg.openTelegramLink === 'function') {
+            tg.openTelegramLink(url);
+        } else {
+            window.open(url, '_blank');
+        }
     }
 
-    function filterStore(cat) {
+    function filterStore(cat, btnEl) {
         currentCategoryFilter = cat;
         document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-        if (event && event.currentTarget) event.currentTarget.classList.add('active');
+        if (btnEl) btnEl.classList.add('active');
         renderHomeStore();
     }
 
@@ -1206,29 +1494,36 @@
         const container = document.getElementById('store-sections-container');
         const query = document.getElementById('store-search').value.toLowerCase();
         const catalog = getCatalog();
-
-        const groups = [
-            { key: 'topup', title: 'TOP UP' },
-            { key: 'telegram', title: 'TELEGRAM PREMIUM & STARS' },
-            { key: 'giftcard', title: 'GIFT CARDS & CRYPTO' }
-        ];
+        const folders = getFolders();
 
         let html = '';
-        groups.forEach(g => {
+        folders.forEach(g => {
             if (currentCategoryFilter !== 'all' && currentCategoryFilter !== g.key) return;
-            const items = catalog.filter(item => item.category === g.key && item.name.toLowerCase().includes(query));
+            const items = catalog.filter(item => item.category === g.key && (item.name.toLowerCase().includes(query) || (item.note && item.note.toLowerCase().includes(query))));
             if (items.length === 0) return;
 
             html += `<div class="sec-title">${g.title}</div><div class="store-grid">`;
             items.forEach(item => {
                 const isOn = item.enabled !== false;
+                const isChannelOrBot = item.category === 'channel' || item.category === 'bot' || item.channelLink;
+
                 html += `
                     <div class="product-card ${isOn ? '' : 'coming-soon'}" onclick="handleServiceCardClick('${item.id}')">
                         ${!isOn ? `<span class="status-ribbon">⏳ በቅርቡ ይጀመራል</span>` : ''}
                         <img src="${item.img}" class="product-img" alt="${item.name}">
                         <div class="product-info">
-                            <h4>${item.name}</h4>
-                            <small>${isOn ? (item.packages.length + ' PACKAGES') : 'በቅርቡ ይጀመራል ይጠብቁ'}</small>
+                            <div>
+                                <h4>${item.name}</h4>
+                                <small>${isOn ? (item.packages.length + ' OPTIONS') : 'በቅርቡ ይጀመራል'}</small>
+                            </div>
+                            ${isChannelOrBot ? `
+                                <div class="ch-meta-box">
+                                    ${item.channelPrice ? `<div>💰 <b>ዋጋ:</b> ${item.channelPrice} ETB</div>` : ''}
+                                    ${item.channelMembers ? `<div>👥 <b>Members:</b> ${item.channelMembers}</div>` : ''}
+                                    ${item.channelContent ? `<div>📝 ${item.channelContent.slice(0, 42)}${item.channelContent.length > 42 ? '...' : ''}</div>` : ''}
+                                    ${item.channelLink ? `<button class="ch-visit-btn" onclick="event.stopPropagation(); openExternalLink('${item.channelLink}')"><i class="fas fa-external-link-alt"></i> ቻናሉን / ቦቱን ክፈት</button>` : ''}
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 `;
@@ -1239,7 +1534,6 @@
         container.innerHTML = html || '<div style="text-align:center; padding:20px; color:#64748b;">ምንም አልተገኘም።</div>';
     }
 
-    // ON/OFF CHECK ON SERVICE CLICK (#4)
     function handleServiceCardClick(gameId) {
         const catalog = getCatalog();
         const item = catalog.find(x => x.id === gameId);
@@ -1261,9 +1555,33 @@
         const langObj = getCurrentLangObj();
         document.getElementById('pkg-view-title').innerText = selectedGameObj.name;
         document.getElementById('pkg-cat-sub').innerText = selectedGameObj.category.toUpperCase();
-        document.getElementById('pkg-poster-bg').src = selectedGameObj.poster || selectedGameObj.img;
+        // #4 Fixed Poster vs Logo distinction
+        document.getElementById('pkg-poster-bg').src = (selectedGameObj.poster && selectedGameObj.poster.length > 20) ? selectedGameObj.poster : selectedGameObj.img;
         document.getElementById('pkg-game-thumb').src = selectedGameObj.img;
         document.getElementById('pkg-id-label').innerText = selectedGameObj.idLabel;
+
+        // #3 & #7 Show Product Note, Device Specs, or Channel Info + Button
+        const noteBox = document.getElementById('pkg-service-note-box');
+        let noteHtml = '';
+        if (selectedGameObj.note) {
+            noteHtml += `<div><b>ℹ️ መረጃ (Information):</b><br>${selectedGameObj.note.replace(/\n/g, '<br>')}</div>`;
+        }
+        if (selectedGameObj.channelMembers || selectedGameObj.channelContent) {
+            noteHtml += `<div style="margin-top:6px;">`;
+            if (selectedGameObj.channelMembers) noteHtml += `<span>👥 <b>Members:</b> ${selectedGameObj.channelMembers}</span> • `;
+            if (selectedGameObj.channelContent) noteHtml += `<span>📝 <b>Content:</b> ${selectedGameObj.channelContent}</span>`;
+            noteHtml += `</div>`;
+        }
+        if (selectedGameObj.channelLink) {
+            noteHtml += `<button class="btn btn-primary" style="margin-top:8px; padding:8px; font-size:0.78rem;" onclick="openExternalLink('${selectedGameObj.channelLink}')"><i class="fas fa-paper-plane"></i> ወደ Channel / Bot ሊንክ ግባ (${selectedGameObj.channelLink})</button>`;
+        }
+
+        if (noteHtml) {
+            noteBox.innerHTML = noteHtml;
+            noteBox.style.display = 'block';
+        } else {
+            noteBox.style.display = 'none';
+        }
 
         const savedId = localStorage.getItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId);
         const idEl = document.getElementById('pkg-saved-id');
@@ -1300,7 +1618,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // DIRECT CHECKOUT MODAL WITH VISUAL BANK LOGOS (#11)
     function openDirectBuyModal(pkgId) {
         if (!selectedGameObj) return;
         activeBuyPkgObj = selectedGameObj.packages.find(p => p.id === pkgId);
@@ -1419,6 +1736,7 @@
             senderName: senderName || myTgName,
             fullTxnMessage: payType === 'wallet' ? 'Paid via Wallet Balance' : fullTxnMsg,
             status: "Pending",
+            isoDate: new Date().toISOString().split('T')[0],
             date: new Date().toLocaleString()
         };
         orders.unshift(newOrder);
@@ -1476,12 +1794,17 @@
         box.innerHTML = html || '<div style="text-align:center; padding:30px; color:#64748b;">ምንም ትዕዛዝ የለዎትም።</div>';
     }
 
-    // WALLET DEPOSIT & WITHDRAW WITH BANK LOGOS (#11)
+    // ========================================================
+    // #12 SCREENSHOT-STYLE DEPOSIT + 4-POINT TELEBIRR VERIFICATION
+    // ========================================================
     function openDepositModal() {
         const banks = getBanks();
         if (!selectedDepBankId || !banks.find(b => b.id === selectedDepBankId)) {
             selectedDepBankId = banks[0]?.id;
         }
+        document.getElementById('dep-verify-error').style.display = 'none';
+        document.getElementById('dep-txn-sms').value = '';
+
         renderBankRadioList('dep-bank-radio-list', selectedDepBankId, (bId) => {
             selectedDepBankId = bId;
             updateDepositAccountDetails();
@@ -1494,73 +1817,191 @@
         const banks = getBanks();
         const b = banks.find(x => x.id === selectedDepBankId) || banks[0];
         if (!b) return;
-        document.getElementById('dep-account-info-box').innerHTML = `
-            <div>🏦 <b>የክፍያ አማራጭ፦</b> ${b.title}</div>
-            <div>🔢 <b>አካውንት / ስልክ፦</b> <b style="color:var(--primary); font-size:1rem;">${b.account}</b></div>
-            <div>👤 <b>የባለቤት ስም፦</b> <b>${b.owner}</b></div>
-        `;
+
+        const logoSrc = b.logo || BANK_PRESETS[b.title]?.logo || makeBankSvg("#0f766e", "#ffffff", b.title.slice(0,3).toUpperCase());
+        document.getElementById('dep-header-logo').innerHTML = `<img src="${logoSrc}" alt="${b.title}">`;
+        document.getElementById('dep-header-bank-name').innerText = b.title.toUpperCase();
+        document.getElementById('dep-rec-owner').innerText = b.owner.toUpperCase();
+        document.getElementById('dep-rec-acc').innerText = b.account;
+        document.getElementById('ex-rec-name').innerText = b.owner;
+        document.getElementById('ex-rec-phone').innerText = b.account;
+    }
+
+    function updateDepositExactLabel() {
+        document.getElementById('dep-verify-error').style.display = 'none';
+    }
+
+    function openExampleReceiptModal() {
+        document.getElementById('example-receipt-modal').style.display = 'flex';
+    }
+
+    function showDepositVerifyError(msg) {
+        const errBox = document.getElementById('dep-verify-error');
+        document.getElementById('dep-verify-error-text').innerText = msg;
+        errBox.style.display = 'flex';
     }
 
     function submitDepositRequest() {
         const banks = getBanks();
         const b = banks.find(x => x.id === selectedDepBankId) || banks[0];
-        const amt = parseFloat(document.getElementById('dep-amount').value);
-        const sender = document.getElementById('dep-sender-name').value.trim();
-        const txn = document.getElementById('dep-txn-id').value.trim();
+        const expectedAmt = parseFloat(document.getElementById('dep-amount').value);
+        const rawSms = document.getElementById('dep-txn-sms').value.trim();
 
-        if (isNaN(amt) || amt <= 0 || !sender || !txn) {
-            alert("⚠️ እባክዎ ሁሉንም መረጃዎች በትክክል ይሙሉ!");
+        if (isNaN(expectedAmt) || expectedAmt <= 0) {
+            showDepositVerifyError("❌ እባክዎ ትክክለኛ የገንዘብ መጠን (ETB) ያስገቡ!");
             return;
         }
+        if (!rawSms) {
+            showDepositVerifyError("❌ እባክዎ ሙሉ የ Transaction SMS መልእክት ያስገቡ!");
+            return;
+        }
+
+        const smsLower = rawSms.toLowerCase();
+
+        // 1. Check it is an authentic Telebirr / Bank transfer SMS
+        const isTelebirr = b.title.toLowerCase().includes('telebirr');
+        if (isTelebirr) {
+            const hasTelebirrKeywords = smsLower.includes('telebirr') || smsLower.includes('ethio telecom') || smsLower.includes('transaction number');
+            if (!hasTelebirrKeywords) {
+                showDepositVerifyError("❌ ትክክለኛ የ Telebirr Transaction መልእክት አይደለም! ከ 127 የደረሰዎትን ሙሉ SMS ይለጥፉ።");
+                return;
+            }
+        }
+
+        // 2. Extract & verify Transaction ID and ensure it was NEVER used before
+        const txnMatch = rawSms.match(/(?:transaction\s*(?:number|id|no\.?)?\s*(?:is|:)?\s*)([A-Z0-9]{8,14})/i) || rawSms.match(/\b([A-Z]{2}[A-Z0-9]{7,11})\b/);
+        if (!txnMatch) {
+            showDepositVerifyError("❌ በመልእክቱ ውስጥ ትክክለኛ Transaction Number አልተገኘም! ትክክለኛ አይደለም።");
+            return;
+        }
+        const extractedTxnId = txnMatch[1].toUpperCase();
+
+        const usedTxns = JSON.parse(localStorage.getItem('niro_used_txn_ids_v1') || '[]');
+        if (usedTxns.includes(extractedTxnId)) {
+            showDepositVerifyError(`❌ ይህ Transaction Number (${extractedTxnId}) ከዚህ በፊት ገብቶ ተጠቅመውበታል! በድጋሚ መጠቀም አይቻልም።`);
+            return;
+        }
+
+        // 3. Verify Amount matches the entered ETB amount
+        const amtMatch = rawSms.match(/(?:ETB|Birr)\s*([0-9,]+(?:\.[0-9]{1,2})?)/i);
+        if (!amtMatch) {
+            showDepositVerifyError("❌ በመልእክቱ ውስጥ የብር መጠን (ETB) አልተገኘም! ትክክለኛ አይደለም።");
+            return;
+        }
+        const smsAmount = parseFloat(amtMatch[1].replace(/,/g, ''));
+        if (Math.abs(smsAmount - expectedAmt) > 0.01) {
+            showDepositVerifyError(`❌ የገንዘብ መጠኑ አይመሳሰልም! የመረጡት ${expectedAmt} ETB ሲሆን SMS ላይ ያለው ${smsAmount} ETB ነው።`);
+            return;
+        }
+
+        // 4. Verify Recipient Phone / Account or Owner Name matches
+        const cleanPhone = b.account.replace(/\s+/g, '');
+        const last4Digits = cleanPhone.slice(-4);
+        const ownerFirstWord = b.owner.trim().split(/\s+/)[0].toLowerCase();
+
+        const matchesPhone = smsLower.includes(cleanPhone) || (last4Digits.length === 4 && smsLower.includes(last4Digits));
+        const matchesName = ownerFirstWord.length >= 3 && smsLower.includes(ownerFirstWord);
+
+        if (!matchesPhone && !matchesName) {
+            showDepositVerifyError(`❌ ገንዘቡ የተላከው ወደ ትክክለኛው አካውንት (${b.owner} - ${b.account}) አይደለም! ትክክለኛ አይደለም።`);
+            return;
+        }
+
+        // Mark Transaction ID as used so it can never be reused
+        usedTxns.push(extractedTxnId);
+        localStorage.setItem('niro_used_txn_ids_v1', JSON.stringify(usedTxns));
 
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         deps.unshift({
             id: "dep_" + Date.now(),
             uid: myTgId,
             userName: myTgName,
+            tgUser: myTgUser,
             bankTitle: b.title,
-            amount: amt,
-            senderName: sender,
-            txnId: txn,
+            amount: expectedAmt,
+            senderName: myTgName,
+            extractedTxnId: extractedTxnId,
+            txnId: rawSms,
             status: "pending",
             date: new Date().toLocaleString()
         });
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
 
         closeModal('deposit-modal');
-        alert("✅ የ Deposit ጥያቄዎ ለ Admin ተልኳል!");
+        alert(`✅ ክፍያዎ ተረጋግጦ ወደ Admin ተልኳል!\nTransaction ID: ${extractedTxnId}\nመጠን: ${expectedAmt} ETB`);
     }
 
+    // WITHDRAW REQUEST (#1)
     function openWithdrawModal() {
         document.getElementById('withdraw-modal').style.display = 'flex';
     }
 
     function submitWithdrawRequest() {
+        const method = document.getElementById('wd-method').value.trim() || 'Telebirr';
+        const owner = document.getElementById('wd-owner').value.trim();
         const phone = document.getElementById('wd-phone').value.trim();
         const amt = parseFloat(document.getElementById('wd-amt').value);
         const bal = getUserBalance();
 
-        if (!phone || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ መረጃ ያስገቡ!"); return; }
-        if (amt > bal) { alert("❌ በቂ ቀሪ ሂሳብ የለዎትም!"); return; }
+        if (!owner || !phone || isNaN(amt) || amt <= 0) {
+            alert("⚠️ እባክዎ ሁሉንም መረጃዎች በትክክል ያስገቡ!");
+            return;
+        }
+        if (amt > bal) {
+            alert("❌ በቂ ቀሪ ሂሳብ የለዎትም!");
+            return;
+        }
 
         setUserBalance(bal - amt);
+
+        let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
+        wds.unshift({
+            id: "wd_" + Date.now(),
+            uid: myTgId,
+            userName: myTgName,
+            tgUser: myTgUser,
+            method: method,
+            ownerName: owner,
+            account: phone,
+            amount: amt,
+            status: "pending",
+            date: new Date().toLocaleString()
+        });
+        localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
+
         closeModal('withdraw-modal');
-        alert("✅ የወጪ ጥያቄዎ ቀርቧል!");
+        alert("✅ የወጪ (Withdraw) ጥያቄዎ ለ Admin ቀርቧል!");
     }
 
     // ==========================================
     // ADMIN PANEL FUNCTIONS
     // ==========================================
     function toggleAdmin(show) {
+        const prof = getMyAdminProfile();
+        if (!prof) return;
+
         document.getElementById('admin-overlay').style.display = show ? 'flex' : 'none';
         if (show) {
+            // Apply permission restrictions for Sub-Admins (#10)
+            document.querySelectorAll('#adm-nav-tabs .adm-tab-btn').forEach(btn => {
+                const reqPerm = btn.getAttribute('data-perm');
+                btn.style.display = prof.perms.includes(reqPerm) ? 'inline-block' : 'none';
+            });
+
             renderAdminOrders();
+            renderAdminStatistics();
+            renderAdminWithdraws();
+            renderAdminDeposits();
+            renderAdminFolders();
+            populateAdminFolderSelect();
             renderAdminManageServices();
             populateAdminGameDropdown();
             renderAdminExistingProducts();
             renderAdminBanks();
+            renderAdminSubAdmins();
+            updateAdminAppSwitchUI();
             renderAdminChannels();
-            renderAdminDeposits();
+            document.getElementById('adm-proof-channel-inp').value = localStorage.getItem('niro_proof_channel_v1') || '@Crypto_Topup_F';
         }
     }
 
@@ -1571,7 +2012,130 @@
         if (event && event.currentTarget) event.currentTarget.classList.add('active');
     }
 
-    // 1. Admin Orders
+    // #1 STATISTICS & DAILY GRAPH
+    function renderAdminStatistics() {
+        const orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
+        const approved = orders.filter(o => o.status === 'Approved');
+        const todayIso = new Date().toISOString().split('T')[0];
+
+        const todayOrders = approved.filter(o => o.isoDate === todayIso || (o.date && o.date.includes(new Date().toLocaleDateString())));
+        const todayRevenue = todayOrders.reduce((s, o) => s + Number(o.price || 0), 0);
+        const totalRevenue = approved.reduce((s, o) => s + Number(o.price || 0), 0);
+        const pendingCount = orders.filter(o => o.status === 'Pending').length;
+
+        document.getElementById('adm-stats-summary-cards').innerHTML = `
+            <div class="stat-grid-2">
+                <div class="stat-box">
+                    <small>💰 የዛሬ ሽያጭ (TODAY SALES)</small>
+                    <h3 style="color:#10b981;">${todayRevenue.toLocaleString()} ብር</h3>
+                </div>
+                <div class="stat-box">
+                    <small>📦 የዛሬ የተሸጡ እቃዎች</small>
+                    <h3 style="color:#38bdf8;">${todayOrders.length} እቃዎች</h3>
+                </div>
+                <div class="stat-box">
+                    <small>🏆 ጠቅላላ ሽያጭ (TOTAL)</small>
+                    <h3 style="color:#f59e0b;">${totalRevenue.toLocaleString()} ብር</h3>
+                </div>
+                <div class="stat-box">
+                    <small>⏳ በመጠባበቅ ላይ (PENDING)</small>
+                    <h3 style="color:#f43f5e;">${pendingCount} ትዕዛዝ</h3>
+                </div>
+            </div>
+        `;
+
+        // Build 7-day bar graph
+        const days = [];
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const iso = d.toISOString().split('T')[0];
+            const label = (d.getMonth() + 1) + '/' + d.getDate();
+            const daySum = approved
+                .filter(o => o.isoDate === iso || (i === 0 && todayOrders.includes(o)))
+                .reduce((s, o) => s + Number(o.price || 0), 0);
+            days.push({ label, sum: daySum });
+        }
+        const maxVal = Math.max(...days.map(x => x.sum), 100);
+        let graphHtml = '';
+        days.forEach(d => {
+            const pct = Math.max(8, Math.round((d.sum / maxVal) * 100));
+            graphHtml += `
+                <div class="chart-bar-col">
+                    <small style="font-size:0.62rem; color:#a7f3d0; margin-bottom:4px;">${d.sum > 0 ? d.sum : ''}</small>
+                    <div class="chart-bar-fill" style="height:${pct}%;"></div>
+                    <small style="font-size:0.65rem; color:#94a3b8; margin-top:5px;">${d.label}</small>
+                </div>
+            `;
+        });
+        document.getElementById('adm-sales-bar-chart').innerHTML = graphHtml;
+
+        // Today items list
+        let itemMap = {};
+        todayOrders.forEach(o => {
+            const k = `${o.gameName} (${o.packageName})`;
+            if (!itemMap[k]) itemMap[k] = { count: 0, birr: 0 };
+            itemMap[k].count += 1;
+            itemMap[k].birr += Number(o.price || 0);
+        });
+        let bdHtml = '';
+        Object.keys(itemMap).forEach(k => {
+            bdHtml += `<div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #334155;">
+                <span>• ${k} <b>(x${itemMap[k].count})</b></span>
+                <b style="color:#10b981;">${itemMap[k].birr.toLocaleString()} ብር</b>
+            </div>`;
+        });
+        document.getElementById('adm-today-items-breakdown').innerHTML = bdHtml || '<span style="color:#94a3b8;">ዛሬ እስካሁን የተሸጠ እቃ የለም።</span>';
+    }
+
+    // #1 WITHDRAW REQUESTS MANAGEMENT
+    function renderAdminWithdraws() {
+        const box = document.getElementById('adm-withdraws-list');
+        const wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
+        let html = '';
+        wds.forEach(w => {
+            html += `
+                <div class="adm-card">
+                    <div style="display:flex; justify-content:space-between;">
+                        <b>${w.userName} (${w.tgUser} | ID: ${w.uid})</b>
+                        <span style="color:var(--gold); font-weight:800;">${w.amount} ETB</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:#cbd5e1; margin-top:6px;">
+                        🏦 <b>Method:</b> ${w.method}<br>
+                        👤 <b>Name:</b> ${w.ownerName}<br>
+                        🔢 <b>Account / Phone:</b> <b style="color:#38bdf8;">${w.account}</b><br>
+                        📅 ${w.date}
+                    </div>
+                    ${w.status === 'pending' ? `
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+                            <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessWithdraw('${w.id}', 'approved')">✅ Approve (ከፍያለሁ)</button>
+                            <button class="btn btn-danger" style="padding:8px;" onclick="adminProcessWithdraw('${w.id}', 'rejected')">❌ Reject (ብሩን መልስ)</button>
+                        </div>
+                    ` : `<div style="margin-top:6px; font-size:0.75rem; color:#94a3b8;">Status: <b>${w.status.toUpperCase()}</b></div>`}
+                </div>
+            `;
+        });
+        box.innerHTML = html || '<div style="color:#94a3b8;">ምንም Withdraw ጥያቄ የለም።</div>';
+    }
+
+    function adminProcessWithdraw(wdId, status) {
+        let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
+        const idx = wds.findIndex(w => w.id === wdId);
+        if (idx === -1) return;
+
+        wds[idx].status = status;
+        if (status === 'rejected') {
+            const uKey = 'niro_user_bal_' + wds[idx].uid;
+            const cur = parseFloat(localStorage.getItem(uKey) || '0');
+            localStorage.setItem(uKey, String(cur + Number(wds[idx].amount)));
+        }
+        localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
+        renderAdminWithdraws();
+        updateUI();
+        alert(status === 'approved' ? "✅ Withdraw ጸድቋል!" : "❌ ተሰርዞ ብሩ ወደ ደንበኛው ዋሌት ተመልሷል!");
+    }
+
+    // #9 ORDERS + FULL PROOF CHANNEL MESSAGE GENERATOR
     function renderAdminOrders() {
         const box = document.getElementById('adm-orders-list');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
@@ -1589,16 +2153,19 @@
                         <div>🎯 <b>Target ID:</b> <b style="color:#38bdf8; font-size:0.95rem;">${o.playerId}</b></div>
                         <div>👤 <b>Customer:</b> ${o.userName} (${o.tgUser} | ID: ${o.uid})</div>
                         <div>🏦 <b>Method:</b> ${o.payMethod} | <b>Sender:</b> ${o.senderName}</div>
+                        <div>🕒 <b>Time:</b> ${o.date}</div>
                         <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; border-left:3px solid var(--gold); font-size:0.76rem; color:#cbd5e1;">
                             <b>🧾 Full Transaction SMS:</b><br>${o.fullTxnMessage}
                         </div>
                     </div>
                     ${o.status === 'Pending' ? `
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-                            <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessOrder('${o.orderId}', 'Approved')">✅ Approve</button>
+                            <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessOrder('${o.orderId}', 'Approved')">✅ Approve & Send Proof</button>
                             <button class="btn btn-danger" style="padding:8px;" onclick="adminProcessOrder('${o.orderId}', 'Rejected')">❌ Reject</button>
                         </div>
-                    ` : ''}
+                    ` : `
+                        <button class="btn btn-gold" style="padding:8px; margin-top:8px;" onclick="sendOrderToProofChannel('${o.orderId}')">📢 ወደ Proof Channel ላክ</button>
+                    `}
                 </div>
             `;
         });
@@ -1618,26 +2185,120 @@
         }
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
         renderAdminOrders();
+        renderAdminStatistics();
         updateUI();
-        alert(`Order #${orderId} is now ${status}!`);
+
+        if (status === 'Approved') {
+            sendOrderToProofChannel(orderId);
+        } else {
+            alert(`Order #${orderId} ተሰርዟል!`);
+        }
     }
 
-    // 2. Create New Service + Gallery Logo/Poster + ON/OFF Toggle (#1, #2, #3, #4, #7, #9)
+    function sendOrderToProofChannel(orderId) {
+        const orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
+        const o = orders.find(x => x.orderId === orderId);
+        if (!o) return;
+
+        const proofCh = localStorage.getItem('niro_proof_channel_v1') || '@Crypto_Topup_F';
+        const proofText =
+`✅ NEW ORDER COMPLETED (NIRO TOPUP)
+
+🧾 Order ID: #${o.orderId}
+👤 Customer: ${o.userName} (${o.tgUser})
+📦 Item: ${o.gameName} — ${o.packageName}
+💰 Price: ${o.price} ETB
+🎯 Target ID: ${o.playerId}
+🏦 Paid Via: ${o.payMethod}
+🕒 Time: ${o.date}
+📄 Txn Info: ${o.fullTxnMessage}
+
+⚡ Order via: @${BOT_USERNAME}
+📢 Proof Channel: ${proofCh}`;
+
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/' + BOT_USERNAME)}&text=${encodeURIComponent(proofText)}`;
+        if (tg && typeof tg.openTelegramLink === 'function') {
+            tg.openTelegramLink(shareUrl);
+        } else {
+            window.open(shareUrl, '_blank');
+        }
+    }
+
+    function adminSaveProofChannel() {
+        const val = document.getElementById('adm-proof-channel-inp').value.trim();
+        if (!val) return;
+        localStorage.setItem('niro_proof_channel_v1', val);
+        alert("✅ Proof Channel ተቀምጧል!");
+    }
+
+    // #6 ORDER FOLDERS MANAGEMENT
+    function adminAddFolder() {
+        const title = document.getElementById('adm-new-folder-name').value.trim();
+        if (!title) { alert("⚠️ የ Folder ስም ይጻፉ!"); return; }
+        const folders = getFolders();
+        const key = 'fld_' + Date.now();
+        folders.push({ key, title: title.toUpperCase() });
+        saveFolders(folders);
+        document.getElementById('adm-new-folder-name').value = '';
+        renderAdminFolders();
+        populateAdminFolderSelect();
+        renderHomeCategoryPills();
+        alert("✅ አዲስ Order Folder ተፈጥሯል!");
+    }
+
+    function adminDeleteFolder(key) {
+        let folders = getFolders().filter(f => f.key !== key);
+        saveFolders(folders);
+        renderAdminFolders();
+        populateAdminFolderSelect();
+        renderHomeCategoryPills();
+    }
+
+    function renderAdminFolders() {
+        const box = document.getElementById('adm-folders-tags');
+        const folders = getFolders();
+        box.innerHTML = folders.map(f => `
+            <span style="background:#0f172a; border:1px solid #334155; padding:4px 10px; border-radius:20px; font-size:0.72rem; display:inline-flex; align-items:center; gap:6px;">
+                ${f.title} <b style="color:#ef4444; cursor:pointer;" onclick="adminDeleteFolder('${f.key}')">×</b>
+            </span>
+        `).join('');
+    }
+
+    function populateAdminFolderSelect() {
+        const sel = document.getElementById('adm-srv-cat');
+        const folders = getFolders();
+        sel.innerHTML = folders.map(f => `<option value="${f.key}">${f.title}</option>`).join('');
+        toggleChannelFieldsInAdmin();
+    }
+
+    function toggleChannelFieldsInAdmin() {
+        const cat = document.getElementById('adm-srv-cat').value;
+        const extra = document.getElementById('adm-channel-extra-fields');
+        extra.style.display = (cat === 'channel' || cat === 'bot') ? 'block' : 'none';
+    }
+
+    // #2, #3, #4, #7 CREATE NEW SERVICE / CHANNEL / BOT / PC / MOBILE
     function adminCreateNewService() {
         const name = document.getElementById('adm-srv-name').value.trim();
         const category = document.getElementById('adm-srv-cat').value;
         const validationType = document.getElementById('adm-srv-valtype').value;
+        const note = document.getElementById('adm-srv-note').value.trim();
+
+        const channelLink = document.getElementById('adm-ch-link-url').value.trim();
+        const channelPrice = document.getElementById('adm-ch-price-val').value.trim();
+        const channelMembers = document.getElementById('adm-ch-members-val').value.trim();
+        const channelContent = document.getElementById('adm-ch-content-val').value.trim();
 
         if (!name) {
-            alert("⚠️ እባክዎ የአገልግሎቱን ስም ይጻፉ!");
+            alert("⚠️ እባክዎ ስም ይጻፉ!");
             return;
         }
 
         const labelMap = {
             "game_id": "PLAYER ID",
             "tg_user": "የቴሌግራም @username ወይም ID",
+            "phone_addr": "ስልክ ቁጥር እና አድራሻ",
             "usdt_bep20": "Binance ID ወይም BEP20 Address",
-            "email": "Email Address",
             "any": "Account / ID"
         };
 
@@ -1645,27 +2306,46 @@
         const logoImg = tempImages.newSrvLogo || defaultImg;
         const posterImg = tempImages.newSrvPoster || logoImg;
 
+        const initialPackages = [];
+        if (channelPrice && Number(channelPrice) > 0) {
+            initialPackages.push({
+                id: "pkg_" + Date.now(),
+                name: name + " (Full Ownership)",
+                price: Number(channelPrice),
+                badge: "VERIFIED",
+                img: logoImg
+            });
+        }
+
         let catalog = getCatalog();
-        const newId = "srv_" + Date.now();
         catalog.push({
-            id: newId,
+            id: "srv_" + Date.now(),
             name: name.toUpperCase(),
             category: category,
             idLabel: labelMap[validationType] || "ID",
             validationType: validationType,
+            note: note,
+            channelLink: channelLink,
+            channelPrice: channelPrice,
+            channelMembers: channelMembers,
+            channelContent: channelContent,
             enabled: true,
             img: logoImg,
             poster: posterImg,
-            packages: []
+            packages: initialPackages
         });
 
         saveCatalog(catalog);
 
-        // Reset inputs & refresh Home immediately (#1)
         document.getElementById('adm-srv-name').value = '';
+        document.getElementById('adm-srv-note').value = '';
+        document.getElementById('adm-ch-link-url').value = '';
+        document.getElementById('adm-ch-price-val').value = '';
+        document.getElementById('adm-ch-members-val').value = '';
+        document.getElementById('adm-ch-content-val').value = '';
         tempImages.newSrvLogo = '';
         tempImages.newSrvPoster = '';
-        document.getElementById('adm-srv-logo-status').innerText = 'Logo ከ Gallery ይምረጡ';
+        document.getElementById('adm-srv-logo-status').innerText = 'Logo / Photo ከ Gallery ይምረጡ';
         document.getElementById('adm-srv-poster-status').innerText = 'Poster ከ Gallery ይምረጡ';
 
         renderAdminManageServices();
@@ -1673,7 +2353,7 @@
         renderAdminExistingProducts();
         renderHomeStore();
 
-        alert(`✅ "${name.toUpperCase()}" በተሳካ ሁኔታ ተጨምሮ Home ላይ ታይቷል! አሁን ፓኬጅና ዋጋ ጨምሩለት።`);
+        alert(`✅ "${name.toUpperCase()}" ተጨምሮ Home ላይ ታይቷል!`);
     }
 
     function renderAdminManageServices() {
@@ -1690,7 +2370,7 @@
                             <img src="${s.img}" style="width:44px; height:44px; border-radius:10px; object-fit:cover; background:#0f172a;">
                             <div>
                                 <b style="font-size:0.9rem;">${s.name}</b><br>
-                                <small style="color:#94a3b8;">${s.category} • ${s.packages.length} pkgs</small>
+                                <small style="color:#94a3b8;">${s.category} • ${s.packages.length} options</small>
                             </div>
                         </div>
                         <button class="switch-pill ${isOn ? 'switch-on' : 'switch-off'}" onclick="adminToggleServiceStatus('${s.id}')">
@@ -1724,6 +2404,7 @@
         renderHomeStore();
     }
 
+    // #4 FIXED POSTER & LOGO REPLACEMENT
     function adminReplaceServiceImage(input, srvId, field) {
         const file = input.files[0];
         if (!file) return;
@@ -1732,7 +2413,7 @@
             const img = new Image();
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                const maxDim = 450;
+                const maxDim = 600;
                 let w = img.width, h = img.height;
                 if (w > maxDim || h > maxDim) {
                     if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -1740,7 +2421,7 @@
                 }
                 canvas.width = w; canvas.height = h;
                 canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
 
                 let catalog = getCatalog();
                 const idx = catalog.findIndex(s => s.id === srvId);
@@ -1749,7 +2430,10 @@
                     saveCatalog(catalog);
                     renderAdminManageServices();
                     renderHomeStore();
-                    alert("✅ ምስሉ በተሳካ ሁኔታ ተቀይሯል!");
+                    if (selectedGameObj && selectedGameObj.id === srvId) {
+                        openGamePackages(srvId);
+                    }
+                    alert(field === 'poster' ? "✅ Poster በተሳካ ሁኔታ ተቀይሯል!" : "✅ Logo በተሳካ ሁኔታ ተቀይሯል!");
                 }
             };
             img.src = e.target.result;
@@ -1758,24 +2442,20 @@
     }
 
     function adminDeleteService(srvId) {
-        let catalog = getCatalog();
-        catalog = catalog.filter(s => s.id !== srvId);
+        let catalog = getCatalog().filter(s => s.id !== srvId);
         saveCatalog(catalog);
         renderAdminManageServices();
         populateAdminGameDropdown();
         renderAdminExistingProducts();
         renderHomeStore();
-        alert("🗑️ አገልግሎቱ ተሰርዟል!");
+        alert("🗑️ ተሰርዟል!");
     }
 
-    // 3. Packages Add/Delete/Logo Change
+    // PACKAGES MANAGEMENT
     function populateAdminGameDropdown() {
         const sel = document.getElementById('adm-pkg-game-id');
         const catalog = getCatalog();
-        sel.innerHTML = '';
-        catalog.forEach(g => {
-            sel.innerHTML += `<option value="${g.id}">${g.name}</option>`;
-        });
+        sel.innerHTML = catalog.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
     }
 
     function adminAddPackage() {
@@ -1863,7 +2543,80 @@
         }
     }
 
-    // 4. Banks Management With Logos (#11)
+    // #8 USER BALANCE ADD / DEDUCT
+    function adminAdjustUserBalance(mode) {
+        const uid = document.getElementById('adm-bal-target-uid').value.trim();
+        const amt = parseFloat(document.getElementById('adm-bal-amount').value);
+        if (!uid || isNaN(amt) || amt <= 0) {
+            alert("⚠️ ትክክለኛ Telegram ID እና መጠን ያስገቡ!");
+            return;
+        }
+        const key = 'niro_user_bal_' + uid;
+        const cur = parseFloat(localStorage.getItem(key) || '0');
+        const next = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
+        localStorage.setItem(key, String(next));
+        updateUI();
+        alert(`✅ የ ID (${uid}) አዲስ ቀሪ ሂሳብ: ${next.toLocaleString()} ብር ሆኗል!`);
+    }
+
+    // #10 SUB-ADMINS & PERMISSIONS + #11 MINI APP ON/OFF
+    function adminToggleMiniAppStatus() {
+        const isAppOn = localStorage.getItem('niro_miniapp_enabled_v1') !== 'false';
+        const next = !isAppOn;
+        localStorage.setItem('niro_miniapp_enabled_v1', String(next));
+        updateAdminAppSwitchUI();
+        alert(next ? "✅ Mini App አሁን ON (ክፍት) ሆኗል!" : "🔒 Mini App አሁን OFF (ተዘግቷል) — ለ Admin ብቻ ይሰራል!");
+    }
+
+    function updateAdminAppSwitchUI() {
+        const isAppOn = localStorage.getItem('niro_miniapp_enabled_v1') !== 'false';
+        const btn = document.getElementById('adm-app-switch-btn');
+        btn.className = 'switch-pill ' + (isAppOn ? 'switch-on' : 'switch-off');
+        btn.innerText = isAppOn ? 'ON (ይሰራል)' : 'OFF (ዝግ ነው)';
+    }
+
+    function adminAddSubAdmin() {
+        const id = document.getElementById('adm-new-admin-id').value.trim();
+        const name = document.getElementById('adm-new-admin-name').value.trim() || 'Sub-Admin';
+        const perms = Array.from(document.querySelectorAll('.adm-perm-cb:checked')).map(cb => cb.value);
+
+        if (!id) { alert("⚠️ የ Admin Telegram ID ያስገቡ!"); return; }
+        if (perms.length === 0) { alert("⚠️ ቢያንስ አንድ ፍቃድ ይምረጡ!"); return; }
+
+        let list = getSubAdmins().filter(a => String(a.id) !== String(id));
+        list.push({ id, name, perms });
+        saveSubAdmins(list);
+
+        document.getElementById('adm-new-admin-id').value = '';
+        document.getElementById('adm-new-admin-name').value = '';
+        renderAdminSubAdmins();
+        alert(`✅ ${name} (ID: ${id}) በተመረጡት ፍቃዶች Admin ሆኗል!`);
+    }
+
+    function renderAdminSubAdmins() {
+        const box = document.getElementById('adm-subadmins-list');
+        const list = getSubAdmins();
+        let html = '';
+        list.forEach(a => {
+            html += `
+                <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <b>👮 ${a.name}</b> <small style="color:#38bdf8;">(ID: ${a.id})</small><br>
+                        <small style="color:#a7f3d0;">ፍቃዶች: ${a.perms.join(', ')}</small>
+                    </div>
+                    <button onclick="adminRemoveSubAdmin('${a.id}')" style="background:var(--danger); color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:0.75rem;">Remove</button>
+                </div>
+            `;
+        });
+        box.innerHTML = html || '<div style="color:#94a3b8; font-size:0.8rem;">እስካሁን የተጨመረ ረዳት Admin የለም።</div>';
+    }
+
+    function adminRemoveSubAdmin(id) {
+        saveSubAdmins(getSubAdmins().filter(a => String(a.id) !== String(id)));
+        renderAdminSubAdmins();
+    }
+
+    // BANKS MANAGEMENT
     function applyBankPreset() {
         const val = document.getElementById('adm-bank-preset').value;
         if (!val) return;
@@ -1898,38 +2651,32 @@
         document.getElementById('adm-bank-logo-status').innerText = 'የባንክ ሎጎ ከ Gallery ይምረጡ';
 
         renderAdminBanks();
-        alert("✅ የክፍያ አካውንት ከነሎጎው ተጨምሯል!");
+        alert("✅ የክፍያ አካውንት ተጨምሯል!");
     }
 
     function renderAdminBanks() {
         const box = document.getElementById('adm-existing-banks-list');
         const banks = getBanks();
-        let html = '';
-        banks.forEach(b => {
-            html += `
-                <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <img src="${b.logo || ''}" style="width:38px; height:38px; border-radius:8px; background:#fff; object-fit:contain;">
-                        <div>
-                            <b>${b.title}</b><br>
-                            <small style="color:#38bdf8;">${b.account} (${b.owner})</small>
-                        </div>
+        box.innerHTML = banks.map(b => `
+            <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${b.logo || ''}" style="width:38px; height:38px; border-radius:8px; background:#fff; object-fit:contain;">
+                    <div>
+                        <b>${b.title}</b><br>
+                        <small style="color:#38bdf8;">${b.account} (${b.owner})</small>
                     </div>
-                    <button onclick="adminDeleteBank('${b.id}')" style="background:var(--danger); color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:0.75rem;">Delete</button>
                 </div>
-            `;
-        });
-        box.innerHTML = html;
+                <button onclick="adminDeleteBank('${b.id}')" style="background:var(--danger); color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:0.75rem;">Delete</button>
+            </div>
+        `).join('');
     }
 
     function adminDeleteBank(bId) {
-        let banks = getBanks();
-        banks = banks.filter(b => b.id !== bId);
-        localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
+        localStorage.setItem(BANKS_KEY, JSON.stringify(getBanks().filter(b => b.id !== bId)));
         renderAdminBanks();
     }
 
-    // 5. Global Branding & Broadcast & Channels (#9)
+    // BRANDING, BROADCAST & CHANNELS
     function adminUpdateGlobalLogo(input, storageKey) {
         const file = input.files[0];
         if (!file) return;
@@ -1937,7 +2684,7 @@
         reader.onload = function(e) {
             localStorage.setItem(storageKey, e.target.result);
             updateUI();
-            alert("✅ ሎጎው በተሳካ ሁኔታ ተቀይሯል!");
+            alert("✅ ሎጎው ተቀይሯል!");
         };
         reader.readAsDataURL(file);
     }
@@ -1948,7 +2695,7 @@
         localStorage.setItem('niro_topup_broadcast_v2', txt);
         document.getElementById('adm-bc-input').value = '';
         updateUI();
-        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል!");
+        alert("📢 Broadcast ተለጥፏል!");
     }
 
     function adminClearBroadcast() {
@@ -1961,8 +2708,7 @@
         const type = document.getElementById('adm-ch-type').value;
         const title = document.getElementById('adm-ch-title').value.trim();
         const url = document.getElementById('adm-ch-url').value.trim();
-
-        if (!title || !url) { alert("⚠️ የአዝራሩን ስም እና ሊንክ ያስገቡ!"); return; }
+        if (!title || !url) { alert("⚠️ ስምና ሊንክ ያስገቡ!"); return; }
 
         let chs = getChannels();
         chs.push({ id: "ch_" + Date.now(), type, title, url });
@@ -1972,59 +2718,47 @@
         document.getElementById('adm-ch-url').value = '';
         renderAdminChannels();
         renderCommunityChannels();
-        alert("✅ ቻናሉ በተሳካ ሁኔታ ተጨምሯል!");
+        alert("✅ ተጨምሯል!");
     }
 
     function renderAdminChannels() {
         const box = document.getElementById('adm-channels-list');
         const chs = getChannels();
-        let html = '';
-        chs.forEach(c => {
-            html += `
-                <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <b>${c.title}</b> <small style="color:var(--gold);">[${c.type}]</small><br>
-                        <small style="color:#38bdf8;">${c.url}</small>
-                    </div>
-                    <button onclick="adminDeleteChannel('${c.id}')" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:0.75rem; cursor:pointer;">Delete 🗑️</button>
+        box.innerHTML = chs.map(c => `
+            <div class="adm-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <b>${c.title}</b> <small style="color:var(--gold);">[${c.type}]</small><br>
+                    <small style="color:#38bdf8;">${c.url}</small>
                 </div>
-            `;
-        });
-        box.innerHTML = html || '<div style="color:#94a3b8;">ምንም የተጨመረ ቻናል የለም።</div>';
+                <button onclick="adminDeleteChannel('${c.id}')" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:0.75rem;">Delete</button>
+            </div>
+        `).join('') || '<div style="color:#94a3b8;">ምንም የተጨመረ ቻናል የለም።</div>';
     }
 
     function adminDeleteChannel(chId) {
-        let chs = getChannels();
-        chs = chs.filter(c => c.id !== chId);
-        localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
+        localStorage.setItem('niro_topup_channels_v2', JSON.stringify(getChannels().filter(c => c.id !== chId)));
         renderAdminChannels();
         renderCommunityChannels();
-        alert("🗑️ ቻናሉ ተሰርዟል!");
     }
 
-    // 6. Admin Deposits
+    // DEPOSITS APPROVAL
     function renderAdminDeposits() {
         const box = document.getElementById('adm-deposits-list');
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
-        let html = '';
-
-        deps.forEach(d => {
-            html += `
-                <div class="adm-card">
-                    <b>${d.userName} (ID: ${d.uid})</b><br>
-                    🏦 <b>Method:</b> ${d.bankTitle} • 💰 <b style="color:#22c55e;">${d.amount} ETB</b><br>
-                    👤 <b>Sender:</b> ${d.senderName}<br>
-                    <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; font-size:0.75rem;">${d.txnId}</div>
-                    ${d.status === 'pending' ? `
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-                            <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessDeposit('${d.id}', 'approve')">✅ Approve</button>
-                            <button class="btn btn-danger" style="padding:8px;" onclick="adminProcessDeposit('${d.id}', 'reject')">❌ Reject</button>
-                        </div>
-                    ` : `<small style="color:#94a3b8;">Status: ${d.status}</small>`}
-                </div>
-            `;
-        });
-        box.innerHTML = html || '<div style="color:#94a3b8;">ምንም Deposit ጥያቄ የለም።</div>';
+        box.innerHTML = deps.map(d => `
+            <div class="adm-card">
+                <b>${d.userName} (ID: ${d.uid})</b><br>
+                🏦 <b>Method:</b> ${d.bankTitle} • 💰 <b style="color:#22c55e;">${d.amount} ETB</b><br>
+                🔑 <b>Txn ID:</b> <b style="color:#38bdf8;">${d.extractedTxnId || 'Verified'}</b><br>
+                <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; font-size:0.75rem;">${d.txnId}</div>
+                ${d.status === 'pending' ? `
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+                        <button class="btn btn-primary" style="padding:8px;" onclick="adminProcessDeposit('${d.id}', 'approve')">✅ Approve</button>
+                        <button class="btn btn-danger" style="padding:8px;" onclick="adminProcessDeposit('${d.id}', 'reject')">❌ Reject</button>
+                    </div>
+                ` : `<small style="color:#94a3b8;">Status: ${d.status}</small>`}
+            </div>
+        `).join('') || '<div style="color:#94a3b8;">ምንም Deposit ጥያቄ የለም።</div>';
     }
 
     function adminProcessDeposit(depId, action) {
@@ -2041,10 +2775,10 @@
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
         renderAdminDeposits();
         updateUI();
-        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቋል!" : "❌ ተሰርዟል!");
+        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቆ ወደ ደንበኛው ዋሌት ገብቷል!" : "❌ ተሰርዟል!");
     }
 
-    // Navigation
+    // NAVIGATION
     function switchTab(tId) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.bottom-nav .nav-item').forEach(b => b.classList.remove('active'));
@@ -2059,12 +2793,6 @@
     }
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function copyRefLink() {
-        const inp = document.getElementById('ref-link-inp');
-        inp.select();
-        navigator.clipboard.writeText(inp.value);
-        alert("✅ የሪፈራል ሊንክ ተቀድቷል!");
-    }
 
     document.addEventListener('DOMContentLoaded', () => {
         updateUI();
