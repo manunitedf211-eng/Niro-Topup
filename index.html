@@ -9,384 +9,127 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
     <style>
-        :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --primary: #0f766e;
-            --primary-dark: #064e3b;
-            --accent: #10b981;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --danger: #ef4444;
-            --gold: #f59e0b;
-        }
-
+        :root { --bg-color: #f4f7f6; --card-bg: #ffffff; --primary: #0f766e; --primary-dark: #064e3b; --accent: #10b981; --text-main: #0f172a; --text-muted: #64748b; --border-color: #e2e8f0; --danger: #ef4444; --gold: #f59e0b; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding-bottom: 85px;
-            overflow-x: hidden;
-        }
-
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 85px; overflow-x: hidden; }
         /* Maintenance / Update Lock Screen */
-        #maintenance-lock-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #064e3b, #0f172a);
-            color: #ffffff; z-index: 99999; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 28px;
-        }
-        .maint-icon-box {
-            width: 84px; height: 84px; border-radius: 24px;
-            background: rgba(245, 158, 11, 0.18); border: 2px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.3rem; color: var(--gold); margin-bottom: 18px;
-        }
-
+        #maintenance-lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #064e3b, #0f172a); color: #ffffff; z-index: 99999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px; }
+        .maint-icon-box { width: 84px; height: 84px; border-radius: 24px; background: rgba(245, 158, 11, 0.18); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 2.3rem; color: var(--gold); margin-bottom: 18px; }
         /* Top Header */
-        .top-nav {
-            position: sticky; top: 0; z-index: 100;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border-color);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 16px;
-        }
-        .brand {
-            display: flex; align-items: center; gap: 8px;
-            font-weight: 900; font-size: 1.02rem; color: var(--primary); cursor: pointer;
-        }
-        .brand-icon {
-            width: 32px; height: 32px; background: var(--primary); color: #fff;
-            border-radius: 9px; display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
+        .top-nav { position: sticky; top: 0; z-index: 100; background: #ffffff; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; }
+        .brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 1.02rem; color: var(--primary); cursor: pointer; }
+        .brand-icon { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .brand-icon img { width: 100%; height: 100%; object-fit: cover; }
-        .header-right { display: flex; align-items: center; gap: 8px; }
-        .lang-pill {
-            background: #f1f5f9; border: 1px solid var(--border-color);
-            padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; cursor: pointer;
-        }
-        .wallet-pill {
-            background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary);
-            padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer;
-        }
-        .admin-btn {
-            background: var(--gold); color: #fff; border: none;
-            padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; cursor: pointer;
-            display: none;
-        }
-
+        .header-right { display: flex; align-items: center; gap: 6px; }
+        .sync-pill { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 5px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .lang-pill { background: #f1f5f9; border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .wallet-pill { background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
+        .admin-btn { background: var(--gold); color: #fff; border: none; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: none; }
         .container { padding: 14px; max-width: 520px; margin: 0 auto; }
         .tab-content { display: none; animation: fadeIn 0.25s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        #live-broadcast-banner {
-            display: none; background: #fef3c7; border: 1px solid #f59e0b; color: #92400e;
-            padding: 10px 14px; border-radius: 14px; margin-bottom: 12px; font-size: 0.8rem; font-weight: 600;
-        }
-
-        /* Welcome Dark Banner With User TG Profile (#2) */
-        .hero-card {
-            background: linear-gradient(135deg, #064e3b, #0f172a);
-            color: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 14px;
-            position: relative; overflow: hidden;
-        }
-        .hero-user-row {
-            display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-        }
-        .hero-tg-avatar {
-            width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
-            border: 2.5px solid #34d399; background: #0f172a; flex-shrink: 0;
-        }
+        #live-broadcast-banner { display: none; background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 10px 14px; border-radius: 14px; margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; }
+        /* Welcome Dark Banner With User TG Profile */
+        .hero-card { background: linear-gradient(135deg, #064e3b, #0f172a); color: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 14px; position: relative; overflow: hidden; }
+        .hero-user-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .hero-tg-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2.5px solid #34d399; background: #0f172a; flex-shrink: 0; }
         .hero-card h2 { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
         .hero-card p { font-size: 0.78rem; color: #cbd5e1; }
         .badge-row { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
-        .hero-badge {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
-            padding: 4px 10px; border-radius: 20px; font-size: 0.68rem; font-weight: 600;
-        }
-
-        .search-box {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 14px;
-            padding: 10px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-        }
-        .search-box input {
-            border: none; outline: none; width: 100%; font-family: inherit; font-size: 0.85rem;
-        }
-
+        .hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; }
+        .search-box { background: #fff; border: 1px solid var(--border-color); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .search-box input { border: none; outline: none; width: 100%; font-family: inherit; font-size: 0.85rem; }
         .cat-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; }
-        .cat-pill {
-            background: #fff; border: 1px solid var(--border-color); color: var(--text-muted);
-            padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
-            white-space: nowrap; cursor: pointer;
-        }
+        .cat-pill { background: #fff; border: 1px solid var(--border-color); color: var(--text-muted); padding: 7px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; cursor: pointer; }
         .cat-pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
         .sec-title { font-weight: 900; font-size: 1rem; margin: 14px 0 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-
         .store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .product-card {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
-            overflow: hidden; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            position: relative;
-        }
+        .product-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: relative; }
         .product-card:active { transform: scale(0.98); }
         .product-card.coming-soon { opacity: 0.78; }
-        .status-ribbon {
-            position: absolute; top: 8px; right: 8px; background: #0f172a; color: #fbbf24;
-            font-size: 0.62rem; font-weight: 800; padding: 3px 8px; border-radius: 10px; z-index: 3;
-        }
-        .product-img {
-            width: 100%; height: 125px; object-fit: cover; background: #0f172a; display: block;
-        }
+        .status-ribbon { position: absolute; top: 8px; right: 8px; background: #0f172a; color: #fbbf24; font-size: 0.62rem; font-weight: 800; padding: 3px 8px; border-radius: 10px; z-index: 3; }
+        .product-img { width: 100%; height: 125px; object-fit: cover; background: #0f172a; display: block; }
         .product-info { padding: 10px 12px; }
         .product-info h4 { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
         .product-info small { font-size: 0.7rem; color: var(--primary); font-weight: 700; }
-
         /* Packages View Banner & Header */
-        .game-poster-hero {
-            position: relative; border-radius: 20px; overflow: hidden; height: 160px;
-            margin-bottom: 14px; background: #0f172a; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center; color: #fff;
-        }
-        .game-poster-hero img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.45;
-        }
+        .game-poster-hero { position: relative; border-radius: 20px; overflow: hidden; height: 160px; margin-bottom: 14px; background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; }
+        .game-poster-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; }
         .game-poster-content { position: relative; z-index: 2; padding: 12px; }
-        .game-poster-back {
-            position: absolute; top: 12px; left: 12px; z-index: 4;
-            background: rgba(15,23,42,0.75); color: #fff; border: none;
-            width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
-        }
-
-        .service-detail-box {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 14px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .channel-showcase-card {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 18px;
-            overflow: hidden; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-        }
-        .channel-showcase-photo {
-            width: 100%; height: 185px; object-fit: cover; background: #0f172a; display: block;
-        }
+        .game-poster-back { position: absolute; top: 12px; left: 12px; z-index: 4; background: rgba(15,23,42,0.75); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
+        .service-detail-box { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 14px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .channel-showcase-card { background: #fff; border: 1px solid var(--border-color); border-radius: 18px; overflow: hidden; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+        .channel-showcase-photo { width: 100%; height: 185px; object-fit: cover; background: #0f172a; display: block; }
         .channel-showcase-body { padding: 14px; }
-
-        .player-id-bar {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer;
-        }
-        .pkg-card {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 10px; display: flex; flex-direction: column; justify-content: space-between;
-            position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-        }
-        .pkg-badge {
-            position: absolute; top: 14px; left: 14px; background: var(--accent); color: #fff;
-            font-size: 0.62rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; z-index: 2;
-        }
-        .pkg-thumb-box {
-            width: 100%; height: 105px; border-radius: 12px; overflow: hidden;
-            margin-bottom: 8px; background: #e2e8f0; display: flex; align-items: center; justify-content: center;
-        }
+        .player-id-bar { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; }
+        .pkg-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .pkg-badge { position: absolute; top: 14px; left: 14px; background: var(--accent); color: #fff; font-size: 0.62rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; z-index: 2; }
+        .pkg-thumb-box { width: 100%; height: 105px; border-radius: 12px; overflow: hidden; margin-bottom: 8px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; }
         .pkg-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-        .pkg-price-row {
-            display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
-        }
-        .buy-pill-btn {
-            background: #ecfdf5; color: var(--primary); border: 1px solid #a7f3d0;
-            padding: 6px 15px; border-radius: 12px; font-weight: 800; font-size: 0.78rem; cursor: pointer;
-        }
-
+        .pkg-price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .buy-pill-btn { background: #ecfdf5; color: var(--primary); border: 1px solid #a7f3d0; padding: 6px 15px; border-radius: 12px; font-weight: 800; font-size: 0.78rem; cursor: pointer; }
         /* Bank Radio Selection Cards */
         .bank-radio-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-        .bank-radio-card {
-            background: #fff; border: 1.5px solid var(--border-color); border-radius: 14px;
-            padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; transition: 0.15s;
-        }
+        .bank-radio-card { background: #fff; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.15s; }
         .bank-radio-card.selected { border-color: var(--primary); background: #ecfdf5; }
         .bank-radio-left { display: flex; align-items: center; gap: 10px; }
-        .bank-logo-box {
-            width: 40px; height: 40px; border-radius: 10px; background: #f8fafc;
-            border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; flex-shrink: 0;
-        }
+        .bank-logo-box { width: 40px; height: 40px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
         .bank-logo-box img { width: 100%; height: 100%; object-fit: contain; padding: 3px; }
-        .bank-radio-circle {
-            width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .bank-radio-circle { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; }
         .bank-radio-card.selected .bank-radio-circle { border-color: var(--primary); }
-        .bank-radio-card.selected .bank-radio-circle::after {
-            content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary);
-        }
-
+        .bank-radio-card.selected .bank-radio-circle::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); }
         /* Smart Deposit Step-by-Step UI */
-        .step-badge-row {
-            display: flex; align-items: center; gap: 8px; margin: 12px 0 8px;
-            font-size: 0.74rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px;
-        }
-        .step-num-circle {
-            width: 22px; height: 22px; border-radius: 50%; background: var(--primary);
-            color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 0.72rem; font-weight: 800;
-        }
-        .dep-info-card {
-            background: #f8fafc; border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 12px 14px; margin-bottom: 10px;
-        }
-        .dep-copy-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 0; border-bottom: 1px solid #e2e8f0;
-        }
+        .step-badge-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 8px; font-size: 0.74rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; }
+        .step-num-circle { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; }
+        .dep-info-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; }
+        .dep-copy-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
         .dep-copy-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .copy-icon-btn {
-            width: 34px; height: 34px; border-radius: 10px; background: #fff;
-            border: 1px solid var(--border-color); color: var(--text-main);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
-        .dep-error-box {
-            display: none; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c;
-            padding: 10px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 600;
-            margin-bottom: 10px; align-items: center; gap: 8px;
-        }
-
+        .copy-icon-btn { width: 34px; height: 34px; border-radius: 10px; background: #fff; border: 1px solid var(--border-color); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .dep-error-box { display: none; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 10px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; margin-bottom: 10px; align-items: center; gap: 8px; }
         /* Profile & Home Screen Shortcut Card */
-        .profile-header-box {
-            display: flex; align-items: center; gap: 14px; background: #fff;
-            border: 1px solid var(--border-color); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px;
-        }
-        .profile-avatar-img {
-            width: 58px; height: 58px; border-radius: 50%; object-fit: cover;
-            border: 2px solid var(--primary); background: #0f172a;
-        }
-        .shortcut-banner-btn {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 14px;
-            padding: 13px 16px; display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem;
-        }
+        .profile-header-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; }
+        .profile-avatar-img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #0f172a; }
+        .shortcut-banner-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 14px; padding: 13px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
         .shortcut-banner-btn:active { background: #ecfdf5; border-color: var(--primary); }
-
         /* Wallet Card */
-        .wallet-hero {
-            background: linear-gradient(135deg, #064e3b, #0f172a);
-            color: #fff; border-radius: 20px; padding: 22px; margin-bottom: 16px;
-        }
-        .btn {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px; border-radius: 12px; border: none; font-family: inherit;
-            font-weight: 700; font-size: 0.85rem; cursor: pointer; width: 100%;
-        }
+        .wallet-hero { background: linear-gradient(135deg, #064e3b, #0f172a); color: #fff; border-radius: 20px; padding: 22px; margin-bottom: 16px; }
+        .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 12px; border: none; font-family: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; width: 100%; }
         .btn-primary { background: var(--primary); color: #fff; }
         .btn-dark { background: #1e293b; color: #fff; }
         .btn-danger { background: var(--danger); color: #fff; }
         .btn-gold { background: var(--gold); color: #fff; }
-
-        .card {
-            background: #fff; border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 16px; margin-bottom: 12px;
-        }
-
-        .form-control {
-            width: 100%; background: #f8fafc; border: 1px solid var(--border-color);
-            padding: 12px; border-radius: 12px; color: var(--text-main); font-family: inherit;
-            margin-bottom: 10px; outline: none; font-size: 0.85rem;
-        }
-
+        .card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+        .form-control { width: 100%; background: #f8fafc; border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; color: var(--text-main); font-family: inherit; margin-bottom: 10px; outline: none; font-size: 0.85rem; }
         .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-        .lang-opt-btn {
-            background: #fff; border: 1px solid var(--border-color); padding: 11px 12px;
-            border-radius: 12px; text-align: left; font-size: 0.82rem; font-weight: 700; cursor: pointer;
-        }
+        .lang-opt-btn { background: #fff; border: 1px solid var(--border-color); padding: 11px 12px; border-radius: 12px; text-align: left; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
         .lang-opt-btn.active { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
-
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
-            background: #ffffff; border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; align-items: center; z-index: 100;
-        }
-        .nav-item {
-            background: none; border: none; color: var(--text-muted);
-            font-size: 0.7rem; font-family: inherit; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 600;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 70px; background: #ffffff; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .nav-item { background: none; border: none; color: var(--text-muted); font-size: 0.7rem; font-family: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 600; }
         .nav-item.active { color: var(--primary); font-weight: 800; }
         .nav-item i { font-size: 1.15rem; }
-
         /* Modals */
-        .modal-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(5px);
-            z-index: 10000; display: none; align-items: flex-end; justify-content: center;
-        }
-        .modal-sheet {
-            background: #fff; border-radius: 24px 24px 0 0; padding: 22px;
-            width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto;
-            animation: slideUp 0.25s ease;
-        }
+        .modal-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(5px); z-index: 10000; display: none; align-items: flex-end; justify-content: center; }
+        .modal-sheet { background: #fff; border-radius: 24px 24px 0 0; padding: 22px; width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto; animation: slideUp 0.25s ease; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-        /* ==========================================
-           FIXED ADMIN OVERLAY & VISIBLE TABS (#1)
-        ========================================== */
-        #admin-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f172a; color: #f8fafc; z-index: 20000; display: none;
-            flex-direction: column; overflow-y: auto;
-        }
-        .adm-header {
-            background: #1e293b; padding: 12px 16px; display: flex; justify-content: space-between;
-            align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #334155;
-            flex-shrink: 0;
-        }
-        /* Grid layout so ALL 10 Admin tabs are 100% visible and never squished */
-        .adm-tabs {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
-            background: #162032; padding: 10px 12px; border-bottom: 1px solid #334155;
-            flex-shrink: 0;
-        }
-        .adm-tab-btn {
-            background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 9px 10px;
-            border-radius: 10px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
-            text-align: left; display: flex; align-items: center; gap: 6px;
-        }
-        .adm-tab-btn.active {
-            background: var(--primary); color: #fff; border-color: #34d399;
-        }
+        /* Admin Overlay */
+        #admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #f8fafc; z-index: 20000; display: none; flex-direction: column; overflow-y: auto; }
+        .adm-header { background: #1e293b; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #334155; flex-shrink: 0; }
+        .adm-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; background: #162032; padding: 10px 12px; border-bottom: 1px solid #334155; flex-shrink: 0; }
+        .adm-tab-btn { background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 9px 10px; border-radius: 10px; font-size: 0.76rem; font-weight: 700; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 6px; }
+        .adm-tab-btn.active { background: var(--primary); color: #fff; border-color: #34d399; }
         .adm-page { display: none; padding: 16px; flex: 1; }
         .adm-page.active { display: block; }
-        .adm-card {
-            background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 16px; margin-bottom: 14px;
-        }
-        .adm-input {
-            width: 100%; background: #0f172a; border: 1px solid #334155; padding: 11px;
-            border-radius: 10px; color: #fff; margin-bottom: 10px; font-family: inherit; font-size: 0.84rem;
-        }
-        .file-upload-box {
-            border: 1.5px dashed #475569; border-radius: 12px; padding: 12px;
-            text-align: center; background: #0f172a; margin-bottom: 10px; cursor: pointer;
-        }
-        .switch-pill {
-            padding: 5px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; border: none; cursor: pointer;
-        }
+        .adm-card { background: #1e293b; border: 1px solid #334155; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+        .adm-input { width: 100%; background: #0f172a; border: 1px solid #334155; padding: 11px; border-radius: 10px; color: #fff; margin-bottom: 10px; font-family: inherit; font-size: 0.84rem; }
+        .file-upload-box { border: 1.5px dashed #475569; border-radius: 12px; padding: 12px; text-align: center; background: #0f172a; margin-bottom: 10px; cursor: pointer; }
+        .switch-pill { padding: 5px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; border: none; cursor: pointer; }
         .switch-on { background: #16a34a; color: #fff; }
         .switch-off { background: #dc2626; color: #fff; }
-
         /* Statistics Graph Bars */
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-        .stat-box {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 1px solid #334155; border-radius: 14px; padding: 14px;
-        }
+        .stat-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 14px; padding: 14px; }
         .stat-val { font-size: 1.35rem; font-weight: 900; color: #34d399; margin: 4px 0; }
         .graph-bar-row { margin-bottom: 10px; }
         .graph-bar-bg { width: 100%; height: 12px; background: #0f172a; border-radius: 8px; overflow: hidden; margin-top: 4px; }
@@ -394,7 +137,6 @@
     </style>
 </head>
 <body>
-
     <!-- MINI APP MAINTENANCE LOCK SCREEN FOR NON-ADMINS -->
     <div id="maintenance-lock-screen">
         <div class="maint-icon-box"><i class="fas fa-tools"></i></div>
@@ -412,6 +154,7 @@
             <span>NIRO TOPUP</span>
         </div>
         <div class="header-right">
+            <button class="sync-pill" id="sync-status-pill" onclick="manualSyncNow()" title="Sync with Bot"><i class="fas fa-sync-alt"></i></button>
             <button class="admin-btn" id="open-admin-btn" onclick="toggleAdmin(true)"><i class="fas fa-shield-alt"></i> Admin</button>
             <button class="lang-pill" id="lang-btn" onclick="switchTab('account')"><i class="fas fa-globe"></i> <span id="hdr-lang-code">አማ</span></button>
             <div class="wallet-pill" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> <span id="hdr-bal">0</span> <span data-i18n="currency">ብር</span></div>
@@ -419,13 +162,12 @@
     </header>
 
     <main class="container">
-
         <!-- LIVE BROADCAST ALERT -->
         <div id="live-broadcast-banner">
             <i class="fas fa-bullhorn"></i> <span id="live-bc-text"></span>
         </div>
 
-        <!-- 1. HOME TAB WITH USER'S OWN TELEGRAM PROFILE PHOTO (#2) -->
+        <!-- 1. HOME TAB WITH USER'S OWN TELEGRAM PROFILE PHOTO -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-card">
                 <div class="hero-user-row">
@@ -451,7 +193,6 @@
 
             <!-- Dynamic Folders / Categories Filter -->
             <div class="cat-scroll" id="home-cat-pills"></div>
-
             <div id="store-sections-container"></div>
         </section>
 
@@ -466,10 +207,8 @@
                     <span style="background:rgba(16,185,129,0.25); border:1px solid #34d399; color:#a7f3d0; padding:3px 12px; border-radius:20px; font-size:0.72rem; font-weight:700;">⚡ ፈጣን (INSTANT)</span>
                 </div>
             </div>
-
             <div id="channel-bot-showcase-area"></div>
             <div id="service-note-area"></div>
-
             <div class="player-id-bar" onclick="openPlayerIdModal()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <img id="pkg-game-thumb" src="" style="width:44px; height:44px; border-radius:12px; object-fit:cover;">
@@ -480,7 +219,6 @@
                 </div>
                 <button class="btn-primary" style="width:auto; padding:8px 14px; border-radius:10px; font-size:0.78rem; font-weight:800;" data-i18n="enter_id_btn">ID ያስገቡ</button>
             </div>
-
             <h4 style="font-size:0.9rem; margin-bottom:10px;" data-i18n="select_pkg">⚡ መጠን ይምረጡ (Select Package)</h4>
             <div class="store-grid" id="packages-grid-container"></div>
         </section>
@@ -517,7 +255,7 @@
                 </div>
             </div>
 
-            <!-- Fixed Add to Home Screen Shortcut Button (#3) -->
+            <!-- Add to Home Screen Shortcut Button -->
             <div class="shortcut-banner-btn" onclick="triggerAddToHomeScreen()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-mobile-alt" style="color:var(--primary); font-size:1.15rem;"></i>
@@ -529,15 +267,15 @@
                 <i class="fas fa-plus-circle" style="color:var(--primary); font-size:1.2rem;"></i>
             </div>
 
-            <!-- Invite Friends Card (@Niro_1Topup_Bot) -->
+            <!-- Invite Friends Card (+2.00 ETB / Invite synced with Bot) -->
             <div class="hero-card">
                 <small style="color:#34d399; font-weight:800;"><i class="fas fa-users"></i> <span data-i18n="invite_title">ጓደኞችዎን ይጋብዙ</span></small>
-                <h3 style="font-size:1.15rem; font-weight:900; margin:4px 0;" data-i18n="earn_30">ከትርፉ 30% ያግኙ</h3>
-                <p style="font-size:0.75rem; color:#cbd5e1; margin-bottom:12px;" data-i18n="invite_sub">ጓደኞችዎ በመጀመሪያዎቹ 90 ቀናት ከሚያደርጉት እያንዳንዱ ግዢ 30% ኮሚሽን ያግኙ!</p>
+                <h3 style="font-size:1.15rem; font-weight:900; margin:4px 0;" data-i18n="earn_30">በ 1 ሰው +2.00 ETB እና 30% ያግኙ</h3>
+                <p style="font-size:0.75rem; color:#cbd5e1; margin-bottom:12px;" data-i18n="invite_sub">ጓደኞችዎ ሲመዘገቡ +2.00 ETB ወዲያውኑ ያግኙ እንዲሁም ከግዢያቸው 30% ኮሚሽን ያግኙ!</p>
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; text-align:center; background:rgba(255,255,255,0.08); padding:10px; border-radius:12px; margin-bottom:12px;">
                     <div><b id="ref-cnt">0</b><br><small style="font-size:0.65rem;" data-i18n="ref_invited">የተጋበዙ</small></div>
                     <div><b id="ref-earned">0</b><br><small style="font-size:0.65rem;" data-i18n="ref_earned">የተገኘ</small></div>
-                    <div><b>0</b><br><small style="font-size:0.65rem;" data-i18n="ref_withdrawn">የወጣ</small></div>
+                    <div><b id="ref-withdrawn-val">0</b><br><small style="font-size:0.65rem;" data-i18n="ref_withdrawn">የወጣ</small></div>
                 </div>
                 <div style="display:flex; gap:8px; margin-bottom:8px;">
                     <input type="text" id="ref-link-inp" readonly style="width:100%; background:rgba(0,0,0,0.3); border:none; padding:10px; border-radius:10px; color:#fff; font-size:0.78rem;">
@@ -548,11 +286,9 @@
 
             <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;" data-i18n="lang_header">🌐 ቋንቋ ይምረጡ (LANGUAGE)</h4>
             <div class="lang-grid" id="language-selector-grid"></div>
-
             <h4 style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;" data-i18n="help_header">እገዛ እና ቻናሎች</h4>
             <div class="card" style="padding:0;" id="community-links-container"></div>
         </section>
-
     </main>
 
     <!-- DIRECT CHECKOUT MODAL -->
@@ -562,20 +298,15 @@
                 <h3 id="buy-modal-pkg-title" style="font-weight:900; color:var(--primary); font-size:0.95rem;">60 UC — 180 ብር</h3>
                 <button onclick="closeModal('direct-buy-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;" data-i18n="how_to_pay">1. እንዴት መክፈል ይፈልጋሉ?</label>
             <div class="bank-radio-list" id="buy-bank-radio-list"></div>
             <div id="buy-bank-details" style="background:#ecfdf5; border:1px dashed var(--primary); padding:10px 12px; border-radius:12px; margin-bottom:12px; font-size:0.82rem;"></div>
-
             <label id="buy-target-label" style="font-size:0.76rem; font-weight:700; color:var(--text-muted);">2. መለያ ቁጥር ያስገቡ</label>
             <input type="text" class="form-control" id="buy-target-id" placeholder="">
-
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);" data-i18n="sender_lbl">3. የላኪ ሙሉ ስም (Sender Name)</label>
             <input type="text" class="form-control" id="buy-sender-name" placeholder="የከፈሉበት ስም">
-
             <label style="font-size:0.76rem; font-weight:700; color:var(--text-muted);" data-i18n="sms_lbl">4. ሙሉ የ Transaction መልእክት (Full SMS Message)</label>
             <textarea class="form-control" id="buy-full-txn-msg" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የክፍያ መልእክት እዚህ ይለጥፉ..."></textarea>
-
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:4px;">
                 <button class="btn btn-primary" onclick="submitDirectBuyOrder('receipt')">📤 <span data-i18n="send_order_btn">በደረሰኝ እዘዝ</span></button>
                 <button class="btn btn-dark" onclick="submitDirectBuyOrder('wallet')">💳 <span data-i18n="wallet_pay_btn">ከ Wallet ቀንስ</span></button>
@@ -610,15 +341,12 @@
                 </div>
                 <button onclick="closeModal('deposit-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
-
             <div class="bank-radio-list" id="dep-bank-radio-list"></div>
-
             <div class="step-badge-row">
                 <span class="step-num-circle">1</span>
                 <span>TRANSFER EXACT AMOUNT (ትክክለኛውን መጠን ያስገቡ)</span>
             </div>
             <input type="number" class="form-control" id="dep-amount" placeholder="የሚያስገቡት መጠን በብር (ምሳሌ: 500)" style="font-weight:800; font-size:1rem; color:var(--primary);">
-
             <div class="step-badge-row">
                 <span class="step-num-circle">2</span>
                 <span>RECIPIENT INFORMATION (የተቀባይ መረጃ)</span>
@@ -639,7 +367,6 @@
                     <button class="copy-icon-btn" onclick="copyTextValue('dep-rec-acc')"><i class="far fa-copy"></i></button>
                 </div>
             </div>
-
             <div onclick="toggleExampleReceipt()" style="background:#f8fafc; border:1px solid var(--border-color); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; cursor:pointer;">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-receipt" style="color:var(--primary); font-size:1.1rem;"></i>
@@ -655,19 +382,16 @@
                 <i>"Dear Customer, You have transferred ETB 500.00 to Mulualem (2519****7425) on 15/11/2026. Your transaction number is DA16GONJ1I."</i><br>
                 ⚠️ ከቴሌብር የደረሰዎትን <b>ሙሉ የ SMS መልእክት</b> ከታች ይለጥፉ።
             </div>
-
             <div class="step-badge-row">
                 <span class="step-num-circle">3</span>
                 <span>SUBMIT & VERIFY TRANSACTION SMS</span>
             </div>
             <input type="text" class="form-control" id="dep-sender-name" placeholder="የላኪ ሙሉ ስም (Sender Name)">
             <textarea class="form-control" id="dep-txn-id" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ የ Transaction SMS መልእክት እዚህ ይለጥፉ..."></textarea>
-
             <div id="dep-verify-error" class="dep-error-box">
                 <i class="fas fa-exclamation-circle" style="font-size:1.1rem;"></i>
                 <span id="dep-verify-error-text">ትክክለኛ አይደለም! እባክዎ የቴሌብር መልእክትዎን አረጋግጠው እንደገና ይሞክሩ።</span>
             </div>
-
             <button class="btn btn-dark" style="padding:14px; font-size:0.9rem;" onclick="submitDepositRequest()">
                 <i class="fas fa-check-circle"></i> SUBMIT PAYMENT
             </button>
@@ -696,7 +420,7 @@
     </nav>
 
     <!-- ==========================================
-         ADMIN PANEL (ALL 10 TABS RESTORED IN CLEAN GRID) (#1)
+         ADMIN PANEL (ALL 10 TABS IN CLEAN GRID)
     ========================================== -->
     <div id="admin-overlay">
         <div class="adm-header">
@@ -752,7 +476,6 @@
             <div class="adm-card">
                 <label style="font-size:0.78rem; color:#94a3b8;">1. ስም (ምሳሌ: iPhone 15 Pro, Gaming PC, @MyChannel)</label>
                 <input type="text" class="adm-input" id="adm-srv-name" placeholder="ስም ይጻፉ...">
-
                 <label style="font-size:0.78rem; color:#94a3b8;">2. ምድብ / Folder (Channel, Bot, PC/Computer, Mobile...)</label>
                 <select class="adm-input" id="adm-srv-cat" onchange="toggleChannelBotFields()"></select>
 
@@ -868,7 +591,7 @@
             <h3 style="margin-bottom:10px;">✅ የ Proof Channel ማስተካከያ (Auto Receipt)</h3>
             <div class="adm-card">
                 <label style="font-size:0.78rem; color:#94a3b8;">Proof Channel Link (Approve ሲደረግ ደረሰኝ የሚላክበት)</label>
-                <input type="text" class="adm-input" id="adm-proof-ch-url" placeholder="ምሳሌ፦ https://t.me/NiroProofs">
+                <input type="text" class="adm-input" id="adm-proof-ch-url" placeholder="ምሳሌ፦ https://t.me/Topup_proof">
                 <button class="btn btn-primary" onclick="saveProofChannelUrl()">💾 Proof Channel አስቀምጥ</button>
             </div>
 
@@ -884,7 +607,7 @@
                 </div>
             </div>
 
-            <h3 style="margin:14px 0 8px;">📢 መልእክት ማሰራጫ (Broadcast)</h3>
+            <h3 style="margin:14px 0 8px;">📢 መልእክት ማሰራጫ (Broadcast — ከቦቱ ጋር የተገናኘ)</h3>
             <div class="adm-card">
                 <textarea class="adm-input" id="adm-bc-input" rows="3" placeholder="ማስታወቂያ እዚህ ይጻፉ..."></textarea>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -913,7 +636,6 @@
             <div class="adm-card">
                 <input type="text" class="adm-input" id="adm-sub-name" placeholder="የልጁ ስም (ምሳሌ፦ Mulualem)">
                 <input type="text" class="adm-input" id="adm-sub-uid" placeholder="የልጁ Telegram User ID (ቁጥር)">
-
                 <label style="font-size:0.8rem; color:var(--gold); font-weight:700; display:block; margin-bottom:8px;">ለዚህ Admin የሚፈቀዱ ስራዎችን ይምረጡ (Select Permissions):</label>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.78rem; margin-bottom:12px;">
                     <label><input type="checkbox" class="sub-perm-cb" value="orders" checked> 📦 Orders Approve/Reject</label>
@@ -925,7 +647,6 @@
                     <label><input type="checkbox" class="sub-perm-cb" value="banks"> 🏦 Manage Banks</label>
                     <label><input type="checkbox" class="sub-perm-cb" value="deposits"> 💰 Approve Deposits</label>
                 </div>
-
                 <button class="btn btn-primary" onclick="adminAddSubAdmin()">✅ Admin አድርግ (Add Admin)</button>
             </div>
             <div id="adm-subadmins-list"></div>
@@ -935,6 +656,7 @@
     <script>
     const SUPER_ADMIN_ID = "8797798511";
     const BOT_USERNAME = "Niro_1Topup_Bot";
+    const SHARED_CLOUD_URL = "https://api.jsonbin.io/v3/b/66fa49bee41b4d34e438e8a1";
 
     let tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg) {
@@ -951,16 +673,12 @@
         myTgId = String(u.id);
         myTgName = u.first_name || myTgName;
         myTgUser = u.username ? "@" + u.username : myTgUser;
-        if (u.photo_url) {
-            myTgPhotoUrl = u.photo_url;
-        }
+        if (u.photo_url) { myTgPhotoUrl = u.photo_url; }
     }
 
-    function getSubAdmins() {
-        return JSON.parse(localStorage.getItem('niro_sub_admins_v1') || '[]');
-    }
-
+    function getSubAdmins() { return JSON.parse(localStorage.getItem('niro_sub_admins_v1') || '[]'); }
     const isSuperOwner = String(myTgId) === SUPER_ADMIN_ID || String(myTgUser).toLowerCase() === "@niro_x12";
+
     function getMyAdminRecord() {
         if (isSuperOwner) {
             return { isSuper: true, permissions: ['orders', 'stats', 'withdraws', 'services', 'packages', 'balance', 'banks', 'deposits', 'branding', 'subadmins'] };
@@ -1041,78 +759,10 @@
 
     // 4 LANGUAGES
     const LANGUAGES = [
-        {
-            code: "AM", label: "አማርኛ", currency: "ብር",
-            welcome: "እንኳን ደህና መጡ", hero_sub: "ጨዋታዎችዎን፣ ዲጂታል አገልግሎቶችን እና ኤሌክትሮኒክስ በኢትዮጵያ ባንኮች በፍጥነት ይግዙ።",
-            badge_fast: "⚡ ፈጣን (INSTANT)", badge_safe: "🔒 አስተማማኝ", search_ph: "ጨዋታ፣ Channel፣ Mobile ወይም PC ይፈልጉ...",
-            cat_all: "ሁሉም (ALL)", not_entered: "እስካሁን አልገባም", enter_id_btn: "ID ያስገቡ",
-            select_pkg: "⚡ መጠን ይምረጡ", my_orders: "ትዕዛዞቼ", wallet_title: "ቦርሳ (WALLET)",
-            balance_lbl: "ቀሪ ሂሳብ", deposit_btn: "ገቢ አድርግ", withdraw_btn: "ገንዘብ አውጣ",
-            wallet_hint: "ገንዘብ ገቢ ካደረጉ በኋላ ወይም በቀጥታ 'ግዛ' በመጫን የ Transaction መልእክት በመላክ መግዛት ይችላሉ።",
-            add_home_btn: "በመነሻ ገጽ ላይ አክል", invite_title: "ጓደኞችዎን ይጋብዙ", earn_30: "ከትርፉ 30% ያግኙ",
-            invite_sub: "ጓደኞችዎ በመጀመሪያዎቹ 90 ቀናት ከሚያደርጉት እያንዳንዱ ግዢ 30% ኮሚሽን ያግኙ!",
-            ref_invited: "የተጋበዙ", ref_earned: "የተገኘ", ref_withdrawn: "የወጣ", share_btn: "ለጓደኛ ያጋሩ",
-            lang_header: "🌐 ቋንቋ ይምረጡ", help_header: "እገዛ እና ቻናሎች",
-            how_to_pay: "እንዴት መክፈል ይፈልጋሉ?", sender_lbl: "3. የላኪ ሙሉ ስም",
-            sms_lbl: "4. ሙሉ የ Transaction መልእክት", send_order_btn: "በደረሰኝ እዘዝ", wallet_pay_btn: "ከ Wallet ቀንስ",
-            confirm_btn: "አረጋግጥ",
-            nav_home: "መነሻ", nav_orders: "ትዕዛዞች", nav_wallet: "ዋሌት", nav_account: "አካውንት",
-            buy_btn: "ግዛ", coming_soon: "በቅርቡ ይጀመራል ይጠብቁ!"
-        },
-        {
-            code: "EN", label: "English", currency: "ETB",
-            welcome: "WELCOME BACK", hero_sub: "Top up your games, channels & digital services instantly with Ethiopian banks.",
-            badge_fast: "⚡ INSTANT", badge_safe: "🔒 SECURE", search_ph: "Search games, channels, mobile or PC...",
-            cat_all: "ALL", not_entered: "Not entered yet", enter_id_btn: "Enter ID",
-            select_pkg: "⚡ Select Package", my_orders: "MY ORDERS", wallet_title: "WALLET",
-            balance_lbl: "BALANCE", deposit_btn: "DEPOSIT", withdraw_btn: "WITHDRAW",
-            wallet_hint: "Deposit funds into your wallet or click 'Buy' directly and paste your transaction SMS.",
-            add_home_btn: "Add to Home Screen", invite_title: "INVITE FRIENDS", earn_30: "EARN 30% OF THE PROFIT",
-            invite_sub: "Earn 30% commission from every purchase your invited friends make in their first 90 days!",
-            ref_invited: "INVITED", ref_earned: "EARNED", ref_withdrawn: "WITHDRAWN", share_btn: "Share with Friend",
-            lang_header: "🌐 SELECT LANGUAGE", help_header: "HELP & CHANNELS",
-            how_to_pay: "How would you like to pay?", sender_lbl: "3. Sender Full Name",
-            sms_lbl: "4. Full Transaction SMS Message", send_order_btn: "Order with Receipt", wallet_pay_btn: "Pay from Wallet",
-            confirm_btn: "Confirm",
-            nav_home: "HOME", nav_orders: "ORDERS", nav_wallet: "WALLET", nav_account: "ACCOUNT",
-            buy_btn: "Buy", coming_soon: "Coming soon, stay tuned!"
-        },
-        {
-            code: "TI", label: "ትግርኛ", currency: "ብር",
-            welcome: "እንቋዕ ብደሓን መጻእኩም", hero_sub: "ጸወታታትኩምን ዲጂታላዊ ኣገልግሎታትን ብባንክታት ኢትዮጵያ ብቕልጡፍ ምልኡ።",
-            badge_fast: "⚡ ቅልጡፍ", badge_safe: "🔒 ውሑስ", search_ph: "ጸወታ ወይ ኣገልግሎት ድለዩ...",
-            cat_all: "ኩሉ (ALL)", not_entered: "ክሳብ ሕጂ ኣይኣተወን", enter_id_btn: "ID ኣእትዉ",
-            select_pkg: "⚡ መጠን ምረጹ", my_orders: "ትእዛዛተይ", wallet_title: "ቦርሳ (WALLET)",
-            balance_lbl: "ቀሪ ሒሳብ", deposit_btn: "ገንዘብ ኣእቱ", withdraw_btn: "ገንዘብ ኣውጽእ",
-            wallet_hint: "ገንዘብ ኣብ ቦርሳኹም ኣእቲኹም ወይ ብቐጥታ 'ግዛእ' ብምጥዋቕ መልእኽቲ ክፍሊት ብምልኣኽ ክትገዝኡ ትኽእሉ።",
-            add_home_btn: "ኣብ መበገሲ ገጽ ወስኽ", invite_title: "መሓዙትኩም ዓድሙ", earn_30: "ካብ መኽሰብ 30% ርኸቡ",
-            invite_sub: "መሓዙትኩም ኣብ ቀዳሞት 90 መዓልታት ካብ ዝገብርዎ ዕድጊ 30% ኮሚሽን ርኸቡ!",
-            ref_invited: "ዝተዓደሙ", ref_earned: "ዝተረኽበ", ref_withdrawn: "ዝወጸ", share_btn: "ንመሓዛ ኣካፍል",
-            lang_header: "🌐 ቋንቋ ምረጹ", help_header: "ሓገዝን ቻናላትን",
-            how_to_pay: "ከመይ ክትከፍሉ ትደልዩ?", sender_lbl: "3. ሙሉእ ስም ለኣኺ",
-            sms_lbl: "4. ሙሉእ መልእኽቲ Transaction", send_order_btn: "ብቅብሊት እዘዝ", wallet_pay_btn: "ካብ Wallet ክፈል",
-            confirm_btn: "ኣረጋግጽ",
-            nav_home: "መበገሲ", nav_orders: "ትእዛዛት", nav_wallet: "ቦርሳ", nav_account: "ኣካውንት",
-            buy_btn: "ግዛእ", coming_soon: "ኣብ ቀረባ ክጅምር እዩ ተጸበዩ!"
-        },
-        {
-            code: "SO", label: "Af-Soomaali", currency: "ETB",
-            welcome: "SOO DHAWOOW", hero_sub: "Ku shub ciyaarahaaga iyo adeegyada dijitaalka ah si degdeg ah adigoo isticmaalaya bangiyada Itoobiya.",
-            badge_fast: "⚡ DEGDEG", badge_safe: "🔒 AAMIN", search_ph: "Raadi ciyaar ama adeeg...",
-            cat_all: "DHAMMAAN", not_entered: "Weli lama gelin", enter_id_btn: "Geli ID",
-            select_pkg: "⚡ Dooro Xirmada", my_orders: "DALABYADAYDA", wallet_title: "BOORSO (WALLET)",
-            balance_lbl: "HARAAGA", deposit_btn: "SHUB", withdraw_btn: "LA BAX",
-            wallet_hint: "Ku shub lacag boorsadaada ama si toos ah u guji 'Iibso' oo soo dir fariinta lacag bixinta.",
-            add_home_btn: "Ku dar Shaashadda Hore", invite_title: "CASUUN SAAXIIBADA", earn_30: "KASBO 30% FAA'IIDADA",
-            invite_sub: "Ka hel 30% komishanka iib kasta oo ay saaxiibadaa sameeyaan 90-ka maalmood ee ugu horreeya!",
-            ref_invited: "LA CASUUMAY", ref_earned: "LA HELAY", ref_withdrawn: "LA BAXAY", share_btn: "La wadaag Saaxiib",
-            lang_header: "🌐 DOORO LUQADDA", help_header: "CAAWIMO & KANAALADA",
-            how_to_pay: "Sidee jeclaan lahayd inaad u bixiso?", sender_lbl: "3. Magaca Buuxa ee Diraha",
-            sms_lbl: "4. Fariinta Buuxda ee Transaction-ka", send_order_btn: "Dalbo Rasiid", wallet_pay_btn: "Ka bixi Wallet",
-            confirm_btn: "Xaqiiji",
-            nav_home: "HOYGA", nav_orders: "DALABKA", nav_wallet: "BOORSO", nav_account: "AKOON",
-            buy_btn: "Iibso", coming_soon: "Dhawaan ayuu bilaabanayaa, sug!"
-        }
+        { code: "AM", label: "አማርኛ", currency: "ብር", welcome: "እንኳን ደህና መጡ", hero_sub: "ጨዋታዎችዎን፣ ዲጂታል አገልግሎቶችን እና ኤሌክትሮኒክስ በኢትዮጵያ ባንኮች በፍጥነት ይግዙ።", badge_fast: "⚡ ፈጣን (INSTANT)", badge_safe: "🔒 አስተማማኝ", search_ph: "ጨዋታ፣ Channel፣ Mobile ወይም PC ይፈልጉ...", cat_all: "ሁሉም (ALL)", not_entered: "እስካሁን አልገባም", enter_id_btn: "ID ያስገቡ", select_pkg: "⚡ መጠን ይምረጡ", my_orders: "ትዕዛዞቼ", wallet_title: "ቦርሳ (WALLET)", balance_lbl: "ቀሪ ሂሳብ", deposit_btn: "ገቢ አድርግ", withdraw_btn: "ገንዘብ አውጣ", wallet_hint: "ገንዘብ ገቢ ካደረጉ በኋላ ወይም በቀጥታ 'ግዛ' በመጫን የ Transaction መልእክት በመላክ መግዛት ይችላሉ።", add_home_btn: "በመነሻ ገጽ ላይ አክል", invite_title: "ጓደኞችዎን ይጋብዙ", earn_30: "በ 1 ሰው +2.00 ETB እና 30% ያግኙ", invite_sub: "ጓደኞችዎ ሲመዘገቡ +2.00 ETB ወዲያውኑ ያግኙ እንዲሁም ከግዢያቸው 30% ኮሚሽን ያግኙ!", ref_invited: "የተጋበዙ", ref_earned: "የተገኘ", ref_withdrawn: "የወጣ", share_btn: "ለጓደኛ ያጋሩ", lang_header: "🌐 ቋንቋ ይምረጡ", help_header: "እገዛ እና ቻናሎች", how_to_pay: "እንዴት መክፈል ይፈልጋሉ?", sender_lbl: "3. የላኪ ሙሉ ስም", sms_lbl: "4. ሙሉ የ Transaction መልእክት", send_order_btn: "በደረሰኝ እዘዝ", wallet_pay_btn: "ከ Wallet ቀንስ", confirm_btn: "አረጋግጥ", nav_home: "መነሻ", nav_orders: "ትዕዛዞች", nav_wallet: "ዋሌት", nav_account: "አካውንት", buy_btn: "ግዛ", coming_soon: "በቅርቡ ይጀመራል ይጠብቁ!" },
+        { code: "EN", label: "English", currency: "ETB", welcome: "WELCOME BACK", hero_sub: "Top up your games, channels & digital services instantly with Ethiopian banks.", badge_fast: "⚡ INSTANT", badge_safe: "🔒 SECURE", search_ph: "Search games, channels, mobile or PC...", cat_all: "ALL", not_entered: "Not entered yet", enter_id_btn: "Enter ID", select_pkg: "⚡ Select Package", my_orders: "MY ORDERS", wallet_title: "WALLET", balance_lbl: "BALANCE", deposit_btn: "DEPOSIT", withdraw_btn: "WITHDRAW", wallet_hint: "Deposit funds into your wallet or click 'Buy' directly and paste your transaction SMS.", add_home_btn: "Add to Home Screen", invite_title: "INVITE FRIENDS", earn_30: "EARN +2.00 ETB & 30% PROFIT", invite_sub: "Earn +2.00 ETB instantly per invite plus 30% commission from every purchase!", ref_invited: "INVITED", ref_earned: "EARNED", ref_withdrawn: "WITHDRAWN", share_btn: "Share with Friend", lang_header: "🌐 SELECT LANGUAGE", help_header: "HELP & CHANNELS", how_to_pay: "How would you like to pay?", sender_lbl: "3. Sender Full Name", sms_lbl: "4. Full Transaction SMS Message", send_order_btn: "Order with Receipt", wallet_pay_btn: "Pay from Wallet", confirm_btn: "Confirm", nav_home: "HOME", nav_orders: "ORDERS", nav_wallet: "WALLET", nav_account: "ACCOUNT", buy_btn: "Buy", coming_soon: "Coming soon, stay tuned!" },
+        { code: "TI", label: "ትግርኛ", currency: "ብር", welcome: "እንቋዕ ብደሓን መጻእኩም", hero_sub: "ጸወታታትኩምን ዲጂታላዊ ኣገልግሎታትን ብባንክታት ኢትዮጵያ ብቕልጡፍ ምልኡ።", badge_fast: "⚡ ቅልጡፍ", badge_safe: "🔒 ውሑስ", search_ph: "ጸወታ ወይ ኣገልግሎት ድለዩ...", cat_all: "ኩሉ (ALL)", not_entered: "ክሳብ ሕጂ ኣይኣተወን", enter_id_btn: "ID ኣእትዉ", select_pkg: "⚡ መጠን ምረጹ", my_orders: "ትእዛዛተይ", wallet_title: "ቦርሳ (WALLET)", balance_lbl: "ቀሪ ሒሳብ", deposit_btn: "ገንዘብ ኣእቱ", withdraw_btn: "ገንዘብ ኣውጽእ", wallet_hint: "ገንዘብ ኣብ ቦርሳኹም ኣእቲኹም ወይ ብቐጥታ 'ግዛእ' ብምጥዋቕ መልእኽቲ ክፍሊት ብምልኣኽ ክትገዝኡ ትኽእሉ።", add_home_btn: "ኣብ መበገሲ ገጽ ወስኽ", invite_title: "መሓዙትኩም ዓድሙ", earn_30: "ብ 1 ሰብ +2.00 ETB ርኸቡ", invite_sub: "መሓዙትኩም ክምዝገቡ ከለዉ +2.00 ETB ብቐጥታ ርኸቡ!", ref_invited: "ዝተዓደሙ", ref_earned: "ዝተረኽበ", ref_withdrawn: "ዝወጸ", share_btn: "ንመሓዛ ኣካፍል", lang_header: "🌐 ቋንቋ ምረጹ", help_header: "ሓገዝን ቻናላትን", how_to_pay: "ከመይ ክትከፍሉ ትደልዩ?", sender_lbl: "3. ሙሉእ ስም ለኣኺ", sms_lbl: "4. ሙሉእ መልእኽቲ Transaction", send_order_btn: "ብቅብሊት እዘዝ", wallet_pay_btn: "ካብ Wallet ክፈል", confirm_btn: "ኣረጋግጽ", nav_home: "መበገሲ", nav_orders: "ትእዛዛት", nav_wallet: "ቦርሳ", nav_account: "ኣካውንት", buy_btn: "ግዛእ", coming_soon: "ኣብ ቀረባ ክጅምር እዩ ተጸበዩ!" },
+        { code: "SO", label: "Af-Soomaali", currency: "ETB", welcome: "SOO DHAWOOW", hero_sub: "Ku shub ciyaarahaaga iyo adeegyada dijitaalka ah si degdeg ah adigoo isticmaalaya bangiyada Itoobiya.", badge_fast: "⚡ DEGDEG", badge_safe: "🔒 AAMIN", search_ph: "Raadi ciyaar ama adeeg...", cat_all: "DHAMMAAN", not_entered: "Weli lama gelin", enter_id_btn: "Geli ID", select_pkg: "⚡ Dooro Xirmada", my_orders: "DALABYADAYDA", wallet_title: "BOORSO (WALLET)", balance_lbl: "HARAAGA", deposit_btn: "SHUB", withdraw_btn: "LA BAX", wallet_hint: "Ku shub lacag boorsadaada ama si toos ah u guji 'Iibso' oo soo dir fariinta lacag bixinta.", add_home_btn: "Ku dar Shaashadda Hore", invite_title: "CASUUN SAAXIIBADA", earn_30: "HEL +2.00 ETB & 30% FAA'IIDO", invite_sub: "Hel +2.00 ETB isla markiiba qof kasta oo aad casuunto!", ref_invited: "LA CASUUMAY", ref_earned: "LA HELAY", ref_withdrawn: "LA BAXAY", share_btn: "La wadaag Saaxiib", lang_header: "🌐 DOORO LUQADDA", help_header: "CAAWIMO & KANAALADA", how_to_pay: "Sidee jeclaan lahayd inaad u bixiso?", sender_lbl: "3. Magaca Buuxa ee Diraha", sms_lbl: "4. Fariinta Buuxda ee Transaction-ka", send_order_btn: "Dalbo Rasiid", wallet_pay_btn: "Ka bixi Wallet", confirm_btn: "Xaqiiji", nav_home: "HOYGA", nav_orders: "DALABKA", nav_wallet: "BOORSO", nav_account: "AKOON", buy_btn: "Iibso", coming_soon: "Dhawaan ayuu bilaabanayaa, sug!" }
     ];
 
     const DEFAULT_FOLDERS = [
@@ -1127,11 +777,12 @@
 
     const DEFAULT_BANKS = [
         { id: "bank_1", title: "Telebirr", account: "0974107425", owner: "Mulualem", note: "ፈጣን የቴሌብር ክፍያ", logo: BANK_PRESETS["Telebirr"].logo },
-        { id: "bank_2", title: "Commercial Bank of Ethiopia", account: "1000123456789", owner: "Mulualem", note: "የኢትዮጵያ ንግድ ባንክ", logo: BANK_PRESETS["Commercial Bank of Ethiopia"].logo }
+        { id: "bank_2", title: "Commercial Bank of Ethiopia", account: "100045892314", owner: "Mulualem", note: "የኢትዮጵያ ንግድ ባንክ", logo: BANK_PRESETS["Commercial Bank of Ethiopia"].logo }
     ];
 
     const DEFAULT_CHANNELS = [
-        { id: "ch_1", type: "Main Channel", title: "Niro Topup Official Channel", url: "https://t.me/Crypto_Topup_F" }
+        { id: "ch_1", type: "Proof Channel", title: "Topup Proof Channel", url: "https://t.me/Topup_proof" },
+        { id: "ch_2", type: "Main Channel", title: "Niro Topup Official Channel", url: "https://t.me/Crypto_Topup_F" }
     ];
 
     const DEFAULT_CATALOG = [
@@ -1185,8 +836,8 @@
             note: "ትክክለኛ Binance ID ወይም BEP20 (0x...) Wallet Address ብቻ ያስገቡ።",
             img: makeBankSvg("#10b981", "#ffffff", "USDT"), poster: makeBankSvg("#064e3b", "#34d399", "USDT BEP20"),
             packages: [
-                { id: "us1", name: "5 USDT", price: 750, badge: "" },
-                { id: "us2", name: "10 USDT", price: 1480, badge: "" }
+                { id: "us1", name: "5 USDT", price: 925, badge: "" },
+                { id: "us2", name: "10 USDT", price: 1850, badge: "" }
             ]
         }
     ];
@@ -1197,51 +848,188 @@
 
     function getFolders() {
         let f = JSON.parse(localStorage.getItem(FOLDERS_KEY) || 'null');
-        if (!f) {
-            f = DEFAULT_FOLDERS;
-            localStorage.setItem(FOLDERS_KEY, JSON.stringify(f));
-        }
+        if (!f) { f = DEFAULT_FOLDERS; localStorage.setItem(FOLDERS_KEY, JSON.stringify(f)); }
         return f;
     }
-
     function getCatalog() {
         let cat = JSON.parse(localStorage.getItem(CATALOG_KEY) || 'null');
-        if (!cat) {
-            cat = DEFAULT_CATALOG;
-            localStorage.setItem(CATALOG_KEY, JSON.stringify(cat));
-        }
+        if (!cat) { cat = DEFAULT_CATALOG; localStorage.setItem(CATALOG_KEY, JSON.stringify(cat)); }
         return cat;
     }
-
     function saveCatalog(cat) {
         localStorage.setItem(CATALOG_KEY, JSON.stringify(cat));
+        pushAllToBotCloud();
     }
-
     function getBanks() {
         let banks = JSON.parse(localStorage.getItem(BANKS_KEY) || 'null');
-        if (!banks || banks.length === 0) {
-            banks = DEFAULT_BANKS;
-            localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
-        }
+        if (!banks || banks.length === 0) { banks = DEFAULT_BANKS; localStorage.setItem(BANKS_KEY, JSON.stringify(banks)); }
         return banks;
     }
-
     function getChannels() {
         let chs = JSON.parse(localStorage.getItem('niro_topup_channels_v2') || 'null');
-        if (!chs) {
-            chs = DEFAULT_CHANNELS;
-            localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
-        }
+        if (!chs) { chs = DEFAULT_CHANNELS; localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs)); }
         return chs;
     }
 
-    function getUserBalance() {
-        return parseFloat(localStorage.getItem('niro_user_bal_' + myTgId) || '0');
-    }
-
+    function getUserBalance() { return parseFloat(localStorage.getItem('niro_user_bal_' + myTgId) || '0'); }
     function setUserBalance(val) {
         localStorage.setItem('niro_user_bal_' + myTgId, String(val));
         updateUI();
+        pushAllToBotCloud();
+    }
+
+    // =========================================================================
+    // FULL BIDIRECTIONAL CLOUD SYNC WITH TELEGRAM BOT (@Niro_1Topup_Bot)
+    // =========================================================================
+    let isSyncing = false;
+
+    async function pullAllFromBotCloud() {
+        if (isSyncing) return;
+        isSyncing = true;
+        const pill = document.getElementById('sync-status-pill');
+        if (pill) pill.style.opacity = '0.5';
+
+        try {
+            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
+            const json = await res.json();
+            const rec = (json && json.record) ? json.record : {};
+
+            // 1. Sync User Balance & Referral Stats (+2.00 ETB / invite)
+            const usersDb = rec.niro_users || {};
+            if (usersDb[myTgId]) {
+                const uObj = usersDb[myTgId];
+                if (typeof uObj.balance !== 'undefined') {
+                    localStorage.setItem('niro_user_bal_' + myTgId, String(uObj.balance));
+                }
+                if (typeof uObj.invites !== 'undefined') {
+                    localStorage.setItem('niro_ref_count_' + myTgId, String(uObj.invites));
+                }
+                if (typeof uObj.earned !== 'undefined') {
+                    localStorage.setItem('niro_ref_earned_' + myTgId, String(uObj.earned));
+                }
+                if (typeof uObj.withdrawn !== 'undefined') {
+                    localStorage.setItem('niro_ref_withdrawn_' + myTgId, String(uObj.withdrawn));
+                }
+            }
+
+            // 2. Sync Live Broadcast Message
+            if (typeof rec.niro_broadcast === 'string' && rec.niro_broadcast.trim() !== '') {
+                localStorage.setItem('niro_topup_broadcast_v2', rec.niro_broadcast.trim());
+            } else if (rec.niro_broadcast === '') {
+                localStorage.removeItem('niro_topup_broadcast_v2');
+            }
+
+            // 3. Sync Payment Methods (Banks & Telebirr)
+            if (Array.isArray(rec.niro_banks) && rec.niro_banks.length > 0) {
+                localStorage.setItem(BANKS_KEY, JSON.stringify(rec.niro_banks));
+            }
+
+            // 4. Sync Catalog / Product Prices & ON/OFF Status
+            if (Array.isArray(rec.niro_catalog) && rec.niro_catalog.length > 0) {
+                localStorage.setItem(CATALOG_KEY, JSON.stringify(rec.niro_catalog));
+            }
+
+            // 5. Merge Orders (from Bot & Mini App)
+            if (Array.isArray(rec.niro_orders)) {
+                let localOrders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
+                const map = {};
+                localOrders.forEach(o => { map[o.orderId] = o; });
+                rec.niro_orders.forEach(o => {
+                    // Cloud status wins if approved/rejected
+                    if (!map[o.orderId] || o.status !== 'Pending') {
+                        map[o.orderId] = o;
+                    }
+                });
+                const merged = Object.values(map);
+                localStorage.setItem('niro_topup_orders_v2', JSON.stringify(merged));
+            }
+
+            // 6. Sync Deposits & Withdraws
+            if (Array.isArray(rec.niro_deposits)) {
+                localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(rec.niro_deposits));
+            }
+            if (Array.isArray(rec.niro_withdraws)) {
+                localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(rec.niro_withdraws));
+            }
+
+            updateUI();
+            renderHomeStore();
+            renderUserOrders();
+        } catch (e) {}
+
+        isSyncing = false;
+        if (pill) pill.style.opacity = '1';
+    }
+
+    async function pushAllToBotCloud() {
+        try {
+            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
+            const json = await res.json();
+            let rec = (json && json.record) ? json.record : {};
+
+            let usersDb = rec.niro_users || {};
+            const curUser = usersDb[myTgId] || {};
+            usersDb[myTgId] = {
+                balance: getUserBalance(),
+                invites: parseInt(localStorage.getItem('niro_ref_count_' + myTgId) || curUser.invites || '0'),
+                earned: parseFloat(localStorage.getItem('niro_ref_earned_' + myTgId) || curUser.earned || '0'),
+                withdrawn: parseFloat(localStorage.getItem('niro_ref_withdrawn_' + myTgId) || curUser.withdrawn || '0'),
+                name: myTgName,
+                username: myTgUser
+            };
+            rec.niro_users = usersDb;
+            rec.niro_broadcast = localStorage.getItem('niro_topup_broadcast_v2') || '';
+            rec.niro_banks = getBanks();
+            rec.niro_catalog = getCatalog();
+            rec.niro_orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
+            rec.niro_deposits = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
+            rec.niro_withdraws = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
+
+            await fetch(SHARED_CLOUD_URL, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(rec)
+            });
+        } catch (e) {}
+    }
+
+    function manualSyncNow() {
+        pullAllFromBotCloud().then(() => {
+            alert("✅ ከቦቱ (@Niro_1Topup_Bot) ጋር ሙሉ በሙሉ ተመሳስሏል!");
+        });
+    }
+
+    // Check Invite Param (+2.00 ETB per invited friend)
+    async function processReferralOnOpen() {
+        let refId = null;
+        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+            refId = String(tg.initDataUnsafe.start_param).replace('ref_', '');
+        }
+        if (!refId) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const raw = urlParams.get('start') || urlParams.get('ref');
+            if (raw) refId = raw.replace('ref_', '');
+        }
+        if (refId && refId !== String(myTgId) && !localStorage.getItem('niro_ref_credited_' + myTgId)) {
+            localStorage.setItem('niro_ref_credited_' + myTgId, 'true');
+            try {
+                const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
+                const json = await res.json();
+                let rec = (json && json.record) ? json.record : {};
+                let usersDb = rec.niro_users || {};
+                let inviter = usersDb[refId] || { balance: 0, invites: 0, earned: 0, withdrawn: 0 };
+                inviter.balance = parseFloat(inviter.balance || 0) + 2.0;
+                inviter.invites = parseInt(inviter.invites || 0) + 1;
+                inviter.earned = parseFloat(inviter.earned || 0) + 2.0;
+                usersDb[refId] = inviter;
+                rec.niro_users = usersDb;
+                await fetch(SHARED_CLOUD_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(rec)
+                });
+            } catch (e) {}
+        }
     }
 
     let tempImages = { newSrvLogo: '', newSrvPoster: '', newPkgImg: '', newBankLogo: '' };
@@ -1273,7 +1061,6 @@
     function validateTargetIdentifier(val, valType) {
         val = val.trim();
         if (!val) return { ok: false, msg: "⚠️ እባክዎ መለያ ቁጥር ያስገቡ!" };
-
         if (valType === 'usdt_bep20') {
             const isBep20 = /^0x[a-fA-F0-9]{40}$/.test(val);
             const isBinanceId = /^\d{6,15}$/.test(val);
@@ -1321,25 +1108,15 @@
 
     function updateUI() {
         const adminRec = getMyAdminRecord();
-
-        // MINI APP MAINTENANCE LOCK CHECK
         const isAppOff = localStorage.getItem('niro_miniapp_maintenance_v1') === 'off';
         const lockScreen = document.getElementById('maintenance-lock-screen');
-        if (isAppOff && !adminRec) {
-            lockScreen.style.display = 'flex';
-        } else {
-            lockScreen.style.display = 'none';
-        }
+        if (isAppOff && !adminRec) { lockScreen.style.display = 'flex'; }
+        else { lockScreen.style.display = 'none'; }
 
         const pwrBtn = document.getElementById('adm-miniapp-power-btn');
         if (pwrBtn) {
-            if (isAppOff) {
-                pwrBtn.className = 'switch-pill switch-off';
-                pwrBtn.innerText = '🔴 App: OFF (Update)';
-            } else {
-                pwrBtn.className = 'switch-pill switch-on';
-                pwrBtn.innerText = '🟢 App: ON (ይሰራል)';
-            }
+            if (isAppOff) { pwrBtn.className = 'switch-pill switch-off'; pwrBtn.innerText = '🔴 App: OFF (Update)'; }
+            else { pwrBtn.className = 'switch-pill switch-on'; pwrBtn.innerText = '🟢 App: ON (ይሰራል)'; }
         }
 
         const bal = getUserBalance();
@@ -1351,7 +1128,10 @@
         document.getElementById('acc-uid').innerText = myTgId;
         document.getElementById('ref-link-inp').value = `https://t.me/${BOT_USERNAME}?start=ref_${myTgId}`;
 
-        // USER'S OWN TELEGRAM PROFILE PHOTO ON HOME & ACCOUNT (#2)
+        document.getElementById('ref-cnt').innerText = localStorage.getItem('niro_ref_count_' + myTgId) || '0';
+        document.getElementById('ref-earned').innerText = localStorage.getItem('niro_ref_earned_' + myTgId) || '0';
+        document.getElementById('ref-withdrawn-val').innerText = localStorage.getItem('niro_ref_withdrawn_' + myTgId) || '0';
+
         const userAvatarSrc = myTgPhotoUrl || localStorage.getItem('niro_profile_avatar_v3') || makeUserInitialAvatar(myTgName);
         const homeAvatarEl = document.getElementById('home-user-tg-avatar');
         const accAvatarEl = document.getElementById('acc-avatar-img');
@@ -1365,9 +1145,7 @@
             document.getElementById('top-brand-logo').innerHTML = `<img src="${savedStoreLogo}" alt="Logo">`;
         }
 
-        if (adminRec) {
-            document.getElementById('open-admin-btn').style.display = 'inline-block';
-        }
+        if (adminRec) { document.getElementById('open-admin-btn').style.display = 'inline-block'; }
 
         const bcText = localStorage.getItem('niro_topup_broadcast_v2');
         const bcBox = document.getElementById('live-broadcast-banner');
@@ -1378,14 +1156,11 @@
             bcBox.style.display = 'none';
         }
 
-        // Check Home Screen Status if Telegram supports it (#3)
         if (tg && typeof tg.checkHomeScreenStatus === 'function') {
             try {
                 tg.checkHomeScreenStatus((status) => {
                     const stEl = document.getElementById('home-shortcut-status');
-                    if (stEl && status === 'added') {
-                        stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል (Added)";
-                    }
+                    if (stEl && status === 'added') { stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል (Added)"; }
                 });
             } catch(e){}
         }
@@ -1429,7 +1204,6 @@
     function applyLanguage() {
         const langObj = getCurrentLangObj();
         document.getElementById('hdr-lang-code').innerText = langObj.code === 'AM' ? 'አማ' : langObj.code;
-
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (langObj[key]) el.innerText = langObj[key];
@@ -1440,7 +1214,6 @@
         });
     }
 
-    // FIXED ADD TO HOME SCREEN (#3)
     function triggerAddToHomeScreen() {
         if (tg && typeof tg.addToHomeScreen === 'function') {
             try {
@@ -1505,8 +1278,8 @@
         const query = document.getElementById('store-search').value.toLowerCase();
         const catalog = getCatalog();
         const folders = getFolders();
-
         let html = '';
+
         folders.forEach(g => {
             if (currentCategoryFilter !== 'all' && currentCategoryFilter !== g.key) return;
             const items = catalog.filter(item => item.category === g.key && item.name.toLowerCase().includes(query));
@@ -1515,10 +1288,7 @@
             html += `<div class="sec-title">${g.title}</div><div class="store-grid">`;
             items.forEach(item => {
                 const isOn = item.enabled !== false;
-                const countText = (item.category === 'channel' || item.category === 'bot')
-                    ? (item.cbPrice ? item.cbPrice + ' ETB' : 'VIEW')
-                    : (item.packages.length + ' PACKAGES');
-
+                const countText = (item.category === 'channel' || item.category === 'bot') ? (item.cbPrice ? item.cbPrice + ' ETB' : 'VIEW') : (item.packages.length + ' PACKAGES');
                 html += `
                     <div class="product-card ${isOn ? '' : 'coming-soon'}" onclick="handleServiceCardClick('${item.id}')">
                         ${!isOn ? `<span class="status-ribbon">⏳ በቅርቡ ይጀመራል</span>` : ''}
@@ -1532,7 +1302,6 @@
             });
             html += `</div>`;
         });
-
         container.innerHTML = html || '<div style="text-align:center; padding:20px; color:#64748b;">ምንም አልተገኘም።</div>';
     }
 
@@ -1540,7 +1309,6 @@
         const catalog = getCatalog();
         const item = catalog.find(x => x.id === gameId);
         if (!item) return;
-
         if (item.enabled === false) {
             const langObj = getCurrentLangObj();
             alert("⏳ " + langObj.coming_soon);
@@ -1590,9 +1358,7 @@
                     </div>
                 </div>
             `;
-        } else {
-            cbArea.innerHTML = '';
-        }
+        } else { cbArea.innerHTML = ''; }
 
         const noteArea = document.getElementById('service-note-area');
         if (selectedGameObj.note) {
@@ -1604,19 +1370,12 @@
                     <p style="font-size:0.8rem; color:var(--text-main); line-height:1.55; white-space:pre-line;">${selectedGameObj.note}</p>
                 </div>
             `;
-        } else {
-            noteArea.innerHTML = '';
-        }
+        } else { noteArea.innerHTML = ''; }
 
         const savedId = localStorage.getItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId);
         const idEl = document.getElementById('pkg-saved-id');
-        if (savedId) {
-            idEl.innerText = savedId;
-            idEl.style.color = '#10b981';
-        } else {
-            idEl.innerText = langObj.not_entered;
-            idEl.style.color = '#ef4444';
-        }
+        if (savedId) { idEl.innerText = savedId; idEl.style.color = '#10b981'; }
+        else { idEl.innerText = langObj.not_entered; idEl.style.color = '#ef4444'; }
 
         const grid = document.getElementById('packages-grid-container');
         let html = '';
@@ -1625,9 +1384,7 @@
             html += `
                 <div class="pkg-card">
                     ${pkg.badge ? `<span class="pkg-badge">${pkg.badge}</span>` : ''}
-                    <div class="pkg-thumb-box">
-                        <img src="${pkgThumb}" alt="${pkg.name}">
-                    </div>
+                    <div class="pkg-thumb-box"><img src="${pkgThumb}" alt="${pkg.name}"></div>
                     <div style="font-weight:800; font-size:0.85rem;">${pkg.name}</div>
                     ${pkg.note ? `<small style="font-size:0.68rem; color:var(--text-muted); margin-top:2px;">${pkg.note}</small>` : ''}
                     <div class="pkg-price-row">
@@ -1646,11 +1403,7 @@
 
     function openDirectBuyCustomChannel() {
         if (!selectedGameObj) return;
-        activeBuyPkgObj = {
-            id: "cb_direct",
-            name: selectedGameObj.name + " (Full Ownership)",
-            price: parseFloat(selectedGameObj.cbPrice || 0)
-        };
+        activeBuyPkgObj = { id: "cb_direct", name: selectedGameObj.name + " (Full Ownership)", price: parseFloat(selectedGameObj.cbPrice || 0) };
         openCheckoutSheet();
     }
 
@@ -1683,7 +1436,6 @@
             updateBuyAccountBox();
         });
         updateBuyAccountBox();
-
         document.getElementById('direct-buy-modal').style.display = 'flex';
     }
 
@@ -1734,10 +1486,7 @@
 
         const targetId = document.getElementById('buy-target-id').value.trim();
         const check = validateTargetIdentifier(targetId, selectedGameObj.validationType);
-        if (!check.ok) {
-            alert(check.msg);
-            return;
-        }
+        if (!check.ok) { alert(check.msg); return; }
 
         const senderName = document.getElementById('buy-sender-name').value.trim();
         const fullTxnMsg = document.getElementById('buy-full-txn-msg').value.trim();
@@ -1761,26 +1510,20 @@
         const banks = getBanks();
         const b = banks.find(x => x.id === selectedBuyBankId) || banks[0];
         const now = new Date();
-
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         const newOrder = {
             orderId: "NTG-" + Math.floor(1000000 + Math.random() * 9000000),
-            uid: myTgId,
-            userName: myTgName,
-            tgUser: myTgUser,
-            gameName: selectedGameObj.name,
-            packageName: activeBuyPkgObj.name,
-            price: activeBuyPkgObj.price,
-            playerId: targetId,
+            uid: myTgId, userName: myTgName, tgUser: myTgUser,
+            gameName: selectedGameObj.name, packageName: activeBuyPkgObj.name,
+            price: activeBuyPkgObj.price, playerId: targetId,
             payMethod: payType === 'wallet' ? 'Wallet Balance' : b.title,
             senderName: senderName || myTgName,
             fullTxnMessage: payType === 'wallet' ? 'Paid via Wallet Balance' : fullTxnMsg,
-            status: "Pending",
-            date: now.toLocaleString(),
-            dayKey: now.toISOString().slice(0, 10)
+            status: "Pending", date: now.toLocaleString(), dayKey: now.toISOString().slice(0, 10)
         };
         orders.unshift(newOrder);
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
+        pushAllToBotCloud();
 
         closeModal('direct-buy-modal');
         alert(`✅ ትዕዛዝዎ ለ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}`);
@@ -1799,10 +1542,7 @@
     function savePlayerId() {
         const val = document.getElementById('input-player-id').value.trim();
         const check = validateTargetIdentifier(val, selectedGameObj.validationType);
-        if (!check.ok) {
-            alert(check.msg);
-            return;
-        }
+        if (!check.ok) { alert(check.msg); return; }
         localStorage.setItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId, val);
         closeModal('playerid-modal');
         openGamePackages(selectedGameObj.id);
@@ -1812,7 +1552,6 @@
         const box = document.getElementById('user-orders-container');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         let myOrders = orders.filter(o => String(o.uid) === String(myTgId));
-
         let html = '';
         myOrders.forEach(o => {
             let badgeBg = o.status === 'Approved' ? '#dcfce7' : (o.status === 'Rejected' ? '#fee2e2' : '#fef3c7');
@@ -1834,7 +1573,7 @@
         box.innerHTML = html || '<div style="text-align:center; padding:30px; color:#64748b;">ምንም ትዕዛዝ የለዎትም።</div>';
     }
 
-    // SMART DEPOSIT & 4-STEP TELEBIRR RECEIPT VERIFICATION
+    // SMART DEPOSIT & TELEBIRR RECEIPT VERIFICATION
     function openDepositModal() {
         document.getElementById('dep-verify-error').style.display = 'none';
         const banks = getBanks();
@@ -1879,26 +1618,17 @@
 
     function submitDepositRequest() {
         document.getElementById('dep-verify-error').style.display = 'none';
-
         const banks = getBanks();
         const b = banks.find(x => x.id === selectedDepBankId) || banks[0];
         const amt = parseFloat(document.getElementById('dep-amount').value);
         const sender = document.getElementById('dep-sender-name').value.trim();
         const rawSms = document.getElementById('dep-txn-id').value.trim();
 
-        if (isNaN(amt) || amt <= 0) {
-            showDepositError("❌ እባክዎ ትክክለኛ የብር መጠን ያስገቡ!");
-            return;
-        }
-        if (!sender || !rawSms) {
-            showDepositError("❌ እባክዎ የላኪ ስም እና ሙሉ የ Transaction SMS መልእክት ያስገቡ!");
-            return;
-        }
+        if (isNaN(amt) || amt <= 0) { showDepositError("❌ እባክዎ ትክክለኛ የብር መጠን ያስገቡ!"); return; }
+        if (!sender || !rawSms) { showDepositError("❌ እባክዎ የላኪ ስም እና ሙሉ የ Transaction SMS መልእክት ያስገቡ!"); return; }
 
         const smsLower = rawSms.toLowerCase();
-
-        const txnMatch = rawSms.match(/(?:transaction\s*(?:number|id)?\s*(?:is|:)?\s*|receipt\/)([A-Z0-9]{8,14})/i)
-                      || rawSms.match(/\b([A-Z]{2}[A-Z0-9]{7,10})\b/);
+        const txnMatch = rawSms.match(/(?:transaction\s*(?:number|id)?\s*(?:is|:)?\s*|receipt\/)([A-Z0-9]{8,14})/i) || rawSms.match(/\b([A-Z]{2}[A-Z0-9]{7,10})\b/);
         if (!txnMatch) {
             showDepositError("❌ ትክክለኛ የቴሌብር/ባንክ Transaction መልእክት አይደለም! እባክዎ ሙሉውን የ SMS መልእክት ኮፒ አድርገው ይለጥፉ።");
             return;
@@ -1914,10 +1644,8 @@
         const cleanAcc = b.account.replace(/\D/g, '');
         const last4Acc = cleanAcc.slice(-4);
         const ownerFirst = b.owner.trim().split(/\s+/)[0].toLowerCase();
-
         const hasPhoneMatch = last4Acc.length === 4 && rawSms.includes(last4Acc);
         const hasOwnerMatch = ownerFirst.length >= 3 && smsLower.includes(ownerFirst);
-
         if (!hasPhoneMatch && !hasOwnerMatch) {
             showDepositError(`❌ ክፍያው ወደ ተሰጠው አካውንት (${b.owner} - ${b.account}) የተላከ አይመስልም! ትክክለኛውን ደረሰኝ ያረጋግጡ።`);
             return;
@@ -1940,30 +1668,21 @@
 
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         deps.unshift({
-            id: "dep_" + Date.now(),
-            uid: myTgId,
-            userName: myTgName,
-            bankTitle: b.title,
-            amount: amt,
-            senderName: sender,
-            extractedTxn: extractedTxnId,
-            txnId: rawSms,
-            status: "pending",
-            date: new Date().toLocaleString()
+            id: "dep_" + Date.now(), uid: myTgId, userName: myTgName, bankTitle: b.title,
+            amount: amt, senderName: sender, extractedTxn: extractedTxnId, txnId: rawSms,
+            status: "pending", date: new Date().toLocaleString()
         });
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
+        pushAllToBotCloud();
 
         document.getElementById('dep-amount').value = '';
         document.getElementById('dep-sender-name').value = '';
         document.getElementById('dep-txn-id').value = '';
-
         closeModal('deposit-modal');
         alert(`✅ ደረሰኝዎ በትክክል ተረጋግጦ (TXN: ${extractedTxnId}) ለ Admin ተልኳል! Admin ሲያጸድቀው ሂሳብዎ ላይ ይገባል።`);
     }
 
-    function openWithdrawModal() {
-        document.getElementById('withdraw-modal').style.display = 'flex';
-    }
+    function openWithdrawModal() { document.getElementById('withdraw-modal').style.display = 'flex'; }
 
     function submitWithdrawRequest() {
         const phone = document.getElementById('wd-phone').value.trim();
@@ -1978,15 +1697,11 @@
         let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
         wds.unshift({
             id: "WD-" + Math.floor(100000 + Math.random() * 900000),
-            uid: myTgId,
-            userName: myTgName,
-            tgUser: myTgUser,
-            phone: phone,
-            amount: amt,
-            status: "Pending",
-            date: new Date().toLocaleString()
+            uid: myTgId, userName: myTgName, tgUser: myTgUser,
+            phone: phone, amount: amt, status: "Pending", date: new Date().toLocaleString()
         });
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
+        pushAllToBotCloud();
 
         closeModal('withdraw-modal');
         alert("✅ የወጪ ጥያቄዎ ለ Admin ቀርቧል!");
@@ -2000,15 +1715,12 @@
         const nextState = isOff ? 'on' : 'off';
         localStorage.setItem('niro_miniapp_maintenance_v1', nextState);
         updateUI();
-        alert(nextState === 'off'
-            ? "🔴 Mini App ተዘግቷል! ከ Admin ዎች ውጭ ለሁሉም ሰው 'Update ላይ ነው' ይላል።"
-            : "🟢 Mini App ተከፍቷል! ሁሉም ሰው መጠቀም ይችላል።");
+        alert(nextState === 'off' ? "🔴 Mini App ተዘግቷል! ከ Admin ዎች ውጭ ለሁሉም ሰው 'Update ላይ ነው' ይላል።" : "🟢 Mini App ተከፍቷል! ሁሉም ሰው መጠቀም ይችላል።");
     }
 
     function toggleAdmin(show) {
         const adminRec = getMyAdminRecord();
         if (!adminRec) return;
-
         document.getElementById('admin-overlay').style.display = show ? 'flex' : 'none';
         if (show) {
             document.querySelectorAll('#admin-nav-tabs .adm-tab-btn').forEach(btn => {
@@ -2017,7 +1729,7 @@
                 btn.style.display = (adminRec.isSuper || adminRec.permissions.includes(perm)) ? 'flex' : 'none';
             });
             document.getElementById('super-add-admin-tab').style.display = adminRec.isSuper ? 'flex' : 'none';
-            document.getElementById('adm-proof-ch-url').value = localStorage.getItem('niro_proof_channel_url_v1') || '';
+            document.getElementById('adm-proof-ch-url').value = localStorage.getItem('niro_proof_channel_url_v1') || 'https://t.me/Topup_proof';
 
             renderAdminOrders();
             renderAdminStats();
@@ -2089,6 +1801,7 @@
             localStorage.setItem(uKey, String(cur + orders[idx].price));
         }
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
+        pushAllToBotCloud();
         renderAdminOrders();
         renderAdminStats();
         updateUI();
@@ -2106,22 +1819,10 @@
         if (!o) return;
 
         const maskedTarget = o.playerId.length > 4 ? o.playerId.slice(0, 3) + "***" + o.playerId.slice(-2) : o.playerId;
-        const proofText =
-`✅ PAYMENT & ORDER PROOF — NIRO TOPUP
-
-🧾 Order ID: #${o.orderId}
-📦 Item: ${o.gameName} — ${o.packageName}
-💰 Amount: ${o.price} ETB
-🏦 Method: ${o.payMethod}
-👤 Buyer: ${o.userName} (${maskedTarget})
-⏰ Time: ${o.date}
-✔️ Status: COMPLETED
-
-🤖 Order Now: @${BOT_USERNAME}`;
+        const proofText = `✅ PAYMENT & ORDER PROOF — NIRO TOPUP\n\n🧾 Order ID: #${o.orderId}\n📦 Item: ${o.gameName} — ${o.packageName}\n💰 Amount: ${o.price} ETB\n🏦 Method: ${o.payMethod}\n👤 Buyer: ${o.userName} (${maskedTarget})\n⏰ Time: ${o.date}\n✔️ Status: COMPLETED\n\n🤖 Order Now: @${BOT_USERNAME}`;
 
         navigator.clipboard?.writeText(proofText);
-
-        const proofUrl = localStorage.getItem('niro_proof_channel_url_v1') || 'https://t.me/Crypto_Topup_F';
+        const proofUrl = localStorage.getItem('niro_proof_channel_url_v1') || 'https://t.me/Topup_proof';
         const shareLink = `https://t.me/share/url?url=${encodeURIComponent(proofUrl)}&text=${encodeURIComponent(proofText)}`;
 
         alert("✅ ደረሰኙ ተዘጋጅቶ Copy ተደርጓል! አሁን Proof Channel ላይ Post እንዲያደርጉ ይከፈታል።");
@@ -2241,6 +1942,7 @@
             localStorage.setItem(uKey, String(cur + Number(wds[idx].amount)));
         }
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
+        pushAllToBotCloud();
         renderAdminWithdraws();
         updateUI();
         alert(`Withdraw #${wdId} is now ${status}!`);
@@ -2250,12 +1952,10 @@
     function adminAddFolder() {
         const name = document.getElementById('adm-new-folder-name').value.trim();
         if (!name) { alert("⚠️ የ Folder ስም ያስገቡ!"); return; }
-
         let folders = getFolders();
         const key = "fld_" + Date.now();
         folders.push({ key, title: "📁 " + name.toUpperCase() });
         localStorage.setItem(FOLDERS_KEY, JSON.stringify(folders));
-
         document.getElementById('adm-new-folder-name').value = '';
         populateFolderDropdowns();
         renderHomeCategoryPills();
@@ -2266,9 +1966,7 @@
         const sel = document.getElementById('adm-srv-cat');
         const folders = getFolders();
         sel.innerHTML = '';
-        folders.forEach(f => {
-            sel.innerHTML += `<option value="${f.key}">${f.title}</option>`;
-        });
+        folders.forEach(f => { sel.innerHTML += `<option value="${f.key}">${f.title}</option>`; });
         toggleChannelBotFields();
     }
 
@@ -2283,7 +1981,6 @@
         const category = document.getElementById('adm-srv-cat').value;
         const validationType = document.getElementById('adm-srv-valtype').value;
         const note = document.getElementById('adm-srv-note').value.trim();
-
         if (!name) { alert("⚠️ እባክዎ ስም ይጻፉ!"); return; }
 
         const labelMap = {
@@ -2300,16 +1997,9 @@
         const posterImg = tempImages.newSrvPoster || logoImg;
 
         const newObj = {
-            id: "srv_" + Date.now(),
-            name: name.toUpperCase(),
-            category: category,
-            idLabel: labelMap[validationType] || "ID",
-            validationType: validationType,
-            note: note,
-            enabled: true,
-            img: logoImg,
-            poster: posterImg,
-            packages: []
+            id: "srv_" + Date.now(), name: name.toUpperCase(), category: category,
+            idLabel: labelMap[validationType] || "ID", validationType: validationType,
+            note: note, enabled: true, img: logoImg, poster: posterImg, packages: []
         };
 
         if (category === 'channel' || category === 'bot') {
@@ -2338,7 +2028,6 @@
         populateAdminGameDropdown();
         renderAdminExistingProducts();
         renderHomeStore();
-
         alert(`✅ "${name.toUpperCase()}" ተጨምሮ Home ላይ ታይቷል!`);
     }
 
@@ -2365,12 +2054,10 @@
                     </div>
                     <div style="display:grid; grid-template-columns:1fr 1fr auto; gap:6px;">
                         <label style="background:#0f172a; border:1px solid #334155; padding:7px; border-radius:8px; text-align:center; font-size:0.72rem; cursor:pointer;">
-                            🖼️ Logo ቀይር
-                            <input type="file" accept="image/*" style="display:none;" onchange="adminReplaceServiceImage(this, '${s.id}', 'img')">
+                            🖼️ Logo ቀይር <input type="file" accept="image/*" style="display:none;" onchange="adminReplaceServiceImage(this, '${s.id}', 'img')">
                         </label>
                         <label style="background:#0f172a; border:1px solid #334155; padding:7px; border-radius:8px; text-align:center; font-size:0.72rem; cursor:pointer;">
-                            🏞️ Poster ቀይር
-                            <input type="file" accept="image/*" style="display:none;" onchange="adminReplaceServiceImage(this, '${s.id}', 'poster')">
+                            🏞️ Poster ቀይር <input type="file" accept="image/*" style="display:none;" onchange="adminReplaceServiceImage(this, '${s.id}', 'poster')">
                         </label>
                         <button onclick="adminDeleteService('${s.id}')" style="background:var(--danger); color:#fff; border:none; padding:7px 10px; border-radius:8px; font-size:0.72rem; cursor:pointer;">🗑️</button>
                     </div>
@@ -2415,9 +2102,7 @@
                     saveCatalog(catalog);
                     renderAdminManageServices();
                     renderHomeStore();
-                    if (selectedGameObj && selectedGameObj.id === srvId) {
-                        openGamePackages(srvId);
-                    }
+                    if (selectedGameObj && selectedGameObj.id === srvId) { openGamePackages(srvId); }
                     alert(field === 'poster' ? "✅ Poster በተሳካ ሁኔታ ተቀይሯል!" : "✅ Logo በተሳካ ሁኔታ ተቀይሯል!");
                 }
             };
@@ -2443,9 +2128,7 @@
         const sel = document.getElementById('adm-pkg-game-id');
         const catalog = getCatalog();
         sel.innerHTML = '';
-        catalog.forEach(g => {
-            sel.innerHTML += `<option value="${g.id}">${g.name}</option>`;
-        });
+        catalog.forEach(g => { sel.innerHTML += `<option value="${g.id}">${g.name}</option>`; });
     }
 
     function adminAddPackage() {
@@ -2462,7 +2145,6 @@
         if (gIdx !== -1) {
             const pkgObj = { id: "pkg_" + Date.now(), name, price, badge, note };
             if (tempImages.newPkgImg) pkgObj.img = tempImages.newPkgImg;
-
             catalog[gIdx].packages.push(pkgObj);
             saveCatalog(catalog);
 
@@ -2491,8 +2173,7 @@
                         <span>${p.name} — <b>${p.price} ብር</b></span>
                         <div style="display:flex; gap:6px;">
                             <label style="background:#334155; color:#fff; padding:4px 8px; border-radius:6px; font-size:0.7rem; cursor:pointer;">
-                                🖼️ ሎጎ
-                                <input type="file" accept="image/*" style="display:none;" onchange="adminReplacePackageImage(this, '${g.id}', '${p.id}')">
+                                🖼️ ሎጎ <input type="file" accept="image/*" style="display:none;" onchange="adminReplacePackageImage(this, '${g.id}', '${p.id}')">
                             </label>
                             <button onclick="adminDeletePackage('${g.id}', '${p.id}')" style="background:var(--danger); color:#fff; border:none; padding:4px 10px; border-radius:6px; font-size:0.72rem; cursor:pointer;">Delete</button>
                         </div>
@@ -2536,19 +2217,31 @@
     }
 
     // 6. Add / Subtract User Balance
-    function adminModifyUserBalance(mode) {
+    async function adminModifyUserBalance(mode) {
         const uid = document.getElementById('adm-bal-uid').value.trim();
         const amt = parseFloat(document.getElementById('adm-bal-amount').value);
-
-        if (!uid || isNaN(amt) || amt <= 0) {
-            alert("⚠️ ትክክለኛ Telegram ID እና የብር መጠን ያስገቡ!");
-            return;
-        }
+        if (!uid || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ Telegram ID እና የብር መጠን ያስገቡ!"); return; }
 
         const key = 'niro_user_bal_' + uid;
         const cur = parseFloat(localStorage.getItem(key) || '0');
         const nextVal = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
         localStorage.setItem(key, String(nextVal));
+
+        try {
+            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
+            const json = await res.json();
+            let rec = (json && json.record) ? json.record : {};
+            let usersDb = rec.niro_users || {};
+            let uObj = usersDb[uid] || { balance: 0, invites: 0, earned: 0, withdrawn: 0 };
+            uObj.balance = nextVal;
+            usersDb[uid] = uObj;
+            rec.niro_users = usersDb;
+            await fetch(SHARED_CLOUD_URL, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(rec)
+            });
+        } catch(e){}
 
         document.getElementById('adm-bal-amount').value = '';
         updateUI();
@@ -2576,10 +2269,10 @@
         if (!title || !acc || !owner) { alert("⚠️ ሁሉንም መረጃዎች ያስገቡ!"); return; }
 
         const logo = tempImages.newBankLogo || BANK_PRESETS[title]?.logo || makeBankSvg("#0f766e", "#ffffff", title.slice(0,3).toUpperCase());
-
         let banks = getBanks();
         banks.push({ id: "bank_" + Date.now(), title, account: acc, owner, note: note || owner, logo });
         localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
+        pushAllToBotCloud();
 
         document.getElementById('adm-bank-preset').value = '';
         document.getElementById('adm-bank-title').value = '';
@@ -2618,6 +2311,7 @@
         let banks = getBanks();
         banks = banks.filter(b => b.id !== bId);
         localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
+        pushAllToBotCloud();
         renderAdminBanks();
     }
 
@@ -2626,7 +2320,6 @@
         const box = document.getElementById('adm-deposits-list');
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         let html = '';
-
         deps.forEach(d => {
             html += `
                 <div class="adm-card">
@@ -2661,6 +2354,7 @@
             localStorage.setItem(uKey, String(cur + deps[idx].amount));
         }
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
+        pushAllToBotCloud();
         renderAdminDeposits();
         updateUI();
         alert(action === 'approve' ? "✅ ገንዘቡ ጸድቋል!" : "❌ ተሰርዟል!");
@@ -2684,12 +2378,14 @@
         if (!txt) { alert("⚠️ መልእክት ያስገቡ!"); return; }
         localStorage.setItem('niro_topup_broadcast_v2', txt);
         document.getElementById('adm-bc-input').value = '';
+        pushAllToBotCloud();
         updateUI();
-        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል!");
+        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል (ከቦቱ ጋር ተመሳስሏል)!");
     }
 
     function adminClearBroadcast() {
         localStorage.removeItem('niro_topup_broadcast_v2');
+        pushAllToBotCloud();
         updateUI();
         alert("🗑️ Broadcast ተሰርዟል!");
     }
@@ -2698,13 +2394,10 @@
         const type = document.getElementById('adm-ch-type').value;
         const title = document.getElementById('adm-ch-title').value.trim();
         const url = document.getElementById('adm-ch-url').value.trim();
-
         if (!title || !url) { alert("⚠️ የአዝራሩን ስም እና ሊንክ ያስገቡ!"); return; }
-
         let chs = getChannels();
         chs.push({ id: "ch_" + Date.now(), type, title, url });
         localStorage.setItem('niro_topup_channels_v2', JSON.stringify(chs));
-
         document.getElementById('adm-ch-title').value = '';
         document.getElementById('adm-ch-url').value = '';
         renderAdminChannels();
@@ -2745,14 +2438,8 @@
         const uid = document.getElementById('adm-sub-uid').value.trim();
         const perms = Array.from(document.querySelectorAll('.sub-perm-cb:checked')).map(cb => cb.value);
 
-        if (!name || !uid) {
-            alert("⚠️ የልጁን ስም እና Telegram User ID ያስገቡ!");
-            return;
-        }
-        if (perms.length === 0) {
-            alert("⚠️ ቢያንስ አንድ የስራ ፍቃድ (Permission) ይምረጡ!");
-            return;
-        }
+        if (!name || !uid) { alert("⚠️ የልጁን ስም እና Telegram User ID ያስገቡ!"); return; }
+        if (perms.length === 0) { alert("⚠️ ቢያንስ አንድ የስራ ፍቃድ (Permission) ይምረጡ!"); return; }
 
         let admins = getSubAdmins();
         admins = admins.filter(a => String(a.uid) !== String(uid));
@@ -2795,7 +2482,6 @@
     function switchTab(tId) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.bottom-nav .nav-item').forEach(b => b.classList.remove('active'));
-
         document.getElementById('tab-' + tId).classList.add('active');
         const btn = Array.from(document.querySelectorAll('.bottom-nav .nav-item')).find(b => b.getAttribute('onclick')?.includes(tId));
         if (btn) btn.classList.add('active');
@@ -2806,6 +2492,7 @@
     }
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
     function copyRefLink() {
         const inp = document.getElementById('ref-link-inp');
         inp.select();
@@ -2816,6 +2503,9 @@
     document.addEventListener('DOMContentLoaded', () => {
         updateUI();
         renderHomeStore();
+        processReferralOnOpen();
+        pullAllFromBotCloud();
+        setInterval(pullAllFromBotCloud, 8000);
     });
     </script>
 </body>
