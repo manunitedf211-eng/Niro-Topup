@@ -22,7 +22,7 @@
         .brand-icon { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .brand-icon img { width: 100%; height: 100%; object-fit: cover; }
         .header-right { display: flex; align-items: center; gap: 6px; }
-        .sync-pill { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 5px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .bot-pill { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; padding: 5px 9px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; }
         .lang-pill { background: #f1f5f9; border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
         .wallet-pill { background: #ecfdf5; border: 1px solid #a7f3d0; color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
         .admin-btn { background: var(--gold); color: #fff; border: none; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; cursor: pointer; display: none; }
@@ -154,7 +154,7 @@
             <span>NIRO TOPUP</span>
         </div>
         <div class="header-right">
-            <button class="sync-pill" id="sync-status-pill" onclick="manualSyncNow()" title="Sync with Bot"><i class="fas fa-sync-alt"></i></button>
+            <button class="bot-pill" onclick="openBotChatDirect()" title="Open Bot"><i class="fab fa-telegram-plane"></i> Bot</button>
             <button class="admin-btn" id="open-admin-btn" onclick="toggleAdmin(true)"><i class="fas fa-shield-alt"></i> Admin</button>
             <button class="lang-pill" id="lang-btn" onclick="switchTab('account')"><i class="fas fa-globe"></i> <span id="hdr-lang-code">አማ</span></button>
             <div class="wallet-pill" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> <span id="hdr-bal">0</span> <span data-i18n="currency">ብር</span></div>
@@ -607,7 +607,7 @@
                 </div>
             </div>
 
-            <h3 style="margin:14px 0 8px;">📢 መልእክት ማሰራጫ (Broadcast — ከቦቱ ጋር የተገናኘ)</h3>
+            <h3 style="margin:14px 0 8px;">📢 መልእክት ማሰራጫ (Broadcast)</h3>
             <div class="adm-card">
                 <textarea class="adm-input" id="adm-bc-input" rows="3" placeholder="ማስታወቂያ እዚህ ይጻፉ..."></textarea>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -656,7 +656,6 @@
     <script>
     const SUPER_ADMIN_ID = "8797798511";
     const BOT_USERNAME = "Niro_1Topup_Bot";
-    const SHARED_CLOUD_URL = "https://api.jsonbin.io/v3/b/66fa49bee41b4d34e438e8a1";
 
     let tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg) {
@@ -858,7 +857,6 @@
     }
     function saveCatalog(cat) {
         localStorage.setItem(CATALOG_KEY, JSON.stringify(cat));
-        pushAllToBotCloud();
     }
     function getBanks() {
         let banks = JSON.parse(localStorage.getItem(BANKS_KEY) || 'null');
@@ -875,160 +873,56 @@
     function setUserBalance(val) {
         localStorage.setItem('niro_user_bal_' + myTgId, String(val));
         updateUI();
-        pushAllToBotCloud();
     }
 
     // =========================================================================
-    // FULL BIDIRECTIONAL CLOUD SYNC WITH TELEGRAM BOT (@Niro_1Topup_Bot)
+    // DIRECT BOT CONNECTION (NO DATABASE NEEDED - VIA TELEGRAM DEEP LINK)
     // =========================================================================
-    let isSyncing = false;
-
-    async function pullAllFromBotCloud() {
-        if (isSyncing) return;
-        isSyncing = true;
-        const pill = document.getElementById('sync-status-pill');
-        if (pill) pill.style.opacity = '0.5';
-
-        try {
-            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
-            const json = await res.json();
-            const rec = (json && json.record) ? json.record : {};
-
-            // 1. Sync User Balance & Referral Stats (+2.00 ETB / invite)
-            const usersDb = rec.niro_users || {};
-            if (usersDb[myTgId]) {
-                const uObj = usersDb[myTgId];
-                if (typeof uObj.balance !== 'undefined') {
-                    localStorage.setItem('niro_user_bal_' + myTgId, String(uObj.balance));
-                }
-                if (typeof uObj.invites !== 'undefined') {
-                    localStorage.setItem('niro_ref_count_' + myTgId, String(uObj.invites));
-                }
-                if (typeof uObj.earned !== 'undefined') {
-                    localStorage.setItem('niro_ref_earned_' + myTgId, String(uObj.earned));
-                }
-                if (typeof uObj.withdrawn !== 'undefined') {
-                    localStorage.setItem('niro_ref_withdrawn_' + myTgId, String(uObj.withdrawn));
-                }
-            }
-
-            // 2. Sync Live Broadcast Message
-            if (typeof rec.niro_broadcast === 'string' && rec.niro_broadcast.trim() !== '') {
-                localStorage.setItem('niro_topup_broadcast_v2', rec.niro_broadcast.trim());
-            } else if (rec.niro_broadcast === '') {
-                localStorage.removeItem('niro_topup_broadcast_v2');
-            }
-
-            // 3. Sync Payment Methods (Banks & Telebirr)
-            if (Array.isArray(rec.niro_banks) && rec.niro_banks.length > 0) {
-                localStorage.setItem(BANKS_KEY, JSON.stringify(rec.niro_banks));
-            }
-
-            // 4. Sync Catalog / Product Prices & ON/OFF Status
-            if (Array.isArray(rec.niro_catalog) && rec.niro_catalog.length > 0) {
-                localStorage.setItem(CATALOG_KEY, JSON.stringify(rec.niro_catalog));
-            }
-
-            // 5. Merge Orders (from Bot & Mini App)
-            if (Array.isArray(rec.niro_orders)) {
-                let localOrders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
-                const map = {};
-                localOrders.forEach(o => { map[o.orderId] = o; });
-                rec.niro_orders.forEach(o => {
-                    // Cloud status wins if approved/rejected
-                    if (!map[o.orderId] || o.status !== 'Pending') {
-                        map[o.orderId] = o;
-                    }
-                });
-                const merged = Object.values(map);
-                localStorage.setItem('niro_topup_orders_v2', JSON.stringify(merged));
-            }
-
-            // 6. Sync Deposits & Withdraws
-            if (Array.isArray(rec.niro_deposits)) {
-                localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(rec.niro_deposits));
-            }
-            if (Array.isArray(rec.niro_withdraws)) {
-                localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(rec.niro_withdraws));
-            }
-
-            updateUI();
-            renderHomeStore();
-            renderUserOrders();
-        } catch (e) {}
-
-        isSyncing = false;
-        if (pill) pill.style.opacity = '1';
+    function openBotChatDirect() {
+        const botUrl = `https://t.me/${BOT_USERNAME}`;
+        if (tg) tg.openTelegramLink(botUrl);
+        else window.open(botUrl, '_blank');
     }
 
-    async function pushAllToBotCloud() {
-        try {
-            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
-            const json = await res.json();
-            let rec = (json && json.record) ? json.record : {};
-
-            let usersDb = rec.niro_users || {};
-            const curUser = usersDb[myTgId] || {};
-            usersDb[myTgId] = {
-                balance: getUserBalance(),
-                invites: parseInt(localStorage.getItem('niro_ref_count_' + myTgId) || curUser.invites || '0'),
-                earned: parseFloat(localStorage.getItem('niro_ref_earned_' + myTgId) || curUser.earned || '0'),
-                withdrawn: parseFloat(localStorage.getItem('niro_ref_withdrawn_' + myTgId) || curUser.withdrawn || '0'),
-                name: myTgName,
-                username: myTgUser
-            };
-            rec.niro_users = usersDb;
-            rec.niro_broadcast = localStorage.getItem('niro_topup_broadcast_v2') || '';
-            rec.niro_banks = getBanks();
-            rec.niro_catalog = getCatalog();
-            rec.niro_orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
-            rec.niro_deposits = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
-            rec.niro_withdraws = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
-
-            await fetch(SHARED_CLOUD_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(rec)
-            });
-        } catch (e) {}
-    }
-
-    function manualSyncNow() {
-        pullAllFromBotCloud().then(() => {
-            alert("✅ ከቦቱ (@Niro_1Topup_Bot) ጋር ሙሉ በሙሉ ተመሳስሏል!");
-        });
-    }
-
-    // Check Invite Param (+2.00 ETB per invited friend)
-    async function processReferralOnOpen() {
-        let refId = null;
+    // Sync via URL Start Parameters from Bot (e.g., ?start=bal_500 or ?start=ref_8797798511)
+    function processBotUrlSync() {
+        let startParam = "";
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
-            refId = String(tg.initDataUnsafe.start_param).replace('ref_', '');
+            startParam = String(tg.initDataUnsafe.start_param);
         }
-        if (!refId) {
+        if (!startParam) {
             const urlParams = new URLSearchParams(window.location.search);
-            const raw = urlParams.get('start') || urlParams.get('ref');
-            if (raw) refId = raw.replace('ref_', '');
+            startParam = urlParams.get('start') || urlParams.get('ref') || "";
         }
-        if (refId && refId !== String(myTgId) && !localStorage.getItem('niro_ref_credited_' + myTgId)) {
-            localStorage.setItem('niro_ref_credited_' + myTgId, 'true');
-            try {
-                const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
-                const json = await res.json();
-                let rec = (json && json.record) ? json.record : {};
-                let usersDb = rec.niro_users || {};
-                let inviter = usersDb[refId] || { balance: 0, invites: 0, earned: 0, withdrawn: 0 };
-                inviter.balance = parseFloat(inviter.balance || 0) + 2.0;
-                inviter.invites = parseInt(inviter.invites || 0) + 1;
-                inviter.earned = parseFloat(inviter.earned || 0) + 2.0;
-                usersDb[refId] = inviter;
-                rec.niro_users = usersDb;
-                await fetch(SHARED_CLOUD_URL, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(rec)
-                });
-            } catch (e) {}
+
+        // Referral (+2.00 ETB)
+        if (startParam.startsWith('ref_')) {
+            const refId = startParam.replace('ref_', '');
+            if (refId && refId !== String(myTgId) && !localStorage.getItem('niro_ref_credited_' + myTgId)) {
+                localStorage.setItem('niro_ref_credited_' + myTgId, 'true');
+                const invBal = parseFloat(localStorage.getItem('niro_user_bal_' + refId) || '0');
+                localStorage.setItem('niro_user_bal_' + refId, String(invBal + 2.0));
+                const invCnt = parseInt(localStorage.getItem('niro_ref_count_' + refId) || '0');
+                localStorage.setItem('niro_ref_count_' + refId, String(invCnt + 1));
+                const invEarn = parseFloat(localStorage.getItem('niro_ref_earned_' + refId) || '0');
+                localStorage.setItem('niro_ref_earned_' + refId, String(invEarn + 2.0));
+            }
+        }
+
+        // Balance Sync from Bot (?start=bal_500)
+        if (startParam.startsWith('bal_')) {
+            const botBal = parseFloat(startParam.replace('bal_', ''));
+            if (!isNaN(botBal)) {
+                localStorage.setItem('niro_user_bal_' + myTgId, String(botBal));
+            }
+        }
+    }
+
+    function forwardOrderToBot(orderObj) {
+        const msg = `🚨 NEW MINI APP ORDER\n🧾 Order: #${orderObj.orderId}\n📦 Item: ${orderObj.gameName} - ${orderObj.packageName}\n💰 Price: ${orderObj.price} ETB\n🎯 Target ID: ${orderObj.playerId}\n🏦 Method: ${orderObj.payMethod}\n👤 Buyer: ${orderObj.userName} (${orderObj.uid})\n🧾 SMS: ${orderObj.fullTxnMessage}`;
+        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/' + BOT_USERNAME)}&text=${encodeURIComponent(msg)}`;
+        if (tg && typeof tg.sendData === 'function') {
+            try { tg.sendData(JSON.stringify(orderObj)); } catch(e){}
         }
     }
 
@@ -1523,7 +1417,7 @@
         };
         orders.unshift(newOrder);
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
-        pushAllToBotCloud();
+        forwardOrderToBot(newOrder);
 
         closeModal('direct-buy-modal');
         alert(`✅ ትዕዛዝዎ ለ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}`);
@@ -1673,7 +1567,6 @@
             status: "pending", date: new Date().toLocaleString()
         });
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
-        pushAllToBotCloud();
 
         document.getElementById('dep-amount').value = '';
         document.getElementById('dep-sender-name').value = '';
@@ -1701,7 +1594,6 @@
             phone: phone, amount: amt, status: "Pending", date: new Date().toLocaleString()
         });
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
-        pushAllToBotCloud();
 
         closeModal('withdraw-modal');
         alert("✅ የወጪ ጥያቄዎ ለ Admin ቀርቧል!");
@@ -1801,7 +1693,6 @@
             localStorage.setItem(uKey, String(cur + orders[idx].price));
         }
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
-        pushAllToBotCloud();
         renderAdminOrders();
         renderAdminStats();
         updateUI();
@@ -1942,7 +1833,6 @@
             localStorage.setItem(uKey, String(cur + Number(wds[idx].amount)));
         }
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
-        pushAllToBotCloud();
         renderAdminWithdraws();
         updateUI();
         alert(`Withdraw #${wdId} is now ${status}!`);
@@ -2217,7 +2107,7 @@
     }
 
     // 6. Add / Subtract User Balance
-    async function adminModifyUserBalance(mode) {
+    function adminModifyUserBalance(mode) {
         const uid = document.getElementById('adm-bal-uid').value.trim();
         const amt = parseFloat(document.getElementById('adm-bal-amount').value);
         if (!uid || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ Telegram ID እና የብር መጠን ያስገቡ!"); return; }
@@ -2226,22 +2116,6 @@
         const cur = parseFloat(localStorage.getItem(key) || '0');
         const nextVal = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
         localStorage.setItem(key, String(nextVal));
-
-        try {
-            const res = await fetch(SHARED_CLOUD_URL + '/latest', { cache: 'no-store' });
-            const json = await res.json();
-            let rec = (json && json.record) ? json.record : {};
-            let usersDb = rec.niro_users || {};
-            let uObj = usersDb[uid] || { balance: 0, invites: 0, earned: 0, withdrawn: 0 };
-            uObj.balance = nextVal;
-            usersDb[uid] = uObj;
-            rec.niro_users = usersDb;
-            await fetch(SHARED_CLOUD_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(rec)
-            });
-        } catch(e){}
 
         document.getElementById('adm-bal-amount').value = '';
         updateUI();
@@ -2272,7 +2146,6 @@
         let banks = getBanks();
         banks.push({ id: "bank_" + Date.now(), title, account: acc, owner, note: note || owner, logo });
         localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
-        pushAllToBotCloud();
 
         document.getElementById('adm-bank-preset').value = '';
         document.getElementById('adm-bank-title').value = '';
@@ -2311,7 +2184,6 @@
         let banks = getBanks();
         banks = banks.filter(b => b.id !== bId);
         localStorage.setItem(BANKS_KEY, JSON.stringify(banks));
-        pushAllToBotCloud();
         renderAdminBanks();
     }
 
@@ -2354,7 +2226,6 @@
             localStorage.setItem(uKey, String(cur + deps[idx].amount));
         }
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
-        pushAllToBotCloud();
         renderAdminDeposits();
         updateUI();
         alert(action === 'approve' ? "✅ ገንዘቡ ጸድቋል!" : "❌ ተሰርዟል!");
@@ -2378,14 +2249,12 @@
         if (!txt) { alert("⚠️ መልእክት ያስገቡ!"); return; }
         localStorage.setItem('niro_topup_broadcast_v2', txt);
         document.getElementById('adm-bc-input').value = '';
-        pushAllToBotCloud();
         updateUI();
-        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል (ከቦቱ ጋር ተመሳስሏል)!");
+        alert("📢 Broadcast ለሁሉም ደንበኞች ተለጥፏል!");
     }
 
     function adminClearBroadcast() {
         localStorage.removeItem('niro_topup_broadcast_v2');
-        pushAllToBotCloud();
         updateUI();
         alert("🗑️ Broadcast ተሰርዟል!");
     }
@@ -2501,11 +2370,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        processBotUrlSync();
         updateUI();
         renderHomeStore();
-        processReferralOnOpen();
-        pullAllFromBotCloud();
-        setInterval(pullAllFromBotCloud, 8000);
     });
     </script>
 </body>
