@@ -13,10 +13,8 @@
         :root { --bg-color: #f4f7f6; --card-bg: #ffffff; --primary: #0f766e; --primary-dark: #064e3b; --accent: #10b981; --text-main: #0f172a; --text-muted: #64748b; --border-color: #e2e8f0; --danger: #ef4444; --gold: #f59e0b; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 85px; overflow-x: hidden; }
-        /* Maintenance / Update Lock Screen */
         #maintenance-lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #064e3b, #0f172a); color: #ffffff; z-index: 99999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 28px; }
         .maint-icon-box { width: 84px; height: 84px; border-radius: 24px; background: rgba(245, 158, 11, 0.18); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 2.3rem; color: var(--gold); margin-bottom: 18px; }
-        /* Top Header */
         .top-nav { position: sticky; top: 0; z-index: 100; background: #ffffff; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; }
         .brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 1.02rem; color: var(--primary); cursor: pointer; }
         .brand-icon { width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -31,7 +29,6 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         #live-broadcast-banner { display: none; background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 10px 14px; border-radius: 14px; margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; }
-        /* Welcome Dark Banner With User TG Profile */
         .hero-card { background: linear-gradient(135deg, #064e3b, #0f172a); color: #fff; border-radius: 20px; padding: 18px 16px; margin-bottom: 14px; position: relative; overflow: hidden; }
         .hero-user-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
         .hero-tg-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2.5px solid #34d399; background: #0f172a; flex-shrink: 0; }
@@ -54,7 +51,6 @@
         .product-info { padding: 10px 12px; }
         .product-info h4 { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
         .product-info small { font-size: 0.7rem; color: var(--primary); font-weight: 700; }
-        /* Packages View Banner & Header */
         .game-poster-hero { position: relative; border-radius: 20px; overflow: hidden; height: 160px; margin-bottom: 14px; background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; }
         .game-poster-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; }
         .game-poster-content { position: relative; z-index: 2; padding: 12px; }
@@ -70,7 +66,6 @@
         .pkg-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
         .pkg-price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
         .buy-pill-btn { background: #ecfdf5; color: var(--primary); border: 1px solid #a7f3d0; padding: 6px 15px; border-radius: 12px; font-weight: 800; font-size: 0.78rem; cursor: pointer; }
-        /* Bank Radio Selection Cards */
         .bank-radio-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
         .bank-radio-card { background: #fff; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.15s; }
         .bank-radio-card.selected { border-color: var(--primary); background: #ecfdf5; }
@@ -80,7 +75,6 @@
         .bank-radio-circle { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; }
         .bank-radio-card.selected .bank-radio-circle { border-color: var(--primary); }
         .bank-radio-card.selected .bank-radio-circle::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); }
-        /* Smart Deposit Step-by-Step UI */
         .step-badge-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 8px; font-size: 0.74rem; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; }
         .step-num-circle { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; }
         .dep-info-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; }
@@ -88,12 +82,9 @@
         .dep-copy-row:last-child { border-bottom: none; padding-bottom: 0; }
         .copy-icon-btn { width: 34px; height: 34px; border-radius: 10px; background: #fff; border: 1px solid var(--border-color); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .dep-error-box { display: none; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 10px 12px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; margin-bottom: 10px; align-items: center; gap: 8px; }
-        /* Profile & Home Screen Shortcut Card */
         .profile-header-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; }
         .profile-avatar-img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #0f172a; }
         .shortcut-banner-btn { background: #fff; border: 1px solid var(--border-color); border-radius: 14px; padding: 13px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
-        .shortcut-banner-btn:active { background: #ecfdf5; border-color: var(--primary); }
-        /* Wallet Card */
         .wallet-hero { background: linear-gradient(135deg, #064e3b, #0f172a); color: #fff; border-radius: 20px; padding: 22px; margin-bottom: 16px; }
         .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 12px; border: none; font-family: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; width: 100%; }
         .btn-primary { background: var(--primary); color: #fff; }
@@ -109,11 +100,9 @@
         .nav-item { background: none; border: none; color: var(--text-muted); font-size: 0.7rem; font-family: inherit; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 600; }
         .nav-item.active { color: var(--primary); font-weight: 800; }
         .nav-item i { font-size: 1.15rem; }
-        /* Modals */
         .modal-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(5px); z-index: 10000; display: none; align-items: flex-end; justify-content: center; }
         .modal-sheet { background: #fff; border-radius: 24px 24px 0 0; padding: 22px; width: 100%; max-width: 520px; max-height: 92vh; overflow-y: auto; animation: slideUp 0.25s ease; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        /* Admin Overlay */
         #admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #f8fafc; z-index: 20000; display: none; flex-direction: column; overflow-y: auto; }
         .adm-header { background: #1e293b; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid #334155; flex-shrink: 0; }
         .adm-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; background: #162032; padding: 10px 12px; border-bottom: 1px solid #334155; flex-shrink: 0; }
@@ -127,7 +116,6 @@
         .switch-pill { padding: 5px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; border: none; cursor: pointer; }
         .switch-on { background: #16a34a; color: #fff; }
         .switch-off { background: #dc2626; color: #fff; }
-        /* Statistics Graph Bars */
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
         .stat-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 14px; padding: 14px; }
         .stat-val { font-size: 1.35rem; font-weight: 900; color: #34d399; margin: 4px 0; }
@@ -154,7 +142,7 @@
             <span>NIRO TOPUP</span>
         </div>
         <div class="header-right">
-            <button class="bot-pill" onclick="openBotChatDirect()" title="Open Bot"><i class="fab fa-telegram-plane"></i> Bot</button>
+            <button class="bot-pill" onclick="syncWithCloudDatabase(true)" title="Sync Now"><i class="fas fa-sync-alt"></i> Sync</button>
             <button class="admin-btn" id="open-admin-btn" onclick="toggleAdmin(true)"><i class="fas fa-shield-alt"></i> Admin</button>
             <button class="lang-pill" id="lang-btn" onclick="switchTab('account')"><i class="fas fa-globe"></i> <span id="hdr-lang-code">አማ</span></button>
             <div class="wallet-pill" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> <span id="hdr-bal">0</span> <span data-i18n="currency">ብር</span></div>
@@ -162,12 +150,11 @@
     </header>
 
     <main class="container">
-        <!-- LIVE BROADCAST ALERT -->
         <div id="live-broadcast-banner">
             <i class="fas fa-bullhorn"></i> <span id="live-bc-text"></span>
         </div>
 
-        <!-- 1. HOME TAB WITH USER'S OWN TELEGRAM PROFILE PHOTO -->
+        <!-- 1. HOME TAB -->
         <section id="tab-home" class="tab-content active">
             <div class="hero-card">
                 <div class="hero-user-row">
@@ -191,7 +178,6 @@
                 <input type="text" id="store-search" data-i18n-ph="search_ph" placeholder="ጨዋታ፣ Channel፣ Mobile ወይም PC ይፈልጉ..." oninput="renderHomeStore()">
             </div>
 
-            <!-- Dynamic Folders / Categories Filter -->
             <div class="cat-scroll" id="home-cat-pills"></div>
             <div id="store-sections-container"></div>
         </section>
@@ -255,7 +241,6 @@
                 </div>
             </div>
 
-            <!-- Add to Home Screen Shortcut Button -->
             <div class="shortcut-banner-btn" onclick="triggerAddToHomeScreen()">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-mobile-alt" style="color:var(--primary); font-size:1.15rem;"></i>
@@ -267,7 +252,6 @@
                 <i class="fas fa-plus-circle" style="color:var(--primary); font-size:1.2rem;"></i>
             </div>
 
-            <!-- Invite Friends Card (+2.00 ETB / Invite synced with Bot) -->
             <div class="hero-card">
                 <small style="color:#34d399; font-weight:800;"><i class="fas fa-users"></i> <span data-i18n="invite_title">ጓደኞችዎን ይጋብዙ</span></small>
                 <h3 style="font-size:1.15rem; font-weight:900; margin:4px 0;" data-i18n="earn_30">በ 1 ሰው +2.00 ETB እና 30% ያግኙ</h3>
@@ -406,7 +390,7 @@
                 <button onclick="closeModal('withdraw-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
             </div>
             <input type="text" class="form-control" id="wd-phone" placeholder="የቴሌብር ስልክ ቁጥር (09...)">
-            <input type="number" class="form-control" id="wd-amt" placeholder="የሚያወጡት መጠን (ETB)">
+            <input type="number" class="form-control" id="wd-amt" placeholder="የሚያወጡት መጠን (ETB - ቢያንስ 100)">
             <button class="btn btn-primary" onclick="submitWithdrawRequest()" data-i18n="withdraw_btn">ገንዘብ አውጣ</button>
         </div>
     </div>
@@ -420,7 +404,7 @@
     </nav>
 
     <!-- ==========================================
-         ADMIN PANEL (ALL 10 TABS IN CLEAN GRID)
+         ADMIN PANEL (ALL 10 TABS)
     ========================================== -->
     <div id="admin-overlay">
         <div class="adm-header">
@@ -590,8 +574,8 @@
         <div id="adm-branding-tab" class="adm-page">
             <h3 style="margin-bottom:10px;">✅ የ Proof Channel ማስተካከያ (Auto Receipt)</h3>
             <div class="adm-card">
-                <label style="font-size:0.78rem; color:#94a3b8;">Proof Channel Link (Approve ሲደረግ ደረሰኝ የሚላክበት)</label>
-                <input type="text" class="adm-input" id="adm-proof-ch-url" placeholder="ምሳሌ፦ https://t.me/Topup_proof">
+                <label style="font-size:0.78rem; color:#94a3b8;">Proof Channel Username / Link</label>
+                <input type="text" class="adm-input" id="adm-proof-ch-url" placeholder="ምሳሌ፦ @Topup_proof">
                 <button class="btn btn-primary" onclick="saveProofChannelUrl()">💾 Proof Channel አስቀምጥ</button>
             </div>
 
@@ -656,6 +640,12 @@
     <script>
     const SUPER_ADMIN_ID = "8797798511";
     const BOT_USERNAME = "Niro_1Topup_Bot";
+
+    // YOUR CONNECTED JSONBIN & BOT CREDENTIALS
+    const JSONBIN_ID = "6afbdcceffd5d16053c77144";
+    const JSONBIN_KEY = "$2a$10$z8yX2X3kx6gzFSXzT7nySe0RLGZ2cLuVBeWVdpJyn/m1e9VeYd.dS";
+    const BOT_TOKEN = "9179720868:AAHGoSlgsUgzKo95ecNTFJJL0hZv_2XZils";
+    const CLOUD_API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
 
     let tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg) {
@@ -756,7 +746,6 @@
         "Chapa": { logo: makeBankSvg("#10b981", "#0f172a", "CHAPA"), note: "ቻፓ ኦንላይን" }
     };
 
-    // 4 LANGUAGES
     const LANGUAGES = [
         { code: "AM", label: "አማርኛ", currency: "ብር", welcome: "እንኳን ደህና መጡ", hero_sub: "ጨዋታዎችዎን፣ ዲጂታል አገልግሎቶችን እና ኤሌክትሮኒክስ በኢትዮጵያ ባንኮች በፍጥነት ይግዙ።", badge_fast: "⚡ ፈጣን (INSTANT)", badge_safe: "🔒 አስተማማኝ", search_ph: "ጨዋታ፣ Channel፣ Mobile ወይም PC ይፈልጉ...", cat_all: "ሁሉም (ALL)", not_entered: "እስካሁን አልገባም", enter_id_btn: "ID ያስገቡ", select_pkg: "⚡ መጠን ይምረጡ", my_orders: "ትዕዛዞቼ", wallet_title: "ቦርሳ (WALLET)", balance_lbl: "ቀሪ ሂሳብ", deposit_btn: "ገቢ አድርግ", withdraw_btn: "ገንዘብ አውጣ", wallet_hint: "ገንዘብ ገቢ ካደረጉ በኋላ ወይም በቀጥታ 'ግዛ' በመጫን የ Transaction መልእክት በመላክ መግዛት ይችላሉ።", add_home_btn: "በመነሻ ገጽ ላይ አክል", invite_title: "ጓደኞችዎን ይጋብዙ", earn_30: "በ 1 ሰው +2.00 ETB እና 30% ያግኙ", invite_sub: "ጓደኞችዎ ሲመዘገቡ +2.00 ETB ወዲያውኑ ያግኙ እንዲሁም ከግዢያቸው 30% ኮሚሽን ያግኙ!", ref_invited: "የተጋበዙ", ref_earned: "የተገኘ", ref_withdrawn: "የወጣ", share_btn: "ለጓደኛ ያጋሩ", lang_header: "🌐 ቋንቋ ይምረጡ", help_header: "እገዛ እና ቻናሎች", how_to_pay: "እንዴት መክፈል ይፈልጋሉ?", sender_lbl: "3. የላኪ ሙሉ ስም", sms_lbl: "4. ሙሉ የ Transaction መልእክት", send_order_btn: "በደረሰኝ እዘዝ", wallet_pay_btn: "ከ Wallet ቀንስ", confirm_btn: "አረጋግጥ", nav_home: "መነሻ", nav_orders: "ትዕዛዞች", nav_wallet: "ዋሌት", nav_account: "አካውንት", buy_btn: "ግዛ", coming_soon: "በቅርቡ ይጀመራል ይጠብቁ!" },
         { code: "EN", label: "English", currency: "ETB", welcome: "WELCOME BACK", hero_sub: "Top up your games, channels & digital services instantly with Ethiopian banks.", badge_fast: "⚡ INSTANT", badge_safe: "🔒 SECURE", search_ph: "Search games, channels, mobile or PC...", cat_all: "ALL", not_entered: "Not entered yet", enter_id_btn: "Enter ID", select_pkg: "⚡ Select Package", my_orders: "MY ORDERS", wallet_title: "WALLET", balance_lbl: "BALANCE", deposit_btn: "DEPOSIT", withdraw_btn: "WITHDRAW", wallet_hint: "Deposit funds into your wallet or click 'Buy' directly and paste your transaction SMS.", add_home_btn: "Add to Home Screen", invite_title: "INVITE FRIENDS", earn_30: "EARN +2.00 ETB & 30% PROFIT", invite_sub: "Earn +2.00 ETB instantly per invite plus 30% commission from every purchase!", ref_invited: "INVITED", ref_earned: "EARNED", ref_withdrawn: "WITHDRAWN", share_btn: "Share with Friend", lang_header: "🌐 SELECT LANGUAGE", help_header: "HELP & CHANNELS", how_to_pay: "How would you like to pay?", sender_lbl: "3. Sender Full Name", sms_lbl: "4. Full Transaction SMS Message", send_order_btn: "Order with Receipt", wallet_pay_btn: "Pay from Wallet", confirm_btn: "Confirm", nav_home: "HOME", nav_orders: "ORDERS", nav_wallet: "WALLET", nav_account: "ACCOUNT", buy_btn: "Buy", coming_soon: "Coming soon, stay tuned!" },
@@ -876,54 +865,66 @@
     }
 
     // =========================================================================
-    // DIRECT BOT CONNECTION (NO DATABASE NEEDED - VIA TELEGRAM DEEP LINK)
+    // REAL-TIME CLOUD SYNC WITH BOT (JSONBIN)
     // =========================================================================
-    function openBotChatDirect() {
-        const botUrl = `https://t.me/${BOT_USERNAME}`;
-        if (tg) tg.openTelegramLink(botUrl);
-        else window.open(botUrl, '_blank');
+    async function syncWithCloudDatabase(showAlert = false) {
+        try {
+            const res = await fetch(CLOUD_API_URL + "/latest", {
+                headers: { "X-Master-Key": JSONBIN_KEY },
+                cache: "no-store"
+            });
+            const data = await res.json();
+            const rec = (data && data.record) ? data.record : { users: {}, orders: [], withdraws: [] };
+
+            // Sync Balance & Affiliate Stats from Bot
+            if (rec.users && rec.users[myTgId] !== undefined) {
+                const uData = rec.users[myTgId];
+                localStorage.setItem('niro_user_bal_' + myTgId, String(parseFloat(uData.balance || 0)));
+                localStorage.setItem('niro_ref_count_' + myTgId, String(parseInt(uData.invites || 0)));
+                localStorage.setItem('niro_ref_earned_' + myTgId, String(parseFloat(uData.earned || 0)));
+                localStorage.setItem('niro_ref_withdrawn_' + myTgId, String(parseFloat(uData.withdrawn || 0)));
+            } else {
+                // Reset fake local balance so it matches Bot 0.00 ETB
+                localStorage.setItem('niro_user_bal_' + myTgId, "0");
+            }
+
+            // Sync Orders (Both Bot & Mini App Orders)
+            if (Array.isArray(rec.orders)) {
+                localStorage.setItem('niro_topup_orders_v2', JSON.stringify(rec.orders));
+            }
+            if (Array.isArray(rec.withdraws)) {
+                localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(rec.withdraws));
+            }
+
+            updateUI();
+            renderUserOrders();
+            if (document.getElementById('admin-overlay').style.display === 'flex') {
+                renderAdminOrders();
+                renderAdminWithdraws();
+            }
+            if (showAlert) alert("✅ ከቦቱ ጋር ሙሉ በሙሉ ተመሳስሏል!");
+        } catch (e) {}
     }
 
-    // Sync via URL Start Parameters from Bot (e.g., ?start=bal_500 or ?start=ref_8797798511)
-    function processBotUrlSync() {
-        let startParam = "";
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
-            startParam = String(tg.initDataUnsafe.start_param);
-        }
-        if (!startParam) {
-            const urlParams = new URLSearchParams(window.location.search);
-            startParam = urlParams.get('start') || urlParams.get('ref') || "";
-        }
+    async function saveRecordToCloud(updaterFn) {
+        try {
+            const res = await fetch(CLOUD_API_URL + "/latest", {
+                headers: { "X-Master-Key": JSONBIN_KEY },
+                cache: "no-store"
+            });
+            const data = await res.json();
+            let rec = (data && data.record) ? data.record : { users: {}, orders: [], withdraws: [] };
+            rec = updaterFn(rec);
 
-        // Referral (+2.00 ETB)
-        if (startParam.startsWith('ref_')) {
-            const refId = startParam.replace('ref_', '');
-            if (refId && refId !== String(myTgId) && !localStorage.getItem('niro_ref_credited_' + myTgId)) {
-                localStorage.setItem('niro_ref_credited_' + myTgId, 'true');
-                const invBal = parseFloat(localStorage.getItem('niro_user_bal_' + refId) || '0');
-                localStorage.setItem('niro_user_bal_' + refId, String(invBal + 2.0));
-                const invCnt = parseInt(localStorage.getItem('niro_ref_count_' + refId) || '0');
-                localStorage.setItem('niro_ref_count_' + refId, String(invCnt + 1));
-                const invEarn = parseFloat(localStorage.getItem('niro_ref_earned_' + refId) || '0');
-                localStorage.setItem('niro_ref_earned_' + refId, String(invEarn + 2.0));
-            }
-        }
-
-        // Balance Sync from Bot (?start=bal_500)
-        if (startParam.startsWith('bal_')) {
-            const botBal = parseFloat(startParam.replace('bal_', ''));
-            if (!isNaN(botBal)) {
-                localStorage.setItem('niro_user_bal_' + myTgId, String(botBal));
-            }
-        }
-    }
-
-    function forwardOrderToBot(orderObj) {
-        const msg = `🚨 NEW MINI APP ORDER\n🧾 Order: #${orderObj.orderId}\n📦 Item: ${orderObj.gameName} - ${orderObj.packageName}\n💰 Price: ${orderObj.price} ETB\n🎯 Target ID: ${orderObj.playerId}\n🏦 Method: ${orderObj.payMethod}\n👤 Buyer: ${orderObj.userName} (${orderObj.uid})\n🧾 SMS: ${orderObj.fullTxnMessage}`;
-        const shareUrl = `https://t.me/share/url?url=${encodeURIComponent('https://t.me/' + BOT_USERNAME)}&text=${encodeURIComponent(msg)}`;
-        if (tg && typeof tg.sendData === 'function') {
-            try { tg.sendData(JSON.stringify(orderObj)); } catch(e){}
-        }
+            await fetch(CLOUD_API_URL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Master-Key": JSONBIN_KEY
+                },
+                body: JSON.stringify(rec)
+            });
+        } catch (e) {}
     }
 
     let tempImages = { newSrvLogo: '', newSrvPoster: '', newPkgImg: '', newBankLogo: '' };
@@ -1050,15 +1051,6 @@
             bcBox.style.display = 'none';
         }
 
-        if (tg && typeof tg.checkHomeScreenStatus === 'function') {
-            try {
-                tg.checkHomeScreenStatus((status) => {
-                    const stEl = document.getElementById('home-shortcut-status');
-                    if (stEl && status === 'added') { stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል (Added)"; }
-                });
-            } catch(e){}
-        }
-
         applyLanguage();
         renderLanguageGrid();
         renderCommunityChannels();
@@ -1110,18 +1102,7 @@
 
     function triggerAddToHomeScreen() {
         if (tg && typeof tg.addToHomeScreen === 'function') {
-            try {
-                tg.addToHomeScreen();
-                if (typeof tg.onEvent === 'function') {
-                    tg.onEvent('homeScreenAdded', () => {
-                        const stEl = document.getElementById('home-shortcut-status');
-                        if (stEl) stEl.innerText = "✅ መነሻ ገጽዎ ላይ ተቀምጧል!";
-                        alert("✅ Niro Topup ወደ ስልክዎ መነሻ ገጽ (Home Screen) ተጨምሯል!");
-                    });
-                }
-            } catch (err) {
-                alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።");
-            }
+            try { tg.addToHomeScreen(); } catch (err) { alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።"); }
         } else {
             alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።");
         }
@@ -1375,7 +1356,7 @@
         `;
     }
 
-    function submitDirectBuyOrder(payType) {
+    async function submitDirectBuyOrder(payType) {
         if (!selectedGameObj || !activeBuyPkgObj) return;
 
         const targetId = document.getElementById('buy-target-id').value.trim();
@@ -1387,13 +1368,14 @@
 
         localStorage.setItem('niro_saved_id_' + selectedGameObj.id + '_' + myTgId, targetId);
 
+        let newBal = getUserBalance();
         if (payType === 'wallet') {
-            const bal = getUserBalance();
-            if (bal < activeBuyPkgObj.price) {
+            if (newBal < activeBuyPkgObj.price) {
                 alert(`❌ በቂ ቀሪ ሂሳብ የለዎትም! (${activeBuyPkgObj.price} ብር ያስፈልጋል)።`);
                 return;
             }
-            setUserBalance(bal - activeBuyPkgObj.price);
+            newBal = newBal - activeBuyPkgObj.price;
+            setUserBalance(newBal);
         } else {
             if (!senderName || !fullTxnMsg) {
                 alert("⚠️ እባክዎ የላኪ ስም እና ሙሉ የ Transaction መልእክት ያስገቡ!");
@@ -1417,7 +1399,31 @@
         };
         orders.unshift(newOrder);
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
-        forwardOrderToBot(newOrder);
+
+        // Save order & updated balance to Cloud Database (Syncs with Bot!)
+        await saveRecordToCloud((rec) => {
+            if (!rec.orders) rec.orders = [];
+            rec.orders.unshift(newOrder);
+            if (payType === 'wallet') {
+                if (!rec.users) rec.users = {};
+                if (!rec.users[myTgId]) rec.users[myTgId] = { balance: 0, invites: 0, earned: 0 };
+                rec.users[myTgId].balance = newBal;
+            }
+            return rec;
+        });
+
+        // Notify Admin on Bot
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: SUPER_ADMIN_ID,
+                    text: `<b>🚨 NEW MINI APP ORDER #${newOrder.orderId}</b>\n<b>📦 Item:</b> ${newOrder.gameName} - ${newOrder.packageName} (${newOrder.price} ETB)\n<b>🎯 Target:</b> <code>${newOrder.playerId}</code>\n<b>👤 Buyer:</b> ${newOrder.userName} (<code>${newOrder.uid}</code>)\n<b>🧾 SMS:</b> <code>${newOrder.fullTxnMessage}</code>`,
+                    parse_mode: "HTML"
+                })
+            });
+        } catch(e){}
 
         closeModal('direct-buy-modal');
         alert(`✅ ትዕዛዝዎ ለ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}`);
@@ -1453,13 +1459,13 @@
             html += `
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                        <b style="font-size:0.9rem;">${o.gameName} - ${o.packageName}</b>
+                        <b style="font-size:0.9rem;">${o.gameName || o.product} - ${o.packageName || ''}</b>
                         <span style="background:${badgeBg}; color:${badgeCol}; padding:3px 10px; border-radius:12px; font-size:0.7rem; font-weight:800;">${o.status.toUpperCase()}</span>
                     </div>
                     <div style="font-size:0.78rem; color:var(--text-muted);">
                         <div>🎯 Target: <b>${o.playerId}</b></div>
                         <div>🧾 Order: #${o.orderId} • <b>${o.price} ETB</b></div>
-                        <div>📅 ${o.date}</div>
+                        <div>📅 ${o.date || ''}</div>
                     </div>
                 </div>
             `;
@@ -1577,26 +1583,45 @@
 
     function openWithdrawModal() { document.getElementById('withdraw-modal').style.display = 'flex'; }
 
-    function submitWithdrawRequest() {
+    // FIXED WITHDRAW: DEDUCTS BALANCE & SYNCS WITH BOT CLOUD
+    async function submitWithdrawRequest() {
         const phone = document.getElementById('wd-phone').value.trim();
         const amt = parseFloat(document.getElementById('wd-amt').value);
         const bal = getUserBalance();
 
-        if (!phone || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ መረጃ ያስገቡ!"); return; }
-        if (amt > bal) { alert("❌ በቂ ቀሪ ሂሳብ የለዎትም!"); return; }
+        if (!phone || isNaN(amt) || amt < 100) {
+            alert("⚠️ ትክክለኛ የቴሌብር ስልክ ቁጥር እና ቢያንስ 100 ETB ያስገቡ!");
+            return;
+        }
+        if (amt > bal) {
+            alert(`❌ በቂ ቀሪ ሂሳብ የለዎትም! (ቀሪ ሂሳብዎ: ${bal} ETB)`);
+            return;
+        }
 
-        setUserBalance(bal - amt);
+        const newBal = bal - amt;
+        setUserBalance(newBal);
 
-        let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
-        wds.unshift({
+        const wdObj = {
             id: "WD-" + Math.floor(100000 + Math.random() * 900000),
             uid: myTgId, userName: myTgName, tgUser: myTgUser,
             phone: phone, amount: amt, status: "Pending", date: new Date().toLocaleString()
-        });
+        };
+
+        let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
+        wds.unshift(wdObj);
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
 
+        await saveRecordToCloud((rec) => {
+            if (!rec.users) rec.users = {};
+            if (!rec.users[myTgId]) rec.users[myTgId] = { balance: 0, invites: 0, earned: 0 };
+            rec.users[myTgId].balance = newBal;
+            if (!rec.withdraws) rec.withdraws = [];
+            rec.withdraws.unshift(wdObj);
+            return rec;
+        });
+
         closeModal('withdraw-modal');
-        alert("✅ የወጪ ጥያቄዎ ለ Admin ቀርቧል!");
+        alert(`✅ የ ${amt} ETB የወጪ ጥያቄዎ ተልኳል! አዲስ ቀሪ ሂሳብዎ: ${newBal} ETB`);
     }
 
     // ==========================================
@@ -1621,7 +1646,7 @@
                 btn.style.display = (adminRec.isSuper || adminRec.permissions.includes(perm)) ? 'flex' : 'none';
             });
             document.getElementById('super-add-admin-tab').style.display = adminRec.isSuper ? 'flex' : 'none';
-            document.getElementById('adm-proof-ch-url').value = localStorage.getItem('niro_proof_channel_url_v1') || 'https://t.me/Topup_proof';
+            document.getElementById('adm-proof-ch-url').value = localStorage.getItem('niro_proof_channel_url_v1') || '@Topup_proof';
 
             renderAdminOrders();
             renderAdminStats();
@@ -1644,7 +1669,6 @@
         if (event && event.currentTarget) event.currentTarget.classList.add('active');
     }
 
-    // 1. Admin Orders & Auto Proof Channel Receipt
     function renderAdminOrders() {
         const box = document.getElementById('adm-orders-list');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
@@ -1654,17 +1678,16 @@
             html += `
                 <div class="adm-card">
                     <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                        <b style="color:var(--gold);">#${o.orderId} • ${o.gameName}</b>
+                        <b style="color:var(--gold);">#${o.orderId} • ${o.gameName || o.product}</b>
                         <span style="font-size:0.75rem; font-weight:800; color:${o.status === 'Approved' ? '#22c55e' : (o.status === 'Rejected' ? '#ef4444' : '#f59e0b')};">${o.status.toUpperCase()}</span>
                     </div>
                     <div style="font-size:0.82rem; line-height:1.6;">
-                        <div>📦 <b>Package:</b> ${o.packageName} (${o.price} ETB)</div>
+                        <div>📦 <b>Package:</b> ${o.packageName || o.product} (${o.price} ETB)</div>
                         <div>🎯 <b>Target ID:</b> <b style="color:#38bdf8; font-size:0.95rem;">${o.playerId}</b></div>
-                        <div>👤 <b>Customer:</b> ${o.userName} (${o.tgUser} | ID: ${o.uid})</div>
-                        <div>🏦 <b>Method:</b> ${o.payMethod} | <b>Sender:</b> ${o.senderName}</div>
-                        <div>⏰ <b>Time:</b> ${o.date}</div>
+                        <div>👤 <b>Customer:</b> ${o.userName || 'User'} (ID: ${o.uid})</div>
+                        <div>🏦 <b>Method:</b> ${o.payMethod || 'Bot'}</div>
                         <div style="background:#0f172a; padding:8px; border-radius:8px; margin-top:6px; border-left:3px solid var(--gold); font-size:0.76rem; color:#cbd5e1;">
-                            <b>🧾 Full Transaction SMS:</b><br>${o.fullTxnMessage}
+                            <b>🧾 Transaction SMS:</b><br>${o.fullTxnMessage || 'N/A'}
                         </div>
                     </div>
                     ${o.status === 'Pending' ? `
@@ -1681,44 +1704,82 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም ትዕዛዝ የለም።</div>';
     }
 
-    function adminProcessOrder(orderId, status) {
+    async function adminProcessOrder(orderId, status) {
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         const idx = orders.findIndex(o => o.orderId === orderId);
         if (idx === -1) return;
 
         orders[idx].status = status;
-        if (status === 'Rejected' && orders[idx].payMethod === 'Wallet Balance') {
-            const uKey = 'niro_user_bal_' + orders[idx].uid;
-            const cur = parseFloat(localStorage.getItem(uKey) || '0');
-            localStorage.setItem(uKey, String(cur + orders[idx].price));
-        }
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
+
+        await saveRecordToCloud((rec) => {
+            rec.orders = orders;
+            if (status === 'Rejected' && orders[idx].payMethod === 'Wallet Balance') {
+                const uid = String(orders[idx].uid);
+                if (!rec.users) rec.users = {};
+                if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
+                rec.users[uid].balance = parseFloat(rec.users[uid].balance || 0) + parseFloat(orders[idx].price || 0);
+            }
+            return rec;
+        });
+
         renderAdminOrders();
         renderAdminStats();
         updateUI();
 
         if (status === 'Approved') {
-            sendReceiptToProofChannel(orderId);
+            await sendReceiptToProofChannel(orderId);
+            // Notify customer directly via Bot
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: orders[idx].uid,
+                        text: `<b>🎉 Successful! ትዕዛዝዎ #${orderId} በ Admin ተቀብሎታል እና በተሳካ ሁኔታ ተሞልቶልዎታል!</b>`,
+                        parse_mode: "HTML"
+                    })
+                });
+            } catch(e){}
         } else {
             alert(`Order #${orderId} is now ${status}!`);
         }
     }
 
-    function sendReceiptToProofChannel(orderId) {
+    // DIRECT AUTO-POST TO @Topup_proof CHANNEL VIA BOT TOKEN
+    async function sendReceiptToProofChannel(orderId) {
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
         const o = orders.find(x => x.orderId === orderId);
         if (!o) return;
 
-        const maskedTarget = o.playerId.length > 4 ? o.playerId.slice(0, 3) + "***" + o.playerId.slice(-2) : o.playerId;
-        const proofText = `✅ PAYMENT & ORDER PROOF — NIRO TOPUP\n\n🧾 Order ID: #${o.orderId}\n📦 Item: ${o.gameName} — ${o.packageName}\n💰 Amount: ${o.price} ETB\n🏦 Method: ${o.payMethod}\n👤 Buyer: ${o.userName} (${maskedTarget})\n⏰ Time: ${o.date}\n✔️ Status: COMPLETED\n\n🤖 Order Now: @${BOT_USERNAME}`;
+        const maskedTarget = o.playerId.length > 4 ? o.playerId.slice(0, 3) + "****" : o.playerId;
+        const proofHtml = `<b>✅ ORDER COMPLETED (SUCCESSFUL)</b>\n\n` +
+                          `<b>🧾 Order ID:</b> <code>#${o.orderId}</code>\n` +
+                          `<b>📦 Product:</b> <b>${o.gameName || o.product} — ${o.packageName || ''}</b>\n` +
+                          `<b>💰 Paid Amount:</b> <b>${o.price} ETB</b>\n` +
+                          `<b>🎯 Target ID:</b> <code>${maskedTarget}</code>\n` +
+                          `<b>🎉 Status: Successfully Delivered!</b>\n\n` +
+                          `<b>🤖 Order Now: @${BOT_USERNAME}</b>`;
 
-        navigator.clipboard?.writeText(proofText);
-        const proofUrl = localStorage.getItem('niro_proof_channel_url_v1') || 'https://t.me/Topup_proof';
-        const shareLink = `https://t.me/share/url?url=${encodeURIComponent(proofUrl)}&text=${encodeURIComponent(proofText)}`;
-
-        alert("✅ ደረሰኙ ተዘጋጅቶ Copy ተደርጓል! አሁን Proof Channel ላይ Post እንዲያደርጉ ይከፈታል።");
-        if (tg) tg.openTelegramLink(shareLink);
-        else window.open(shareLink, '_blank');
+        try {
+            const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: "@Topup_proof",
+                    text: proofHtml,
+                    parse_mode: "HTML"
+                })
+            });
+            const j = await res.json();
+            if (j.ok) {
+                alert("✅ ደረሰኙ በቀጥታ @Topup_proof ቻናል ላይ ተለጥፏል!");
+            } else {
+                alert("⚠️ ቻናሉ ላይ መላክ አልተቻለም: " + (j.description || "Error"));
+            }
+        } catch (e) {
+            alert("⚠️ Network Error ሲልክ አጋጥሟል።");
+        }
     }
 
     function saveProofChannelUrl() {
@@ -1727,7 +1788,6 @@
         alert("✅ Proof Channel Link ተቀምጧል!");
     }
 
-    // 2. Statistics Dashboard With Visual Graph
     function renderAdminStats() {
         const box = document.getElementById('adm-stats-content');
         let orders = JSON.parse(localStorage.getItem('niro_topup_orders_v2') || '[]');
@@ -1742,7 +1802,8 @@
 
         let serviceMap = {};
         approvedAll.forEach(o => {
-            serviceMap[o.gameName] = (serviceMap[o.gameName] || 0) + Number(o.price || 0);
+            const k = o.gameName || o.product || "Topup";
+            serviceMap[k] = (serviceMap[k] || 0) + Number(o.price || 0);
         });
         const maxRev = Math.max(...Object.values(serviceMap), 1);
 
@@ -1790,7 +1851,6 @@
         `;
     }
 
-    // 3. Withdraw Requests Manager
     function renderAdminWithdraws() {
         const box = document.getElementById('adm-withdraws-list');
         let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
@@ -1806,7 +1866,7 @@
                     <div style="font-size:0.82rem; line-height:1.6;">
                         <div>📞 <b>Telebirr Phone:</b> <b style="color:#38bdf8;">${w.phone}</b></div>
                         <div>💰 <b>Amount:</b> <b style="color:#22c55e;">${w.amount} ETB</b></div>
-                        <div>👤 <b>User ID:</b> ${w.uid} (${w.tgUser})</div>
+                        <div>👤 <b>User ID:</b> ${w.uid} (${w.tgUser || ''})</div>
                         <div>📅 ${w.date}</div>
                     </div>
                     ${w.status === 'Pending' ? `
@@ -1821,24 +1881,30 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም የገንዘብ ማውጫ ጥያቄ የለም።</div>';
     }
 
-    function adminProcessWithdraw(wdId, status) {
+    async function adminProcessWithdraw(wdId, status) {
         let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
         const idx = wds.findIndex(w => w.id === wdId);
         if (idx === -1) return;
 
         wds[idx].status = status;
-        if (status === 'Rejected') {
-            const uKey = 'niro_user_bal_' + wds[idx].uid;
-            const cur = parseFloat(localStorage.getItem(uKey) || '0');
-            localStorage.setItem(uKey, String(cur + Number(wds[idx].amount)));
-        }
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
+
+        await saveRecordToCloud((rec) => {
+            rec.withdraws = wds;
+            if (status === 'Rejected') {
+                const uid = String(wds[idx].uid);
+                if (!rec.users) rec.users = {};
+                if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
+                rec.users[uid].balance = parseFloat(rec.users[uid].balance || 0) + Number(wds[idx].amount);
+            }
+            return rec;
+        });
+
+        await syncWithCloudDatabase(false);
         renderAdminWithdraws();
-        updateUI();
         alert(`Withdraw #${wdId} is now ${status}!`);
     }
 
-    // 4. Add Order Folder & Create Service
     function adminAddFolder() {
         const name = document.getElementById('adm-new-folder-name').value.trim();
         if (!name) { alert("⚠️ የ Folder ስም ያስገቡ!"); return; }
@@ -2013,7 +2079,6 @@
         alert("🗑️ አገልግሎቱ ተሰርዟል!");
     }
 
-    // 5. Packages Add/Delete
     function populateAdminGameDropdown() {
         const sel = document.getElementById('adm-pkg-game-id');
         const catalog = getCatalog();
@@ -2106,23 +2171,27 @@
         }
     }
 
-    // 6. Add / Subtract User Balance
-    function adminModifyUserBalance(mode) {
+    // 6. Add / Subtract User Balance (Syncs directly with Bot!)
+    async function adminModifyUserBalance(mode) {
         const uid = document.getElementById('adm-bal-uid').value.trim();
         const amt = parseFloat(document.getElementById('adm-bal-amount').value);
         if (!uid || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ Telegram ID እና የብር መጠን ያስገቡ!"); return; }
 
-        const key = 'niro_user_bal_' + uid;
-        const cur = parseFloat(localStorage.getItem(key) || '0');
-        const nextVal = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
-        localStorage.setItem(key, String(nextVal));
+        let nextVal = 0;
+        await saveRecordToCloud((rec) => {
+            if (!rec.users) rec.users = {};
+            if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
+            const cur = parseFloat(rec.users[uid].balance || 0);
+            nextVal = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
+            rec.users[uid].balance = nextVal;
+            return rec;
+        });
 
+        await syncWithCloudDatabase(false);
         document.getElementById('adm-bal-amount').value = '';
-        updateUI();
-        alert(`✅ ለ User ID ${uid} አዲስ ቀሪ ሂሳብ ${nextVal.toLocaleString()} ETB ሆኗል!`);
+        alert(`✅ ለ User ID ${uid} አዲስ ቀሪ ሂሳብ ${nextVal.toLocaleString()} ETB ሆኗል (ከቦቱ ጋር ተመሳስሏል)!`);
     }
 
-    // 7. Banks Management
     function applyBankPreset() {
         const val = document.getElementById('adm-bank-preset').value;
         if (!val) return;
@@ -2187,7 +2256,6 @@
         renderAdminBanks();
     }
 
-    // 8. Admin Deposits
     function renderAdminDeposits() {
         const box = document.getElementById('adm-deposits-list');
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
@@ -2214,24 +2282,30 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም Deposit ጥያቄ የለም።</div>';
     }
 
-    function adminProcessDeposit(depId, action) {
+    async function adminProcessDeposit(depId, action) {
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         const idx = deps.findIndex(d => d.id === depId);
         if (idx === -1) return;
 
         deps[idx].status = action === 'approve' ? 'approved' : 'rejected';
-        if (action === 'approve') {
-            const uKey = 'niro_user_bal_' + deps[idx].uid;
-            const cur = parseFloat(localStorage.getItem(uKey) || '0');
-            localStorage.setItem(uKey, String(cur + deps[idx].amount));
-        }
         localStorage.setItem('niro_topup_deposits_v2', JSON.stringify(deps));
+
+        if (action === 'approve') {
+            const uid = String(deps[idx].uid);
+            const amt = Number(deps[idx].amount);
+            await saveRecordToCloud((rec) => {
+                if (!rec.users) rec.users = {};
+                if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
+                rec.users[uid].balance = parseFloat(rec.users[uid].balance || 0) + amt;
+                return rec;
+            });
+            await syncWithCloudDatabase(false);
+        }
+
         renderAdminDeposits();
-        updateUI();
-        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቋል!" : "❌ ተሰርዟል!");
+        alert(action === 'approve' ? "✅ ገንዘቡ ጸድቆ ለደንበኛው ገብቷል!" : "❌ ተሰርዟል!");
     }
 
-    // 9. Global Branding, Broadcast & Channels
     function adminUpdateGlobalLogo(input, storageKey) {
         const file = input.files[0];
         if (!file) return;
@@ -2301,7 +2375,6 @@
         alert("🗑️ ቻናሉ ተሰርዟል!");
     }
 
-    // 10. Sub-Admin Management With Permissions
     function adminAddSubAdmin() {
         const name = document.getElementById('adm-sub-name').value.trim();
         const uid = document.getElementById('adm-sub-uid').value.trim();
@@ -2347,7 +2420,6 @@
         alert("🗑️ Admin ተሰርዟል!");
     }
 
-    // Navigation
     function switchTab(tId) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.bottom-nav .nav-item').forEach(b => b.classList.remove('active'));
@@ -2370,9 +2442,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        processBotUrlSync();
         updateUI();
         renderHomeStore();
+        syncWithCloudDatabase(false);
+        setInterval(() => syncWithCloudDatabase(false), 6000);
     });
     </script>
 </body>
