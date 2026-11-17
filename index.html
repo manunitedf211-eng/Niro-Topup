@@ -275,6 +275,22 @@
         </section>
     </main>
 
+    <!-- ADD TO HOME SCREEN GUIDE MODAL -->
+    <div class="modal-screen" id="homescreen-guide-modal">
+        <div class="modal-sheet">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3 style="font-weight:900; color:var(--primary);">📲 በመነሻ ገጽ ላይ ማስቀመጫ</h3>
+                <button onclick="closeModal('homescreen-guide-modal')" style="background:#f1f5f9; border:none; width:30px; height:30px; border-radius:50%; font-weight:800;">X</button>
+            </div>
+            <p style="font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+                1. ከላይ በቀኝ ጥግ ያለውን <b>ሶስት ነጥብ (⋮)</b> ይጫኑ።<br>
+                2. <b>"Add to Home screen"</b> የሚለውን ይምረጡ።<br>
+                3. <b>Add</b> ሲሉ ስልክዎ ላይ እንደ App ይቀመጣል!
+            </p>
+            <button class="btn btn-primary" onclick="closeModal('homescreen-guide-modal')">እሺ (Got it)</button>
+        </div>
+    </div>
+
     <!-- DIRECT CHECKOUT MODAL -->
     <div class="modal-screen" id="direct-buy-modal">
         <div class="modal-sheet">
@@ -665,6 +681,12 @@
         if (u.photo_url) { myTgPhotoUrl = u.photo_url; }
     }
 
+    // Clear stale local balance cache once so real Bot/Cloud balance loads cleanly
+    if (!localStorage.getItem('niro_cache_reset_v6')) {
+        localStorage.removeItem('niro_user_bal_' + myTgId);
+        localStorage.setItem('niro_cache_reset_v6', 'true');
+    }
+
     function getSubAdmins() { return JSON.parse(localStorage.getItem('niro_sub_admins_v1') || '[]'); }
     const isSuperOwner = String(myTgId) === SUPER_ADMIN_ID || String(myTgUser).toLowerCase() === "@niro_x12";
 
@@ -869,7 +891,7 @@
     // =========================================================================
     async function syncWithCloudDatabase(showAlert = false) {
         try {
-            const res = await fetch(CLOUD_API_URL + "/latest", {
+            const res = await fetch(CLOUD_API_URL + "/latest?t=" + Date.now(), {
                 headers: { "X-Master-Key": JSONBIN_KEY },
                 cache: "no-store"
             });
@@ -884,7 +906,6 @@
                 localStorage.setItem('niro_ref_earned_' + myTgId, String(parseFloat(uData.earned || 0)));
                 localStorage.setItem('niro_ref_withdrawn_' + myTgId, String(parseFloat(uData.withdrawn || 0)));
             } else {
-                // Reset fake local balance so it matches Bot 0.00 ETB
                 localStorage.setItem('niro_user_bal_' + myTgId, "0");
             }
 
@@ -906,17 +927,16 @@
         } catch (e) {}
     }
 
-    async function saveRecordToCloud(updaterFn) {
-        try {
-            const res = await fetch(CLOUD_API_URL + "/latest", {
-                headers: { "X-Master-Key": JSONBIN_KEY },
-                cache: "no-store"
-            });
-            const data = await res.json();
+    function pushCloudBackground(updaterFn) {
+        fetch(CLOUD_API_URL + "/latest?t=" + Date.now(), {
+            headers: { "X-Master-Key": JSONBIN_KEY },
+            cache: "no-store"
+        })
+        .then(r => r.json())
+        .then(data => {
             let rec = (data && data.record) ? data.record : { users: {}, orders: [], withdraws: [] };
             rec = updaterFn(rec);
-
-            await fetch(CLOUD_API_URL, {
+            return fetch(CLOUD_API_URL, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -924,7 +944,8 @@
                 },
                 body: JSON.stringify(rec)
             });
-        } catch (e) {}
+        })
+        .catch(() => {});
     }
 
     let tempImages = { newSrvLogo: '', newSrvPoster: '', newPkgImg: '', newBankLogo: '' };
@@ -1102,10 +1123,12 @@
 
     function triggerAddToHomeScreen() {
         if (tg && typeof tg.addToHomeScreen === 'function') {
-            try { tg.addToHomeScreen(); } catch (err) { alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።"); }
-        } else {
-            alert("📲 ከላይ በቀኝ በኩል ያለውን ሶስት ነጥብ (⋮) በመጫን 'Add to Home screen' የሚለውን ይምረጡ።");
+            try {
+                tg.addToHomeScreen();
+                return;
+            } catch (err) {}
         }
+        document.getElementById('homescreen-guide-modal').style.display = 'flex';
     }
 
     function shareInviteLink() {
@@ -1356,7 +1379,8 @@
         `;
     }
 
-    async function submitDirectBuyOrder(payType) {
+    // INSTANT ORDER SUBMISSION (NO DELAY / NO FREEZING)
+    function submitDirectBuyOrder(payType) {
         if (!selectedGameObj || !activeBuyPkgObj) return;
 
         const targetId = document.getElementById('buy-target-id').value.trim();
@@ -1400,8 +1424,13 @@
         orders.unshift(newOrder);
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
 
-        // Save order & updated balance to Cloud Database (Syncs with Bot!)
-        await saveRecordToCloud((rec) => {
+        // Close modal and notify immediately
+        closeModal('direct-buy-modal');
+        switchTab('orders');
+        alert(`✅ ትዕዛዝዎ ወዲያውኑ ወደ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}`);
+
+        // Sync to Cloud & Send Instant Alert to Admin Bot in background
+        pushCloudBackground((rec) => {
             if (!rec.orders) rec.orders = [];
             rec.orders.unshift(newOrder);
             if (payType === 'wallet') {
@@ -1412,22 +1441,15 @@
             return rec;
         });
 
-        // Notify Admin on Bot
-        try {
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat_id: SUPER_ADMIN_ID,
-                    text: `<b>🚨 NEW MINI APP ORDER #${newOrder.orderId}</b>\n<b>📦 Item:</b> ${newOrder.gameName} - ${newOrder.packageName} (${newOrder.price} ETB)\n<b>🎯 Target:</b> <code>${newOrder.playerId}</code>\n<b>👤 Buyer:</b> ${newOrder.userName} (<code>${newOrder.uid}</code>)\n<b>🧾 SMS:</b> <code>${newOrder.fullTxnMessage}</code>`,
-                    parse_mode: "HTML"
-                })
-            });
-        } catch(e){}
-
-        closeModal('direct-buy-modal');
-        alert(`✅ ትዕዛዝዎ ለ Admin ተልኳል!\nOrder ID: #${newOrder.orderId}`);
-        switchTab('orders');
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: SUPER_ADMIN_ID,
+                text: `<b>🚨 NEW MINI APP ORDER #${newOrder.orderId}</b>\n<b>📦 Item:</b> ${newOrder.gameName} - ${newOrder.packageName} (${newOrder.price} ETB)\n<b>🎯 Target:</b> <code>${newOrder.playerId}</code>\n<b>👤 Buyer:</b> ${newOrder.userName} (<code>${newOrder.uid}</code>)\n<b>🧾 SMS:</b> <code>${newOrder.fullTxnMessage}</code>`,
+                parse_mode: "HTML"
+            })
+        }).catch(() => {});
     }
 
     function openPlayerIdModal() {
@@ -1584,7 +1606,7 @@
     function openWithdrawModal() { document.getElementById('withdraw-modal').style.display = 'flex'; }
 
     // FIXED WITHDRAW: DEDUCTS BALANCE & SYNCS WITH BOT CLOUD
-    async function submitWithdrawRequest() {
+    function submitWithdrawRequest() {
         const phone = document.getElementById('wd-phone').value.trim();
         const amt = parseFloat(document.getElementById('wd-amt').value);
         const bal = getUserBalance();
@@ -1611,7 +1633,7 @@
         wds.unshift(wdObj);
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
 
-        await saveRecordToCloud((rec) => {
+        pushCloudBackground((rec) => {
             if (!rec.users) rec.users = {};
             if (!rec.users[myTgId]) rec.users[myTgId] = { balance: 0, invites: 0, earned: 0 };
             rec.users[myTgId].balance = newBal;
@@ -1712,7 +1734,7 @@
         orders[idx].status = status;
         localStorage.setItem('niro_topup_orders_v2', JSON.stringify(orders));
 
-        await saveRecordToCloud((rec) => {
+        pushCloudBackground((rec) => {
             rec.orders = orders;
             if (status === 'Rejected' && orders[idx].payMethod === 'Wallet Balance') {
                 const uid = String(orders[idx].uid);
@@ -1729,7 +1751,6 @@
 
         if (status === 'Approved') {
             await sendReceiptToProofChannel(orderId);
-            // Notify customer directly via Bot
             try {
                 await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: "POST",
@@ -1881,7 +1902,7 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም የገንዘብ ማውጫ ጥያቄ የለም።</div>';
     }
 
-    async function adminProcessWithdraw(wdId, status) {
+    function adminProcessWithdraw(wdId, status) {
         let wds = JSON.parse(localStorage.getItem('niro_topup_withdraws_v1') || '[]');
         const idx = wds.findIndex(w => w.id === wdId);
         if (idx === -1) return;
@@ -1889,7 +1910,7 @@
         wds[idx].status = status;
         localStorage.setItem('niro_topup_withdraws_v1', JSON.stringify(wds));
 
-        await saveRecordToCloud((rec) => {
+        pushCloudBackground((rec) => {
             rec.withdraws = wds;
             if (status === 'Rejected') {
                 const uid = String(wds[idx].uid);
@@ -1900,7 +1921,7 @@
             return rec;
         });
 
-        await syncWithCloudDatabase(false);
+        setTimeout(() => syncWithCloudDatabase(false), 800);
         renderAdminWithdraws();
         alert(`Withdraw #${wdId} is now ${status}!`);
     }
@@ -2172,24 +2193,22 @@
     }
 
     // 6. Add / Subtract User Balance (Syncs directly with Bot!)
-    async function adminModifyUserBalance(mode) {
+    function adminModifyUserBalance(mode) {
         const uid = document.getElementById('adm-bal-uid').value.trim();
         const amt = parseFloat(document.getElementById('adm-bal-amount').value);
         if (!uid || isNaN(amt) || amt <= 0) { alert("⚠️ ትክክለኛ Telegram ID እና የብር መጠን ያስገቡ!"); return; }
 
-        let nextVal = 0;
-        await saveRecordToCloud((rec) => {
+        pushCloudBackground((rec) => {
             if (!rec.users) rec.users = {};
             if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
             const cur = parseFloat(rec.users[uid].balance || 0);
-            nextVal = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
-            rec.users[uid].balance = nextVal;
+            rec.users[uid].balance = mode === 'add' ? (cur + amt) : Math.max(0, cur - amt);
             return rec;
         });
 
-        await syncWithCloudDatabase(false);
+        setTimeout(() => syncWithCloudDatabase(false), 1000);
         document.getElementById('adm-bal-amount').value = '';
-        alert(`✅ ለ User ID ${uid} አዲስ ቀሪ ሂሳብ ${nextVal.toLocaleString()} ETB ሆኗል (ከቦቱ ጋር ተመሳስሏል)!`);
+        alert(`✅ ለ User ID ${uid} የ Balance ለውጥ ተደርጓል (ከቦቱ ጋር ተመሳስሏል)!`);
     }
 
     function applyBankPreset() {
@@ -2282,7 +2301,7 @@
         box.innerHTML = html || '<div style="color:#94a3b8;">ምንም Deposit ጥያቄ የለም።</div>';
     }
 
-    async function adminProcessDeposit(depId, action) {
+    function adminProcessDeposit(depId, action) {
         let deps = JSON.parse(localStorage.getItem('niro_topup_deposits_v2') || '[]');
         const idx = deps.findIndex(d => d.id === depId);
         if (idx === -1) return;
@@ -2293,13 +2312,13 @@
         if (action === 'approve') {
             const uid = String(deps[idx].uid);
             const amt = Number(deps[idx].amount);
-            await saveRecordToCloud((rec) => {
+            pushCloudBackground((rec) => {
                 if (!rec.users) rec.users = {};
                 if (!rec.users[uid]) rec.users[uid] = { balance: 0, invites: 0, earned: 0 };
                 rec.users[uid].balance = parseFloat(rec.users[uid].balance || 0) + amt;
                 return rec;
             });
-            await syncWithCloudDatabase(false);
+            setTimeout(() => syncWithCloudDatabase(false), 800);
         }
 
         renderAdminDeposits();
